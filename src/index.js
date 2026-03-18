@@ -20,8 +20,9 @@ const pool = new Pool({
 });
 
 async function initSchema() {
+  const client = await pool.connect();
   try {
-    await pool.query(`
+    await client.query(`
       CREATE TABLE IF NOT EXISTS portfolio_users (
         id              SERIAL PRIMARY KEY,
         email           TEXT UNIQUE NOT NULL,
@@ -34,9 +35,61 @@ async function initSchema() {
         created_at      TIMESTAMPTZ DEFAULT NOW()
       )
     `);
+
+    // Add columns that may be missing from earlier schema versions
+    await client.query(`
+      DO $$
+      BEGIN
+        IF NOT EXISTS (
+          SELECT 1 FROM information_schema.columns
+          WHERE table_name='portfolio_users' AND column_name='api_key'
+        ) THEN
+          ALTER TABLE portfolio_users ADD COLUMN api_key VARCHAR(100) UNIQUE;
+        END IF;
+        IF NOT EXISTS (
+          SELECT 1 FROM information_schema.columns
+          WHERE table_name='portfolio_users' AND column_name='name'
+        ) THEN
+          ALTER TABLE portfolio_users ADD COLUMN name TEXT;
+        END IF;
+        IF NOT EXISTS (
+          SELECT 1 FROM information_schema.columns
+          WHERE table_name='portfolio_users' AND column_name='ip_address'
+        ) THEN
+          ALTER TABLE portfolio_users ADD COLUMN ip_address TEXT;
+        END IF;
+        IF NOT EXISTS (
+          SELECT 1 FROM information_schema.columns
+          WHERE table_name='portfolio_users' AND column_name='plan'
+        ) THEN
+          ALTER TABLE portfolio_users ADD COLUMN plan TEXT DEFAULT 'free';
+        END IF;
+        IF NOT EXISTS (
+          SELECT 1 FROM information_schema.columns
+          WHERE table_name='portfolio_users' AND column_name='is_admin'
+        ) THEN
+          ALTER TABLE portfolio_users ADD COLUMN is_admin BOOLEAN DEFAULT FALSE;
+        END IF;
+        IF NOT EXISTS (
+          SELECT 1 FROM information_schema.columns
+          WHERE table_name='portfolio_users' AND column_name='login_count'
+        ) THEN
+          ALTER TABLE portfolio_users ADD COLUMN login_count INTEGER DEFAULT 0;
+        END IF;
+        IF NOT EXISTS (
+          SELECT 1 FROM information_schema.columns
+          WHERE table_name='portfolio_users' AND column_name='last_login'
+        ) THEN
+          ALTER TABLE portfolio_users ADD COLUMN last_login TIMESTAMPTZ;
+        END IF;
+      END $$;
+    `);
+
     console.log('[DB] Schema ready');
   } catch (err) {
     console.error('[DB] Schema error:', err.message);
+  } finally {
+    client.release();
   }
 }
 
@@ -56,15 +109,18 @@ app.get('/test-email', async (req, res) => {
     );
 
     res.json({
-      success: true,
-      message: 'Test email sent to dipeshkarki6612@gmail.com',
+      success:      true,
+      message:      'Test email sent to dipeshkarki6612@gmail.com',
       code,
+      gmail_user:   process.env.GMAIL_USER || 'NOT SET',
+      smtp_ok:      true,
     });
   } catch (err) {
     res.status(500).json({
-      success: false,
-      error: err.message,
-      stack: err.stack,
+      success:    false,
+      error:      err.message,
+      gmail_user: process.env.GMAIL_USER || 'NOT SET',
+      smtp_ok:    false,
     });
   }
 });
