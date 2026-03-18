@@ -2485,17 +2485,17 @@
             </div>
             <div class="hire-form-group">
               <label>Email Address *</label>
-              <input type="email" id="api-reg-email" placeholder="you@example.com" autocomplete="email" />
+              <input type="email" id="api-email-input" placeholder="you@example.com" autocomplete="email" />
             </div>
             <div class="hire-form-group">
               <label>Password *</label>
               <input type="password" id="api-reg-pass" placeholder="Create a password" autocomplete="new-password" />
             </div>
-            <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="apiRegister()">Create Account &amp; Get API Key →</button>
+            <button id="send-code-btn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="sendVerifyCode()">Send Verification Code →</button>
           </div>
 
           <!-- Step B: Email verification -->
-          <div id="api-verify-form" class="api-box" style="display:none;text-align:center;">
+          <div id="verify-code-section" class="api-box" style="display:none;text-align:center;">
             <div style="font-size:1.5rem;margin-bottom:0.75rem;">📧</div>
             <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:0.5rem;">Verify your email</div>
             <div style="color:var(--text-muted);font-size:0.88rem;margin-bottom:1rem;">We sent a 6-digit code to <strong id="api-verify-email-display" style="color:var(--cyan-light)"></strong></div>
@@ -3020,6 +3020,7 @@
   ════════════════════════════════════════════ */
   let apiVerifyCode = '';
   let apiResendInterval = null;
+  let sendCodeInterval = null;
 
   function showApiRegister(plan) {
     document.getElementById('api').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -3034,7 +3035,7 @@
 
   async function apiRegister() {
     const name  = document.getElementById('api-reg-name').value.trim();
-    const email = document.getElementById('api-reg-email').value.trim();
+    const email = document.getElementById('api-email-input').value.trim();
     const pass  = document.getElementById('api-reg-pass').value.trim();
     if (!email || !pass) { alert('Email and password are required.'); return; }
     if (!email.includes('@')) { alert('Please enter a valid email.'); return; }
@@ -3044,7 +3045,7 @@
     apiVerifyCode = Math.floor(100000 + Math.random() * 900000).toString();
     document.getElementById('api-verify-email-display').textContent = email;
     document.getElementById('api-reg-form').style.display = 'none';
-    document.getElementById('api-verify-form').style.display = 'block';
+    document.getElementById('verify-code-section').style.display = 'block';
 
     // Try to call backend to register
     try {
@@ -3113,7 +3114,7 @@
       'abcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 36)]
     ).join('');
     document.getElementById('generated-api-key').textContent = key;
-    document.getElementById('api-verify-form').style.display = 'none';
+    document.getElementById('verify-code-section').style.display = 'none';
     document.getElementById('api-key-display').style.display = 'block';
     if (apiResendInterval) clearInterval(apiResendInterval);
   }
@@ -3686,32 +3687,81 @@
   /* ── Email Verification UI ── */
 
   // Send verification code
-  async function sendVerifyCode(email) {
+  async function sendVerifyCode() {
+    const emailInput = document.getElementById('api-email-input');
+    const email = emailInput?.value?.trim();
+
+    if (!email) {
+      alert('Please enter your email first');
+      return;
+    }
+
     const btn = document.getElementById('send-code-btn');
     if (btn) {
       btn.disabled    = true;
       btn.textContent = 'Sending...';
     }
+
     try {
       const res = await fetch(
         PORTFOLIO_BACKEND + '/api/users/send-code',
         {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ email }),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email }),
         }
       );
+
       const data = await res.json();
+
       if (data.success) {
-        showStep('verify-step');
-        startResendTimer();
-        showNotification('Code sent! Check your email inbox.', 'success');
+        // Show the code input section
+        document.getElementById('verify-code-section')?.style.setProperty('display', 'block');
+
+        // Start 60 second resend timer
+        if (sendCodeInterval) clearInterval(sendCodeInterval);
+        let seconds = 60;
+        sendCodeInterval = setInterval(() => {
+          seconds--;
+          const timerEl = document.getElementById('resend-timer');
+          if (timerEl) {
+            timerEl.textContent = `Resend in ${seconds}s`;
+          }
+          if (seconds <= 0) {
+            clearInterval(sendCodeInterval);
+            sendCodeInterval = null;
+            if (btn) {
+              btn.disabled    = false;
+              btn.textContent = 'Send Code';
+            }
+          }
+        }, 1000);
+
+        // Show success message
+        showNotification(
+          'Code sent! Check your email inbox and spam folder.',
+          'success'
+        );
+
       } else {
-        showNotification(data.error || 'Failed to send code.', 'error');
+        showNotification(
+          data.error || 'Failed to send code.',
+          'error'
+        );
+        if (btn) {
+          btn.disabled    = false;
+          btn.textContent = 'Send Code';
+        }
       }
+
     } catch (err) {
-      showNotification('Network error. Check your connection.', 'error');
-    } finally {
+      console.error('Send code error:', err);
+      showNotification(
+        'Server error. Try again in a moment.',
+        'error'
+      );
       if (btn) {
         btn.disabled    = false;
         btn.textContent = 'Send Code';
