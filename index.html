@@ -3018,7 +3018,6 @@
   /* ════════════════════════════════════════════
      API MARKETPLACE
   ════════════════════════════════════════════ */
-  let apiVerifyCode = '';
   let apiResendInterval = null;
 
   function showApiRegister(plan) {
@@ -3032,6 +3031,8 @@
     document.getElementById('api-panel-login').classList.toggle('active', tab === 'login');
   }
 
+  let apiRegisterEmail = '';
+
   async function apiRegister() {
     const name  = document.getElementById('api-reg-name').value.trim();
     const email = document.getElementById('api-reg-email').value.trim();
@@ -3040,52 +3041,65 @@
     if (!email.includes('@')) { alert('Please enter a valid email.'); return; }
     if (pass.length < 6) { alert('Password must be at least 6 characters.'); return; }
 
-    // Generate a mock verify code (in production this comes from backend)
-    apiVerifyCode = Math.floor(100000 + Math.random() * 900000).toString();
-    document.getElementById('api-verify-email-display').textContent = email;
-    document.getElementById('api-reg-form').style.display = 'none';
-    document.getElementById('api-verify-form').style.display = 'block';
+    const btn = document.querySelector('#api-reg-form .btn-primary');
+    if (btn) { btn.disabled = true; btn.textContent = 'Creating account…'; }
 
-    // Try to call backend to register
     try {
-      await fetch('https://ai-forex-backend.onrender.com/api/portal/register', {
+      const res = await fetch(PORTFOLIO_BACKEND + '/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password: pass })
+        body: JSON.stringify({ name, email, password: pass }),
       });
-    } catch(err) {
-      console.error('Registration API error:', err);
-      /* fallback to client-side simulation */ }
-
-    // Start resend countdown
-    let countdown = 60;
-    document.getElementById('resend-countdown').textContent = countdown;
-    apiResendInterval = setInterval(() => {
-      countdown--;
-      document.getElementById('resend-countdown').textContent = countdown;
-      if (countdown <= 0) {
-        clearInterval(apiResendInterval);
-        document.getElementById('resend-timer').innerHTML =
-          '<a onclick="resendCode()">Resend code</a>';
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || 'Registration failed. Please try again.');
+        if (btn) { btn.disabled = false; btn.textContent = 'Create Account & Get API Key →'; }
+        return;
       }
-    }, 1000);
+      apiRegisterEmail = data.email || email.toLowerCase();
+      document.getElementById('api-verify-email-display').textContent = apiRegisterEmail;
+      document.getElementById('api-reg-form').style.display = 'none';
+      document.getElementById('api-verify-form').style.display = 'block';
+      startResendCountdown();
+    } catch (err) {
+      console.error('Registration error:', err);
+      alert('Network error. Please check your connection and try again.');
+      if (btn) { btn.disabled = false; btn.textContent = 'Create Account & Get API Key →'; }
+    }
   }
 
-  function resendCode() {
-    apiVerifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+  function startResendCountdown() {
+    if (apiResendInterval) clearInterval(apiResendInterval);
     let countdown = 60;
-    document.getElementById('resend-timer').innerHTML =
-      'Resend code in <span id="resend-countdown">60</span>s';
+    const timerEl = document.getElementById('resend-timer');
+    if (timerEl) timerEl.innerHTML = 'Resend code in <span id="resend-countdown">60</span>s';
     apiResendInterval = setInterval(() => {
       countdown--;
       const el = document.getElementById('resend-countdown');
       if (el) el.textContent = countdown;
       if (countdown <= 0) {
         clearInterval(apiResendInterval);
-        document.getElementById('resend-timer').innerHTML =
-          '<a onclick="resendCode()">Resend code</a>';
+        const t = document.getElementById('resend-timer');
+        if (t) t.innerHTML = '<a style="cursor:pointer;color:var(--cyan-light);" onclick="resendCode()">Resend code</a>';
       }
     }, 1000);
+  }
+
+  async function resendCode() {
+    if (!apiRegisterEmail) { alert('Please start registration first.'); return; }
+    try {
+      const res = await fetch(PORTFOLIO_BACKEND + '/api/users/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: apiRegisterEmail }),
+      });
+      const data = await res.json();
+      if (!res.ok) { alert(data.error || 'Failed to resend code.'); return; }
+      startResendCountdown();
+    } catch (err) {
+      console.error('Resend error:', err);
+      alert('Network error. Please try again.');
+    }
   }
 
   function otpMove(input, index) {
@@ -3098,24 +3112,49 @@
     if (code.length === 6) apiVerify();
   }
 
-  function apiVerify() {
-    const inputs = document.querySelectorAll('.otp-input');
+  async function apiVerify() {
+    const inputs  = document.querySelectorAll('.otp-input');
     const entered = Array.from(inputs).map(i => i.value).join('');
     if (entered.length < 6) { alert('Please enter the 6-digit code.'); return; }
-    // Validate against the generated code
-    if (entered !== apiVerifyCode) {
-      alert('Invalid code. Please try again or resend.');
-      return;
-    }
 
-    // Generate API key
-    const key = 'dk_live_' + Array.from({length: 20}, () =>
-      'abcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 36)]
-    ).join('');
-    document.getElementById('generated-api-key').textContent = key;
-    document.getElementById('api-verify-form').style.display = 'none';
-    document.getElementById('api-key-display').style.display = 'block';
-    if (apiResendInterval) clearInterval(apiResendInterval);
+    const email = apiRegisterEmail ||
+      document.getElementById('api-verify-email-display').textContent;
+    if (!email) { alert('Session expired. Please register again.'); return; }
+
+    const btn = document.querySelector('#api-verify-form .btn-primary');
+    if (btn) { btn.disabled = true; btn.textContent = 'Verifying…'; }
+
+    try {
+      const res = await fetch(PORTFOLIO_BACKEND + '/api/users/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, code: entered }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || 'Verification failed. Please try again.');
+        if (btn) { btn.disabled = false; btn.textContent = 'Verify Email'; }
+        return;
+      }
+      if (!data.apiKey) {
+        alert('Verification succeeded but no API key was returned. Please contact support.');
+        if (btn) { btn.disabled = false; btn.textContent = 'Verify Email'; }
+        return;
+      }
+
+      document.getElementById('generated-api-key').textContent = data.apiKey;
+      document.getElementById('api-verify-form').style.display = 'none';
+      document.getElementById('api-key-display').style.display = 'block';
+      if (apiResendInterval) clearInterval(apiResendInterval);
+
+      // Store token for future requests
+      if (data.token) localStorage.setItem('dk_api_token', data.token);
+
+    } catch (err) {
+      console.error('Verify error:', err);
+      alert('Network error. Please try again.');
+      if (btn) { btn.disabled = false; btn.textContent = 'Verify Email'; }
+    }
   }
 
   function copyApiKey() {
@@ -3148,7 +3187,46 @@
     const email = document.getElementById('api-login-email').value.trim();
     const pass  = document.getElementById('api-login-pass').value.trim();
     if (!email || !pass) { alert('Please enter email and password.'); return; }
-    alert('Login feature coming soon! Please register for a new account.');
+
+    const btn = document.querySelector('#api-panel-login .btn-primary');
+    if (btn) { btn.disabled = true; btn.textContent = 'Logging in…'; }
+
+    try {
+      const res = await fetch(PORTFOLIO_BACKEND + '/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: pass }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        if (data.needsVerification) {
+          alert('Please verify your email first. Check your inbox for a verification code.');
+        } else {
+          alert(data.error || 'Login failed. Please try again.');
+        }
+        if (btn) { btn.disabled = false; btn.textContent = 'Login →'; }
+        return;
+      }
+
+      if (data.token) localStorage.setItem('dk_api_token', data.token);
+      if (!data.apiKey) {
+        alert('Login succeeded but no API key was found. Please contact support.');
+        if (btn) { btn.disabled = false; btn.textContent = 'Login →'; }
+        return;
+      }
+      document.getElementById('generated-api-key').textContent = data.apiKey;
+      // Switch to register panel to show the key display
+      document.getElementById('api-panel-reg').classList.add('active');
+      document.getElementById('api-panel-login').classList.remove('active');
+      document.getElementById('api-reg-form').style.display   = 'none';
+      document.getElementById('api-verify-form').style.display = 'none';
+      document.getElementById('api-key-display').style.display = 'block';
+
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('Network error. Please try again.');
+      if (btn) { btn.disabled = false; btn.textContent = 'Login →'; }
+    }
   }
 
   /* ════════════════════════════════════════════
