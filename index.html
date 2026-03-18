@@ -716,6 +716,723 @@
       .why-grid { grid-template-columns: 1fr; }
       thead th:nth-child(2), tbody td:nth-child(2) { display: none; }
     }
+
+    /* ════════════════════════════════
+       NAV AI ASSISTANT BUTTON
+    ════════════════════════════════ */
+    .nav-ai-btn {
+      background: transparent;
+      border: 1.5px solid var(--cyan);
+      color: var(--cyan-light);
+      padding: 0.45rem 1rem;
+      border-radius: 7px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+    .nav-ai-btn:hover { background: rgba(6,182,212,0.15); }
+
+    /* ════════════════════════════════
+       DUAL BUTTON STYLES
+    ════════════════════════════════ */
+    .btn-paypal {
+      background: #003087;
+      color: #fff;
+      border: none;
+    }
+    .btn-paypal:hover { background: #002068; transform: translateY(-2px); }
+    .btn-fiverr {
+      background: #1dbf73;
+      color: #fff;
+      border: none;
+    }
+    .btn-fiverr:hover { background: #17a360; transform: translateY(-2px); }
+
+    /* ════════════════════════════════
+       HIRE ME SECTION
+    ════════════════════════════════ */
+    .hire-step { display: none; }
+    .hire-step.active { display: block; }
+
+    .step-progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+    .step-dot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      position: relative;
+    }
+    .step-dot::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: calc(50% + 16px);
+      width: calc(100% - 4px);
+      height: 2px;
+      background: var(--border);
+    }
+    .step-dot:last-child::after { display: none; }
+    .step-dot.done::after { background: var(--purple); }
+    .step-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: var(--transition);
+      z-index: 1;
+    }
+    .step-dot.active .step-num {
+      background: var(--grad);
+      border-color: transparent;
+      color: #fff;
+    }
+    .step-dot.done .step-num {
+      background: var(--purple);
+      border-color: transparent;
+      color: #fff;
+    }
+    .step-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .step-dot.active .step-label { color: var(--purple-light); }
+
+    .project-type-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .project-type-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .project-type-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(124,58,237,0.2);
+    }
+    .project-type-card.selected {
+      border-color: var(--purple);
+      background: rgba(124,58,237,0.1);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
+    }
+    .project-type-icon { font-size: 2rem; }
+    .project-type-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .questionnaire { display: flex; flex-direction: column; gap: 1.8rem; }
+    .q-group { display: flex; flex-direction: column; gap: 0.75rem; }
+    .q-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .q-label span { color: var(--text-muted); font-weight: 400; font-size: 0.83rem; }
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.5rem;
+    }
+    .check-opt {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      transition: border-color var(--transition), background var(--transition);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .check-opt:hover { border-color: var(--purple); color: var(--text); background: rgba(124,58,237,0.07); }
+    .check-opt input[type="checkbox"],
+    .check-opt input[type="radio"] {
+      accent-color: var(--purple);
+      width: 15px; height: 15px;
+      flex-shrink: 0;
+    }
+
+    .hire-form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .hire-form-group label { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+    .hire-form-group input,
+    .hire-form-group select,
+    .hire-form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.75rem 1rem;
+      transition: border-color var(--transition);
+      outline: none;
+      width: 100%;
+    }
+    .hire-form-group input:focus,
+    .hire-form-group select:focus,
+    .hire-form-group textarea:focus { border-color: var(--purple); }
+    .hire-form-group textarea { resize: vertical; min-height: 120px; }
+    .hire-form-group select { appearance: none; cursor: pointer; }
+
+    .price-estimate {
+      background: rgba(124,58,237,0.08);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .price-estimate-label { color: var(--text-muted); font-size: 0.9rem; }
+    .price-estimate-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .escrow-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .escrow-box h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: var(--cyan-light);
+    }
+    .escrow-steps { display: flex; flex-direction: column; gap: 0.6rem; }
+    .escrow-step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .escrow-step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(124,58,237,0.2);
+      border: 1px solid rgba(124,58,237,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--purple-light);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .payment-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+    .payment-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .payment-card:hover { border-color: var(--purple); box-shadow: 0 6px 24px rgba(124,58,237,0.15); }
+    .payment-card h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .payment-card p { font-size: 0.83rem; color: var(--text-muted); line-height: 1.5; }
+    .payment-card .badge-rec {
+      background: rgba(34,197,94,0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34,197,94,0.3);
+      font-size: 0.68rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      font-weight: 600;
+    }
+
+    .tracking-box {
+      background: var(--card);
+      border: 2px solid var(--purple);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .tracking-box .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .tracking-id {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0.75rem 0;
+    }
+    .tracking-box p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 0.5rem; }
+    .hire-nav-btns { display: flex; gap: 1rem; margin-top: 2rem; }
+    .hire-form-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+    }
+    .hire-step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .hire-step-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+
+    @media (max-width: 600px) {
+      .payment-options { grid-template-columns: 1fr; }
+      .hire-form-wrap { padding: 1.5rem 1rem; }
+      .project-type-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ════════════════════════════════
+       API MARKETPLACE SECTION
+    ════════════════════════════════ */
+    .api-plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    .api-plan-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      position: relative;
+    }
+    .api-plan-card:hover {
+      border-color: rgba(124,58,237,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(124,58,237,0.15);
+    }
+    .api-plan-card.popular {
+      border-color: var(--purple);
+      background: linear-gradient(160deg, #0f0f1a 60%, rgba(124,58,237,0.08));
+    }
+    .plan-popular-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--grad);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.25rem 1rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .plan-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .plan-price span { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
+    .plan-features-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .plan-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .plan-feature .check { color: #4ade80; font-size: 0.9rem; }
+    .plan-feature .cross { color: #f87171; font-size: 0.9rem; }
+
+    .api-register-wrap {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .api-register-tabs {
+      display: flex;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.3rem;
+      margin-bottom: 2rem;
+    }
+    .api-tab {
+      flex: 1;
+      padding: 0.6rem;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .api-tab.active { background: var(--grad); color: #fff; }
+    .api-tab-panel { display: none; }
+    .api-tab-panel.active { display: block; }
+    .api-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+    .otp-inputs {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+    .otp-input {
+      width: 48px; height: 54px;
+      background: rgba(255,255,255,0.04);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .otp-input:focus { border-color: var(--purple); }
+    .api-key-display {
+      background: rgba(6,182,212,0.07);
+      border: 1px solid rgba(6,182,212,0.3);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .api-key-text {
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: var(--cyan-light);
+      word-break: break-all;
+    }
+    .usage-bar-wrap { margin: 1rem 0; }
+    .usage-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .usage-bar-bg {
+      height: 8px;
+      background: var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .usage-bar-fill {
+      height: 100%;
+      background: var(--grad);
+      border-radius: 100px;
+      transition: width 0.6s ease;
+    }
+    .resend-timer { color: var(--text-muted); font-size: 0.83rem; text-align: center; margin-top: 0.75rem; }
+    .resend-timer a { color: var(--cyan-light); cursor: pointer; }
+    .api-section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .api-section-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* ════════════════════════════════
+       AI COPILOT ASSISTANT
+    ════════════════════════════════ */
+    .ai-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9999;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: var(--grad);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 24px rgba(124,58,237,0.5);
+      animation: fabPulse 2.5s ease-in-out infinite;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .ai-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 32px rgba(124,58,237,0.7);
+      animation: none;
+    }
+    @keyframes fabPulse {
+      0%, 100% { box-shadow: 0 4px 24px rgba(124,58,237,0.5); }
+      50% { box-shadow: 0 4px 36px rgba(124,58,237,0.8), 0 0 0 10px rgba(124,58,237,0.1); }
+    }
+    .ai-chat-panel {
+      position: fixed;
+      bottom: 5.5rem;
+      right: 2rem;
+      z-index: 9998;
+      width: 380px;
+      height: 520px;
+      background: #0d0d20;
+      border: 1px solid rgba(124,58,237,0.4);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(124,58,237,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.92) translateY(16px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+    }
+    .ai-chat-panel.open {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .chat-header {
+      background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(6,182,212,0.2));
+      border-bottom: 1px solid rgba(124,58,237,0.3);
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+    .chat-header-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .chat-header-info { flex: 1; }
+    .chat-header-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .chat-header-status {
+      font-size: 0.72rem;
+      color: #4ade80;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .chat-header-status::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      display: inline-block;
+    }
+    .chat-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.2rem;
+      transition: color var(--transition);
+    }
+    .chat-close:hover { color: var(--text); }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.4); border-radius: 2px; }
+    .chat-bubble {
+      max-width: 85%;
+      padding: 0.7rem 1rem;
+      border-radius: 14px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      word-break: break-word;
+    }
+    .chat-bubble.bot {
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.25);
+      color: var(--text);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .chat-bubble.user {
+      background: var(--grad);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-bubble.typing {
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      align-self: flex-start;
+    }
+    .typing-dots { display: flex; gap: 4px; align-items: center; padding: 0.1rem 0.2rem; }
+    .typing-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--purple-light);
+      animation: typingDot 1.2s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingDot { 0%,80%,100% { opacity: 0.3; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
+    .chat-input-area {
+      border-top: 1px solid rgba(124,58,237,0.2);
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+    .chat-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      padding: 0.65rem 0.9rem;
+      outline: none;
+      resize: none;
+      max-height: 80px;
+      transition: border-color var(--transition);
+    }
+    .chat-input:focus { border-color: var(--purple); }
+    .chat-send-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--grad);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      color: #fff;
+      flex-shrink: 0;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .chat-send-btn:hover { opacity: 0.85; transform: scale(1.05); }
+    .chat-mic-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(6,182,212,0.15);
+      border: 1px solid rgba(6,182,212,0.35);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--cyan-light);
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .chat-mic-btn:hover { background: rgba(6,182,212,0.25); }
+    .chat-mic-btn.listening {
+      background: rgba(239,68,68,0.2);
+      border-color: rgba(239,68,68,0.5);
+      color: #f87171;
+      animation: micPulse 0.8s infinite;
+    }
+    @keyframes micPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); } 50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); } }
+    .chat-greeting-badge {
+      position: absolute;
+      bottom: 5.5rem;
+      right: 5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.7rem 1rem;
+      font-size: 0.83rem;
+      color: var(--text);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      max-width: 240px;
+      animation: greetingPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      z-index: 9997;
+    }
+    @keyframes greetingPop {
+      from { transform: scale(0.8) translateY(10px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    @media (max-width: 480px) {
+      .ai-chat-panel { width: calc(100vw - 2rem); right: 1rem; bottom: 5rem; }
+      .ai-fab { bottom: 1.2rem; right: 1.2rem; }
+      .chat-greeting-badge { right: 4.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -728,8 +1445,10 @@
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-      <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="nav-hire">Hire Me</a>
+      <a href="#hire">Hire Me</a>
+      <a href="#api">AI API</a>
+      <a href="#hire" class="nav-hire">Hire Me</a>
+      <button class="nav-ai-btn" id="nav-ai-btn" aria-label="Open AI Assistant">🤖 AI Assistant</button>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -740,8 +1459,11 @@
   <a href="#about" class="mobile-link">About</a>
   <a href="#projects" class="mobile-link">Projects</a>
   <a href="#services" class="mobile-link">Services</a>
+  <a href="#hire" class="mobile-link">Hire Me</a>
+  <a href="#api" class="mobile-link">AI API</a>
   <a href="#contact" class="mobile-link">Contact</a>
-  <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:fit-content">Hire Me</a>
+  <a href="#hire" class="btn btn-primary" style="width:fit-content" onclick="document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');">Hire Me</a>
+  <button class="nav-ai-btn" style="width:fit-content" onclick="openAI();document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');">🤖 AI Assistant</button>
 </div>
 
 <!-- ══════════ HERO ══════════ -->
@@ -776,8 +1498,9 @@
         </div>
       </div>
       <div class="hero-btns fade-in fade-in-delay-4">
-        <a href="#projects" class="btn btn-primary">View My Work ↓</a>
-        <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">Hire Me on Fiverr →</a>
+        <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+        <a href="#hire" class="btn btn-outline">Hire Me →</a>
+        <button class="btn btn-cyan" onclick="openAI()">🤖 Try AI Assistant</button>
       </div>
     </div>
   </div>
@@ -876,7 +1599,8 @@
         <div class="project-btns">
           <a href="https://ai-forex-frontend.onrender.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Live Demo →</a>
           <a href="https://github.com/lunnar211/ai-forex-dashboard" target="_blank" rel="noopener noreferrer" class="btn btn-outline">View Code</a>
-          <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">Buy Source Code</a>
+          <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr">Buy on Fiverr →</a>
+          <a href="https://paypal.me/dipeshkarki8292/299" target="_blank" rel="noopener noreferrer" class="btn btn-paypal">Pay via PayPal →</a>
         </div>
       </div>
 
@@ -897,14 +1621,15 @@
           <span class="tech-tag">Gemini</span>
         </div>
         <div class="project-btns">
-          <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Order on Fiverr →</a>
+          <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr">Order on Fiverr →</a>
+          <a href="https://paypal.me/dipeshkarki8292/150" target="_blank" rel="noopener noreferrer" class="btn btn-paypal">Pay via PayPal →</a>
         </div>
       </div>
 
-      <!-- Custom AI Web Dashboard -->
+      <!-- Custom Web App -->
       <div class="project-card fade-in fade-in-delay-2">
         <div class="project-header">
-          <div class="project-title">🌐 Custom AI Web Dashboard</div>
+          <div class="project-title">🌐 Custom Web App</div>
           <div class="project-price">From $200</div>
         </div>
         <p class="project-desc">
@@ -918,7 +1643,8 @@
           <span class="tech-tag">AI APIs</span>
         </div>
         <div class="project-btns">
-          <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Order on Fiverr →</a>
+          <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr">Order on Fiverr →</a>
+          <a href="https://paypal.me/dipeshkarki8292/200" target="_blank" rel="noopener noreferrer" class="btn btn-paypal">Pay via PayPal →</a>
         </div>
       </div>
 
@@ -961,37 +1687,55 @@
             <td class="service-name">AI Trading Dashboard</td>
             <td class="service-price">$299</td>
             <td class="service-delivery">14 days</td>
-            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+            <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+              <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
+              <a href="https://paypal.me/dipeshkarki8292/299" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+            </td>
           </tr>
           <tr>
             <td class="service-name">Telegram Signal Bot</td>
             <td class="service-price">$150</td>
             <td class="service-delivery">7 days</td>
-            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+            <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+              <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
+              <a href="https://paypal.me/dipeshkarki8292/150" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+            </td>
           </tr>
           <tr>
             <td class="service-name">Full Stack Web App</td>
             <td class="service-price">$200+</td>
             <td class="service-delivery">10 days</td>
-            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+            <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+              <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
+              <a href="https://paypal.me/dipeshkarki8292/200" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+            </td>
           </tr>
           <tr>
             <td class="service-name">AI API Integration</td>
             <td class="service-price">$100+</td>
             <td class="service-delivery">5 days</td>
-            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+            <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+              <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
+              <a href="https://paypal.me/dipeshkarki8292/100" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+            </td>
           </tr>
           <tr>
             <td class="service-name">Forex Signal System</td>
             <td class="service-price">$199</td>
             <td class="service-delivery">7 days</td>
-            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+            <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+              <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
+              <a href="https://paypal.me/dipeshkarki8292/199" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+            </td>
           </tr>
           <tr>
             <td class="service-name">Landing Page</td>
             <td class="service-price">$80</td>
             <td class="service-delivery">3 days</td>
-            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+            <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+              <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
+              <a href="https://paypal.me/dipeshkarki8292/80" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -1032,7 +1776,468 @@
   </div>
 </section>
 
-<!-- ══════════ TESTIMONIALS ══════════ -->
+<!-- ══════════ HIRE ME ══════════ -->
+<section class="section" id="hire">
+  <div class="container">
+    <h2 class="section-title fade-in"><span class="grad-text">Hire Me</span></h2>
+    <p class="section-subtitle fade-in">Secure escrow payment — work starts only after you approve</p>
+
+    <!-- Step progress indicator -->
+    <div class="step-progress" id="step-progress">
+      <div class="step-dot active" id="sdot-1">
+        <div class="step-num">1</div>
+        <div class="step-label">Project Type</div>
+      </div>
+      <div class="step-dot" id="sdot-2">
+        <div class="step-num">2</div>
+        <div class="step-label">Details</div>
+      </div>
+      <div class="step-dot" id="sdot-3">
+        <div class="step-num">3</div>
+        <div class="step-label">Contact</div>
+      </div>
+      <div class="step-dot" id="sdot-4">
+        <div class="step-num">4</div>
+        <div class="step-label">Payment</div>
+      </div>
+      <div class="step-dot" id="sdot-5">
+        <div class="step-num">5</div>
+        <div class="step-label">Confirm</div>
+      </div>
+    </div>
+
+    <div class="hire-form-wrap fade-in">
+
+      <!-- STEP 1: Project Type -->
+      <div class="hire-step active" id="hire-step-1">
+        <div class="hire-step-title">What do you need built?</div>
+        <div class="hire-step-desc">Select the type of project you want to create.</div>
+        <div class="project-type-grid">
+          <div class="project-type-card" data-type="Website Development" onclick="selectProjectType(this)">
+            <div class="project-type-icon">🌐</div>
+            <div class="project-type-name">Website Development</div>
+          </div>
+          <div class="project-type-card" data-type="AI Integration" onclick="selectProjectType(this)">
+            <div class="project-type-icon">🤖</div>
+            <div class="project-type-name">AI Integration</div>
+          </div>
+          <div class="project-type-card" data-type="Trading Dashboard" onclick="selectProjectType(this)">
+            <div class="project-type-icon">📊</div>
+            <div class="project-type-name">Trading Dashboard</div>
+          </div>
+          <div class="project-type-card" data-type="Telegram Bot" onclick="selectProjectType(this)">
+            <div class="project-type-icon">🤖</div>
+            <div class="project-type-name">Telegram Bot</div>
+          </div>
+          <div class="project-type-card" data-type="Mobile App" onclick="selectProjectType(this)">
+            <div class="project-type-icon">📱</div>
+            <div class="project-type-name">Mobile App</div>
+          </div>
+          <div class="project-type-card" data-type="Custom Project" onclick="selectProjectType(this)">
+            <div class="project-type-icon">🔧</div>
+            <div class="project-type-name">Custom Project</div>
+          </div>
+        </div>
+        <div class="hire-nav-btns">
+          <button class="btn btn-primary" onclick="hireNextStep(1)" id="step1-next" disabled style="opacity:0.5;cursor:not-allowed;">Next: Add Details →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Questionnaire -->
+      <div class="hire-step" id="hire-step-2">
+        <div class="hire-step-title">Tell me about your project</div>
+        <div class="hire-step-desc">Answer a few questions so I can give you an accurate quote.</div>
+
+        <!-- Website Development Questions -->
+        <div id="q-website" class="questionnaire" style="display:none;">
+          <div class="q-group">
+            <div class="q-label">Q1. What type of website? <span>(select all that apply)</span></div>
+            <div class="checkbox-grid">
+              <label class="check-opt"><input type="checkbox" name="website-type" value="Business/Corporate"> Business/Corporate</label>
+              <label class="check-opt"><input type="checkbox" name="website-type" value="E-commerce/Shop"> E-commerce/Shop</label>
+              <label class="check-opt"><input type="checkbox" name="website-type" value="Portfolio"> Portfolio</label>
+              <label class="check-opt"><input type="checkbox" name="website-type" value="SaaS Dashboard"> SaaS Dashboard</label>
+              <label class="check-opt"><input type="checkbox" name="website-type" value="Blog/News"> Blog/News</label>
+              <label class="check-opt"><input type="checkbox" name="website-type" value="Other"> Other</label>
+            </div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">Q2. Do you have a design ready?</div>
+            <div class="checkbox-grid">
+              <label class="check-opt"><input type="radio" name="design-ready" value="Yes I have Figma/mockup"> Yes, I have Figma/mockup</label>
+              <label class="check-opt"><input type="radio" name="design-ready" value="No I need design too"> No, I need design too</label>
+              <label class="check-opt"><input type="radio" name="design-ready" value="I have reference websites"> I have reference websites</label>
+            </div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">Q3. What features do you need? <span>(select all that apply)</span></div>
+            <div class="checkbox-grid">
+              <label class="check-opt"><input type="checkbox" name="features" value="User login/registration"> User login/registration</label>
+              <label class="check-opt"><input type="checkbox" name="features" value="Payment integration"> Payment integration</label>
+              <label class="check-opt"><input type="checkbox" name="features" value="Admin panel"> Admin panel</label>
+              <label class="check-opt"><input type="checkbox" name="features" value="AI integration"> AI integration</label>
+              <label class="check-opt"><input type="checkbox" name="features" value="Database"> Database</label>
+              <label class="check-opt"><input type="checkbox" name="features" value="API integration"> API integration</label>
+              <label class="check-opt"><input type="checkbox" name="features" value="Mobile responsive only"> Mobile responsive only</label>
+              <label class="check-opt"><input type="checkbox" name="features" value="Other"> Other</label>
+            </div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">Q4. Reference websites <span>(optional — paste URLs)</span></div>
+            <div class="hire-form-group">
+              <input type="text" id="q-refs" placeholder="https://example.com, https://another.com" />
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Integration Questions -->
+        <div id="q-ai" class="questionnaire" style="display:none;">
+          <div class="q-group">
+            <div class="q-label">Q1. What platform to integrate AI into?</div>
+            <div class="checkbox-grid">
+              <label class="check-opt"><input type="checkbox" name="ai-platform" value="Website"> Website</label>
+              <label class="check-opt"><input type="checkbox" name="ai-platform" value="Telegram Bot"> Telegram Bot</label>
+              <label class="check-opt"><input type="checkbox" name="ai-platform" value="Mobile App"> Mobile App</label>
+              <label class="check-opt"><input type="checkbox" name="ai-platform" value="Desktop App"> Desktop App</label>
+              <label class="check-opt"><input type="checkbox" name="ai-platform" value="API only"> API only</label>
+              <label class="check-opt"><input type="checkbox" name="ai-platform" value="Other"> Other</label>
+            </div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">Q2. What AI capabilities do you need?</div>
+            <div class="checkbox-grid">
+              <label class="check-opt"><input type="checkbox" name="ai-caps" value="Text generation / Chatbot"> Text generation / Chatbot</label>
+              <label class="check-opt"><input type="checkbox" name="ai-caps" value="Image analysis"> Image analysis</label>
+              <label class="check-opt"><input type="checkbox" name="ai-caps" value="Voice recognition"> Voice recognition</label>
+              <label class="check-opt"><input type="checkbox" name="ai-caps" value="Trading predictions"> Trading predictions</label>
+              <label class="check-opt"><input type="checkbox" name="ai-caps" value="Data analysis"> Data analysis</label>
+              <label class="check-opt"><input type="checkbox" name="ai-caps" value="Other"> Other</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generic Questions (for Trading Dashboard, Telegram Bot, Mobile App, Custom Project) -->
+        <div id="q-generic" class="questionnaire" style="display:none;">
+          <div class="q-group">
+            <div class="q-label">Q1. Key features needed? <span>(select all that apply)</span></div>
+            <div class="checkbox-grid">
+              <label class="check-opt"><input type="checkbox" name="gen-features" value="User login/registration"> User login/registration</label>
+              <label class="check-opt"><input type="checkbox" name="gen-features" value="Payment integration"> Payment integration</label>
+              <label class="check-opt"><input type="checkbox" name="gen-features" value="Admin panel"> Admin panel</label>
+              <label class="check-opt"><input type="checkbox" name="gen-features" value="AI integration"> AI integration</label>
+              <label class="check-opt"><input type="checkbox" name="gen-features" value="Real-time data"> Real-time data</label>
+              <label class="check-opt"><input type="checkbox" name="gen-features" value="API integration"> API integration</label>
+              <label class="check-opt"><input type="checkbox" name="gen-features" value="Notifications/Alerts"> Notifications/Alerts</label>
+              <label class="check-opt"><input type="checkbox" name="gen-features" value="Other"> Other</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Common Questions (shown for all types) -->
+        <div class="questionnaire" id="q-common">
+          <div class="q-group">
+            <div class="q-label">Budget range?</div>
+            <div class="checkbox-grid">
+              <label class="check-opt"><input type="radio" name="budget" value="$100 - $200"> $100 – $200</label>
+              <label class="check-opt"><input type="radio" name="budget" value="$200 - $500"> $200 – $500</label>
+              <label class="check-opt"><input type="radio" name="budget" value="$500 - $1000"> $500 – $1,000</label>
+              <label class="check-opt"><input type="radio" name="budget" value="$1000+"> $1,000+</label>
+              <label class="check-opt"><input type="radio" name="budget" value="Discuss after quote"> Discuss after quote</label>
+            </div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">Timeline needed?</div>
+            <div class="checkbox-grid">
+              <label class="check-opt"><input type="radio" name="timeline" value="ASAP (3-5 days) +30% rush fee"> ⚡ ASAP (3–5 days) +30% rush fee</label>
+              <label class="check-opt"><input type="radio" name="timeline" value="1-2 weeks"> 1–2 weeks</label>
+              <label class="check-opt"><input type="radio" name="timeline" value="2-4 weeks"> 2–4 weeks</label>
+              <label class="check-opt"><input type="radio" name="timeline" value="Flexible"> Flexible</label>
+            </div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">Describe your project in detail</div>
+            <div class="hire-form-group">
+              <textarea id="hire-details" rows="5" placeholder="Describe what you want to build, any specific requirements, inspiration, or anything else I should know…"></textarea>
+            </div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">Upload reference files <span>(optional — images, docs, PDFs)</span></div>
+            <div class="hire-form-group">
+              <input type="file" id="hire-files" accept="image/*,.pdf,.doc,.docx" multiple style="cursor:pointer;" />
+            </div>
+          </div>
+        </div>
+
+        <div class="hire-nav-btns">
+          <button class="btn btn-outline" onclick="hireGoTo(1)">← Back</button>
+          <button class="btn btn-primary" onclick="hireNextStep(2)">Next: Contact Details →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Contact Details -->
+      <div class="hire-step" id="hire-step-3">
+        <div class="hire-step-title">Your Contact Details</div>
+        <div class="hire-step-desc">I'll use this to reach you with a quote and updates.</div>
+        <div class="hire-form-group">
+          <label for="hire-name">Full Name *</label>
+          <input type="text" id="hire-name" placeholder="John Smith" autocomplete="name" />
+        </div>
+        <div class="hire-form-group">
+          <label for="hire-email">Email Address *</label>
+          <input type="email" id="hire-email" placeholder="john@example.com" autocomplete="email" />
+        </div>
+        <div class="hire-form-group">
+          <label for="hire-telegram">Telegram Username <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
+          <input type="text" id="hire-telegram" placeholder="@yourusername" />
+        </div>
+        <div class="hire-form-group">
+          <label for="hire-country">Country</label>
+          <select id="hire-country">
+            <option value="">Select country…</option>
+            <option>Nepal</option><option>United States</option><option>United Kingdom</option>
+            <option>Australia</option><option>Canada</option><option>India</option>
+            <option>Germany</option><option>France</option><option>UAE</option>
+            <option>Singapore</option><option>Japan</option><option>Brazil</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="hire-nav-btns">
+          <button class="btn btn-outline" onclick="hireGoTo(2)">← Back</button>
+          <button class="btn btn-primary" onclick="hireNextStep(3)">Next: Choose Payment →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Payment + Escrow -->
+      <div class="hire-step" id="hire-step-4">
+        <div class="hire-step-title">Secure Payment</div>
+        <div class="hire-step-desc">Choose how you'd like to pay. All payments are held in escrow until you approve the work.</div>
+
+        <div class="price-estimate">
+          <div>
+            <div class="price-estimate-label">Estimated Project Price</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">Final price confirmed after review</div>
+          </div>
+          <div class="price-estimate-value" id="hire-price-display">$200 – $500</div>
+        </div>
+
+        <div class="escrow-box">
+          <h4>🔒 How our secure payment works</h4>
+          <div class="escrow-steps">
+            <div class="escrow-step-item"><div class="escrow-step-num">1</div><div>You pay the project fee (held securely in escrow)</div></div>
+            <div class="escrow-step-item"><div class="escrow-step-num">2</div><div>I start working on your project</div></div>
+            <div class="escrow-step-item"><div class="escrow-step-num">3</div><div>I deliver the completed work for your review</div></div>
+            <div class="escrow-step-item"><div class="escrow-step-num">4</div><div>You review, test and approve the delivery</div></div>
+            <div class="escrow-step-item"><div class="escrow-step-num">5</div><div>Payment is released to me only after your approval</div></div>
+            <div class="escrow-step-item"><div class="escrow-step-num">6</div><div>If unsatisfied → full refund guaranteed</div></div>
+          </div>
+        </div>
+
+        <div class="payment-options">
+          <div class="payment-card" onclick="selectPayment('paypal')">
+            <h4>💳 PayPal Escrow <span class="badge-rec">Recommended</span></h4>
+            <p>Pay securely via PayPal. Money held until work is reviewed and approved by you.</p>
+            <a href="https://www.paypal.com/paypalme/dipeshkarki8292" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="justify-content:center;" onclick="hireNextStep(4)">Pay with PayPal</a>
+          </div>
+          <div class="payment-card" onclick="selectPayment('fiverr')">
+            <h4>🛒 Order on Fiverr</h4>
+            <p>Built-in escrow and buyer protection through Fiverr's trusted platform.</p>
+            <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="justify-content:center;" onclick="hireNextStep(4)">Go to Fiverr</a>
+          </div>
+        </div>
+
+        <div class="hire-nav-btns">
+          <button class="btn btn-outline" onclick="hireGoTo(3)">← Back</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: Confirmation -->
+      <div class="hire-step" id="hire-step-5">
+        <div class="tracking-box">
+          <div class="success-icon">🎉</div>
+          <h3 style="font-family:'Syne',sans-serif;font-weight:800;margin-bottom:0.5rem;">Order Received!</h3>
+          <p>Your project tracking ID:</p>
+          <div class="tracking-id" id="tracking-id-display">DK2026XXXX</div>
+          <p>I will contact you within <strong style="color:var(--cyan-light)">24 hours</strong> to discuss your project and start work.</p>
+          <p style="margin-top:0.5rem;">Check your email for a confirmation message.</p>
+          <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+            <a href="mailto:dipeshkarki6612@gmail.com" class="btn btn-outline">📧 Email Me Directly</a>
+            <a href="https://t.me/ForexAI_Terminal_bot" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">Telegram →</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /hire-form-wrap -->
+  </div>
+</section>
+
+<!-- ══════════ AI API MARKETPLACE ══════════ -->
+<section class="section" id="api" style="background: rgba(15,15,26,0.5);">
+  <div class="container">
+    <h2 class="section-title fade-in"><span class="grad-text">AI API Marketplace</span></h2>
+    <p class="section-subtitle fade-in">Access powerful AI forex signals via API — integrate into your own app</p>
+
+    <!-- Plans -->
+    <div class="api-plans-grid">
+
+      <!-- FREE -->
+      <div class="api-plan-card fade-in">
+        <div class="plan-name">🆓 Free Plan</div>
+        <div class="plan-price">$0 <span>/ month</span></div>
+        <div class="plan-features-list">
+          <div class="plan-feature"><span class="check">✓</span> 100 AI predictions per month</div>
+          <div class="plan-feature"><span class="check">✓</span> 3 forex pairs</div>
+          <div class="plan-feature"><span class="check">✓</span> Basic signals only</div>
+          <div class="plan-feature"><span class="cross">✗</span> Voice mode</div>
+          <div class="plan-feature"><span class="cross">✗</span> Entry / SL / TP levels</div>
+          <div class="plan-feature"><span class="cross">✗</span> Priority processing</div>
+        </div>
+        <button class="btn btn-outline" style="justify-content:center;" onclick="showApiRegister('free')">Get Free API Key</button>
+      </div>
+
+      <!-- STARTER -->
+      <div class="api-plan-card popular fade-in fade-in-delay-1">
+        <div class="plan-popular-badge">⭐ Most Popular</div>
+        <div class="plan-name">🚀 Starter Plan</div>
+        <div class="plan-price">$9.99 <span>/ month</span></div>
+        <div class="plan-features-list">
+          <div class="plan-feature"><span class="check">✓</span> 1,000 requests / month</div>
+          <div class="plan-feature"><span class="check">✓</span> All 12 forex pairs</div>
+          <div class="plan-feature"><span class="check">✓</span> Full signals with Entry/SL/TP</div>
+          <div class="plan-feature"><span class="check">✓</span> Email support</div>
+          <div class="plan-feature"><span class="cross">✗</span> Voice mode</div>
+          <div class="plan-feature"><span class="cross">✗</span> Priority processing</div>
+        </div>
+        <a href="https://paypal.me/dipeshkarki8292/9.99" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="justify-content:center;">Buy with PayPal</a>
+      </div>
+
+      <!-- PRO -->
+      <div class="api-plan-card fade-in fade-in-delay-2">
+        <div class="plan-name">⚡ Pro Plan</div>
+        <div class="plan-price">$29.99 <span>/ month</span></div>
+        <div class="plan-features-list">
+          <div class="plan-feature"><span class="check">✓</span> 10,000 requests / month</div>
+          <div class="plan-feature"><span class="check">✓</span> All pairs + crypto</div>
+          <div class="plan-feature"><span class="check">✓</span> Full signals with Entry/SL/TP</div>
+          <div class="plan-feature"><span class="check">✓</span> Voice mode included</div>
+          <div class="plan-feature"><span class="check">✓</span> Priority processing</div>
+          <div class="plan-feature"><span class="check">✓</span> Priority support</div>
+        </div>
+        <a href="https://paypal.me/dipeshkarki8292/29.99" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="justify-content:center;">Buy with PayPal</a>
+      </div>
+    </div>
+
+    <div class="api-section-grid">
+      <!-- Registration Form -->
+      <div class="fade-in">
+        <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;margin-bottom:0.5rem;">Get Your API Key</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Register for a free API key or upgrade anytime.</p>
+
+        <!-- Tabs: Register / Login -->
+        <div class="api-register-tabs">
+          <div class="api-tab active" id="api-tab-reg" onclick="switchApiTab('reg')">Register</div>
+          <div class="api-tab" id="api-tab-login" onclick="switchApiTab('login')">Login</div>
+        </div>
+
+        <!-- REGISTER PANEL -->
+        <div class="api-tab-panel active" id="api-panel-reg">
+          <!-- Step A: Register form -->
+          <div id="api-reg-form" class="api-box">
+            <div class="hire-form-group">
+              <label>Full Name</label>
+              <input type="text" id="api-reg-name" placeholder="Your name" autocomplete="name" />
+            </div>
+            <div class="hire-form-group">
+              <label>Email Address *</label>
+              <input type="email" id="api-reg-email" placeholder="you@example.com" autocomplete="email" />
+            </div>
+            <div class="hire-form-group">
+              <label>Password *</label>
+              <input type="password" id="api-reg-pass" placeholder="Create a password" autocomplete="new-password" />
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="apiRegister()">Create Account &amp; Get API Key →</button>
+          </div>
+
+          <!-- Step B: Email verification -->
+          <div id="api-verify-form" class="api-box" style="display:none;text-align:center;">
+            <div style="font-size:1.5rem;margin-bottom:0.75rem;">📧</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:0.5rem;">Verify your email</div>
+            <div style="color:var(--text-muted);font-size:0.88rem;margin-bottom:1rem;">We sent a 6-digit code to <strong id="api-verify-email-display" style="color:var(--cyan-light)"></strong></div>
+            <div class="otp-inputs" id="otp-inputs">
+              <input class="otp-input" maxlength="1" type="text" inputmode="numeric" oninput="otpMove(this,0)" />
+              <input class="otp-input" maxlength="1" type="text" inputmode="numeric" oninput="otpMove(this,1)" />
+              <input class="otp-input" maxlength="1" type="text" inputmode="numeric" oninput="otpMove(this,2)" />
+              <input class="otp-input" maxlength="1" type="text" inputmode="numeric" oninput="otpMove(this,3)" />
+              <input class="otp-input" maxlength="1" type="text" inputmode="numeric" oninput="otpMove(this,4)" />
+              <input class="otp-input" maxlength="1" type="text" inputmode="numeric" oninput="otpMove(this,5)" />
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="apiVerify()">Verify Email</button>
+            <div class="resend-timer" id="resend-timer">Resend code in <span id="resend-countdown">60</span>s</div>
+          </div>
+
+          <!-- Step C: API Key display -->
+          <div id="api-key-display" class="api-box" style="display:none;">
+            <div style="font-size:1.5rem;text-align:center;margin-bottom:0.75rem;">🎉</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;text-align:center;margin-bottom:0.5rem;">Your API Key is ready!</div>
+            <div class="api-key-display">
+              <span class="api-key-text" id="generated-api-key">dk_live_xxxxxxxxxxxxxxxxxx</span>
+              <button class="btn btn-outline" style="padding:0.4rem 0.8rem;font-size:0.8rem;flex-shrink:0;" onclick="copyApiKey()">📋 Copy</button>
+            </div>
+            <p style="color:var(--f87171,#f87171);font-size:0.82rem;text-align:center;">⚠️ Keep this secret — do not share with anyone</p>
+          </div>
+        </div>
+
+        <!-- LOGIN PANEL -->
+        <div class="api-tab-panel" id="api-panel-login">
+          <div class="api-box">
+            <div class="hire-form-group">
+              <label>Email Address</label>
+              <input type="email" id="api-login-email" placeholder="you@example.com" />
+            </div>
+            <div class="hire-form-group">
+              <label>Password</label>
+              <input type="password" id="api-login-pass" placeholder="Your password" />
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="apiLogin()">Login →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div class="fade-in fade-in-delay-1" id="api-dashboard-section">
+        <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;margin-bottom:0.5rem;">Your Dashboard</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Monitor your API usage and manage your plan.</p>
+        <div class="api-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+            <div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">CURRENT PLAN</div>
+              <div style="font-family:'Syne',sans-serif;font-weight:700;" id="dash-plan">Free Plan</div>
+            </div>
+            <a href="https://paypal.me/dipeshkarki8292/9.99" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.83rem;">Upgrade Plan ↑</a>
+          </div>
+          <div class="usage-bar-wrap">
+            <div class="usage-bar-label">
+              <span>API Usage this month</span>
+              <span id="dash-usage">47 / 100 requests</span>
+            </div>
+            <div class="usage-bar-bg"><div class="usage-bar-fill" id="dash-usage-bar" style="width:47%"></div></div>
+          </div>
+          <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);">
+            <div style="font-size:0.83rem;color:var(--text-muted);margin-bottom:0.75rem;">Quick Start</div>
+            <pre style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:1rem;font-size:0.78rem;color:var(--cyan-light);overflow-x:auto;font-family:'Courier New',monospace;">curl -X POST \
+  https://ai-forex-backend.onrender.com/api/signals \
+  -H "X-API-Key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"pair":"EURUSD"}'</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="table-note fade-in" style="margin-top:2rem;">
+      💬 After paying for a plan, email <a href="mailto:dipeshkarki6612@gmail.com">dipeshkarki6612@gmail.com</a> with your payment confirmation to activate your plan.
+    </p>
+  </div>
+</section>
 <section class="section" id="testimonials">
   <div class="container">
     <h2 class="section-title fade-in"><span class="grad-text">Client Reviews</span></h2>
@@ -1184,6 +2389,26 @@
   </div>
 </footer>
 
+<!-- ══════════ AI COPILOT ASSISTANT ══════════ -->
+<button class="ai-fab" id="ai-fab" aria-label="Open AI Assistant" onclick="toggleAI()">🤖</button>
+
+<div class="ai-chat-panel" id="ai-chat-panel" role="dialog" aria-label="DK AI Assistant">
+  <div class="chat-header">
+    <div class="chat-header-avatar">🤖</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">DK Assistant</div>
+      <div class="chat-header-status">Online — AI powered</div>
+    </div>
+    <button class="chat-close" onclick="toggleAI()" aria-label="Close chat">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-input-area">
+    <textarea class="chat-input" id="chat-input" placeholder="Ask me anything…" rows="1" onkeydown="chatKeydown(event)"></textarea>
+    <button class="chat-mic-btn" id="mic-btn" title="Voice input" onclick="toggleVoice()">🎤</button>
+    <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Send message">➤</button>
+  </div>
+</div>
+
 <script>
   /* ── HAMBURGER MENU ── */
   const hamburger = document.getElementById('hamburger');
@@ -1211,7 +2436,7 @@
     'Web App Developer'
   ];
   const typingEl = document.getElementById('typing-text');
-  let phraseIdx = 0, charIdx = 0, deleting = false, pauseTimer = null;
+  let phraseIdx = 0, charIdx = 0, deleting = false;
 
   function type() {
     const current = phrases[phraseIdx];
@@ -1220,7 +2445,7 @@
       charIdx++;
       if (charIdx === current.length) {
         deleting = true;
-        pauseTimer = setTimeout(type, 1800);
+        setTimeout(type, 1800);
         return;
       }
     } else {
@@ -1276,6 +2501,388 @@
     });
   }, { threshold: 0.45 });
   sections.forEach(s => scrollSpy.observe(s));
+
+  /* ════════════════════════════════════════════
+     HIRE ME MULTI-STEP FORM
+  ════════════════════════════════════════════ */
+  let hireData = { projectType: '', budget: '', timeline: '' };
+  let currentHireStep = 1;
+
+  function selectProjectType(card) {
+    document.querySelectorAll('.project-type-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    hireData.projectType = card.dataset.type;
+    const nextBtn = document.getElementById('step1-next');
+    nextBtn.disabled = false;
+    nextBtn.style.opacity = '1';
+    nextBtn.style.cursor = 'pointer';
+  }
+
+  function showQuestions(type) {
+    document.getElementById('q-website').style.display = 'none';
+    document.getElementById('q-ai').style.display = 'none';
+    document.getElementById('q-generic').style.display = 'none';
+    if (type === 'Website Development') {
+      document.getElementById('q-website').style.display = 'flex';
+    } else if (type === 'AI Integration') {
+      document.getElementById('q-ai').style.display = 'flex';
+    } else {
+      document.getElementById('q-generic').style.display = 'flex';
+    }
+    document.getElementById('q-common').style.display = 'flex';
+  }
+
+  function hireGoTo(step) {
+    document.getElementById(`hire-step-${currentHireStep}`).classList.remove('active');
+    document.getElementById(`hire-step-${step}`).classList.add('active');
+    document.getElementById(`sdot-${currentHireStep}`).classList.remove('active');
+    document.getElementById(`sdot-${currentHireStep}`).classList.add('done');
+    if (step < currentHireStep) {
+      // going back — undo done state
+      for (let i = step; i <= 5; i++) {
+        const dot = document.getElementById(`sdot-${i}`);
+        dot.classList.remove('done', 'active');
+      }
+      document.getElementById(`sdot-${step}`).classList.add('active');
+    }
+    document.getElementById(`sdot-${step}`).classList.add('active');
+    currentHireStep = step;
+    document.getElementById('hire').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function hireNextStep(fromStep) {
+    if (fromStep === 1) {
+      if (!hireData.projectType) { alert('Please select a project type.'); return; }
+      showQuestions(hireData.projectType);
+      hireGoTo(2);
+    } else if (fromStep === 2) {
+      const details = document.getElementById('hire-details').value.trim();
+      if (!details) { alert('Please describe your project in detail.'); return; }
+      const budgetEl = document.querySelector('input[name="budget"]:checked');
+      const timelineEl = document.querySelector('input[name="timeline"]:checked');
+      hireData.budget = budgetEl ? budgetEl.value : 'Not specified';
+      hireData.timeline = timelineEl ? timelineEl.value : 'Not specified';
+      hireGoTo(3);
+    } else if (fromStep === 3) {
+      const name = document.getElementById('hire-name').value.trim();
+      const email = document.getElementById('hire-email').value.trim();
+      if (!name || !email) { alert('Please fill in your name and email.'); return; }
+      if (!email.includes('@')) { alert('Please enter a valid email address.'); return; }
+      // Calculate price estimate
+      const budget = hireData.budget;
+      let priceDisplay = '$200 – $500';
+      if (budget === '$100 - $200') priceDisplay = '$100 – $200';
+      else if (budget === '$200 - $500') priceDisplay = '$200 – $500';
+      else if (budget === '$500 - $1000') priceDisplay = '$500 – $1,000';
+      else if (budget === '$1000+') priceDisplay = '$1,000+';
+      else if (hireData.projectType === 'Trading Dashboard') priceDisplay = '$299';
+      else if (hireData.projectType === 'Telegram Bot') priceDisplay = '$150';
+      else if (hireData.projectType === 'AI Integration') priceDisplay = '$100 – $300';
+      document.getElementById('hire-price-display').textContent = priceDisplay;
+      hireGoTo(4);
+    } else if (fromStep === 4) {
+      // Generate tracking ID
+      const id = 'DK2026' + Math.random().toString(36).substring(2, 6).toUpperCase();
+      document.getElementById('tracking-id-display').textContent = '#' + id;
+      hireGoTo(5);
+    }
+  }
+
+  function selectPayment(method) {
+    hireData.paymentMethod = method;
+  }
+
+  /* ── Nav AI button ── */
+  document.getElementById('nav-ai-btn').addEventListener('click', openAI);
+
+  /* ════════════════════════════════════════════
+     API MARKETPLACE
+  ════════════════════════════════════════════ */
+  let apiVerifyCode = '';
+  let apiResendInterval = null;
+
+  function showApiRegister(plan) {
+    document.getElementById('api').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function switchApiTab(tab) {
+    document.getElementById('api-tab-reg').classList.toggle('active', tab === 'reg');
+    document.getElementById('api-tab-login').classList.toggle('active', tab === 'login');
+    document.getElementById('api-panel-reg').classList.toggle('active', tab === 'reg');
+    document.getElementById('api-panel-login').classList.toggle('active', tab === 'login');
+  }
+
+  async function apiRegister() {
+    const name  = document.getElementById('api-reg-name').value.trim();
+    const email = document.getElementById('api-reg-email').value.trim();
+    const pass  = document.getElementById('api-reg-pass').value.trim();
+    if (!email || !pass) { alert('Email and password are required.'); return; }
+    if (!email.includes('@')) { alert('Please enter a valid email.'); return; }
+    if (pass.length < 6) { alert('Password must be at least 6 characters.'); return; }
+
+    // Generate a mock verify code (in production this comes from backend)
+    apiVerifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+    document.getElementById('api-verify-email-display').textContent = email;
+    document.getElementById('api-reg-form').style.display = 'none';
+    document.getElementById('api-verify-form').style.display = 'block';
+
+    // Try to call backend to register
+    try {
+      await fetch('https://ai-forex-backend.onrender.com/api/portal/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password: pass })
+      });
+    } catch(err) {
+      console.error('Registration API error:', err);
+      /* fallback to client-side simulation */ }
+
+    // Start resend countdown
+    let countdown = 60;
+    document.getElementById('resend-countdown').textContent = countdown;
+    apiResendInterval = setInterval(() => {
+      countdown--;
+      document.getElementById('resend-countdown').textContent = countdown;
+      if (countdown <= 0) {
+        clearInterval(apiResendInterval);
+        document.getElementById('resend-timer').innerHTML =
+          '<a onclick="resendCode()">Resend code</a>';
+      }
+    }, 1000);
+  }
+
+  function resendCode() {
+    apiVerifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+    let countdown = 60;
+    document.getElementById('resend-timer').innerHTML =
+      'Resend code in <span id="resend-countdown">60</span>s';
+    apiResendInterval = setInterval(() => {
+      countdown--;
+      const el = document.getElementById('resend-countdown');
+      if (el) el.textContent = countdown;
+      if (countdown <= 0) {
+        clearInterval(apiResendInterval);
+        document.getElementById('resend-timer').innerHTML =
+          '<a onclick="resendCode()">Resend code</a>';
+      }
+    }, 1000);
+  }
+
+  function otpMove(input, index) {
+    const inputs = document.querySelectorAll('.otp-input');
+    if (input.value.length === 1 && index < 5) {
+      inputs[index + 1].focus();
+    }
+    // Check if all filled
+    const code = Array.from(inputs).map(i => i.value).join('');
+    if (code.length === 6) apiVerify();
+  }
+
+  function apiVerify() {
+    const inputs = document.querySelectorAll('.otp-input');
+    const entered = Array.from(inputs).map(i => i.value).join('');
+    if (entered.length < 6) { alert('Please enter the 6-digit code.'); return; }
+    // Validate against the generated code
+    if (entered !== apiVerifyCode) {
+      alert('Invalid code. Please try again or resend.');
+      return;
+    }
+
+    // Generate API key
+    const key = 'dk_live_' + Array.from({length: 20}, () =>
+      'abcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 36)]
+    ).join('');
+    document.getElementById('generated-api-key').textContent = key;
+    document.getElementById('api-verify-form').style.display = 'none';
+    document.getElementById('api-key-display').style.display = 'block';
+    if (apiResendInterval) clearInterval(apiResendInterval);
+  }
+
+  function copyApiKey() {
+    const key = document.getElementById('generated-api-key').textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(key).then(() => {
+        alert('API key copied to clipboard!');
+      }).catch(() => copyFallback(key));
+    } else {
+      copyFallback(key);
+    }
+  }
+
+  function copyFallback(text) {
+    const el = document.getElementById('generated-api-key');
+    const range = document.createRange();
+    range.selectNode(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    try {
+      document.execCommand('copy');
+      alert('API key copied to clipboard!');
+    } catch (e) {
+      alert('Could not copy automatically. Please select and copy the key manually.');
+    }
+    window.getSelection().removeAllRanges();
+  }
+
+  async function apiLogin() {
+    const email = document.getElementById('api-login-email').value.trim();
+    const pass  = document.getElementById('api-login-pass').value.trim();
+    if (!email || !pass) { alert('Please enter email and password.'); return; }
+    alert('Login feature coming soon! Please register for a new account.');
+  }
+
+  /* ════════════════════════════════════════════
+     AI COPILOT ASSISTANT
+  ════════════════════════════════════════════ */
+  const chatPanel  = document.getElementById('ai-chat-panel');
+  const chatMsgs   = document.getElementById('chat-messages');
+  const chatInput  = document.getElementById('chat-input');
+  const micBtn     = document.getElementById('mic-btn');
+  let chatHistory  = [];
+  let aiOpen       = false;
+  let greetingShown = false;
+  let recognition  = null;
+  let voiceEnabled = false;
+
+  const GREETING = `👋 Hi! I'm DK Assistant, Dipesh's AI helper.
+I can help you:
+📊 Learn about ForexAI Terminal
+💼 Understand services and pricing
+📝 Fill the hire me form
+🔑 Get an API key
+💬 Answer any questions
+
+What would you like to know?`;
+
+  function openAI() {
+    if (!aiOpen) toggleAI();
+  }
+
+  function toggleAI() {
+    aiOpen = !aiOpen;
+    chatPanel.classList.toggle('open', aiOpen);
+    if (aiOpen && chatMsgs.children.length === 0) {
+      appendBotMsg(GREETING);
+    }
+    if (aiOpen) chatInput.focus();
+  }
+
+  // Auto-show greeting bubble after 3 seconds
+  setTimeout(() => {
+    if (!greetingShown && !aiOpen) {
+      greetingShown = true;
+      const badge = document.createElement('div');
+      badge.className = 'chat-greeting-badge';
+      badge.textContent = '👋 Hi! Ask me about services & pricing';
+      badge.style.cursor = 'pointer';
+      badge.onclick = () => { badge.remove(); openAI(); };
+      document.body.appendChild(badge);
+      setTimeout(() => { if (badge.parentNode) badge.remove(); }, 6000);
+    }
+  }, 3000);
+
+  function appendBotMsg(text) {
+    const div = document.createElement('div');
+    div.className = 'chat-bubble bot';
+    div.textContent = text;
+    chatMsgs.appendChild(div);
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    return div;
+  }
+
+  function appendUserMsg(text) {
+    const div = document.createElement('div');
+    div.className = 'chat-bubble user';
+    div.textContent = text;
+    chatMsgs.appendChild(div);
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+  }
+
+  function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'chat-bubble typing';
+    div.id = 'typing-indicator';
+    div.innerHTML = '<div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+    chatMsgs.appendChild(div);
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+  }
+
+  function hideTyping() {
+    const el = document.getElementById('typing-indicator');
+    if (el) el.remove();
+  }
+
+  function chatKeydown(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendChatMessage();
+    }
+  }
+
+  async function sendChatMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    chatInput.value = '';
+    appendUserMsg(text);
+    chatHistory.push({ role: 'user', content: text });
+    showTyping();
+
+    try {
+      const res = await fetch('https://ai-forex-backend.onrender.com/api/assistant/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history: chatHistory.slice(-6) })
+      });
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+      hideTyping();
+      const reply = data.response || "I'm having trouble connecting right now. Please try again!";
+      appendBotMsg(reply);
+      chatHistory.push({ role: 'assistant', content: reply });
+      if (voiceEnabled) speak(reply);
+    } catch (err) {
+      hideTyping();
+      const fallback = "I'm having trouble connecting to the AI right now. Please try again in a moment, or email dipeshkarki6612@gmail.com 📧";
+      appendBotMsg(fallback);
+    }
+  }
+
+  /* ── VOICE INPUT ── */
+  function toggleVoice() {
+    if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+      alert('Voice input is not supported in your browser. Try Chrome.');
+      return;
+    }
+    if (recognition && micBtn.classList.contains('listening')) {
+      recognition.stop();
+      micBtn.classList.remove('listening');
+      return;
+    }
+    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    micBtn.classList.add('listening');
+    recognition.start();
+    recognition.onresult = (e) => {
+      const transcript = e.results[0][0].transcript;
+      chatInput.value = transcript;
+      micBtn.classList.remove('listening');
+      sendChatMessage();
+    };
+    recognition.onerror = () => { micBtn.classList.remove('listening'); };
+    recognition.onend = () => { micBtn.classList.remove('listening'); };
+    voiceEnabled = true;
+  }
+
+  /* ── VOICE OUTPUT ── */
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.05;
+    utterance.pitch = 1;
+    window.speechSynthesis.speak(utterance);
+  }
 </script>
 </body>
 </html>
