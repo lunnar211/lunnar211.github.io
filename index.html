@@ -3,16 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Dipesh Karki – Full-Stack Developer & AI/Forex Automation Specialist from Nepal" />
-  <title>Dipesh Karki | Developer Portfolio</title>
+  <title>Dipesh Karki | Full Stack Developer & AI Systems Builder</title>
+  <meta name="description" content="Dipesh Karki – Full Stack Developer & AI Systems Builder from Nepal. I build AI-powered trading systems, web applications and automation tools." />
+  <meta name="keywords" content="Dipesh Karki, Full Stack Developer, AI Developer, Forex Trading Bot, Nepal Developer, Next.js, React, Node.js, AI Integration" />
+  <meta name="author" content="Dipesh Karki" />
+  <meta property="og:title" content="Dipesh Karki | Full Stack Developer & AI Systems Builder" />
+  <meta property="og:description" content="I build AI-powered trading systems, web applications and automation tools from Nepal 🇳🇵" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lunnar211.github.io" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dipesh Karki | Full Stack Developer & AI Systems Builder" />
+  <meta name="twitter:description" content="I build AI-powered trading systems, web applications and automation tools from Nepal 🇳🇵" />
+  <link rel="canonical" href="https://lunnar211.github.io" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ===== RESET & BASE ===== */
+    /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; }
     body {
-      background-color: #060614;
-      color: #e0e0f0;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #060614;
+      color: #f8fafc;
+      font-family: 'Inter', system-ui, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
     }
@@ -20,1173 +33,1249 @@
     img { max-width: 100%; display: block; }
     ul { list-style: none; }
 
-    /* ===== VARIABLES ===== */
+    /* ── VARIABLES ── */
     :root {
       --purple: #7c3aed;
       --purple-light: #a78bfa;
       --cyan: #06b6d4;
       --cyan-light: #67e8f9;
       --bg: #060614;
-      --bg2: #0d0d2b;
-      --bg3: #111132;
-      --border: rgba(124, 58, 237, 0.25);
+      --card: #0f0f1a;
+      --border: #1e1e3a;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
       --grad: linear-gradient(135deg, #7c3aed, #06b6d4);
       --grad-text: linear-gradient(90deg, #a78bfa, #67e8f9);
-      --shadow: 0 4px 30px rgba(124, 58, 237, 0.25);
       --radius: 16px;
       --transition: 0.3s ease;
     }
 
-    /* ===== UTILITIES ===== */
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-    .section { padding: 5rem 0; }
-    .section-title {
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 0.5rem;
+    /* ── UTILITIES ── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 6rem 0; }
+    h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+    .grad-text {
       background: var(--grad-text);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 0.75rem;
     }
     .section-subtitle {
       text-align: center;
-      color: #8888aa;
-      margin-bottom: 3rem;
-      font-size: 1rem;
-    }
-    .gradient-text {
-      background: var(--grad-text);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text-muted);
+      margin-bottom: 3.5rem;
+      font-size: 1.05rem;
     }
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1.6rem;
-      border-radius: 50px;
+      gap: 0.4rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       cursor: pointer;
-      transition: transform var(--transition), box-shadow var(--transition);
+      transition: var(--transition);
       border: none;
+      text-decoration: none;
     }
-    .btn:hover { transform: translateY(-2px); }
     .btn-primary {
       background: var(--grad);
       color: #fff;
-      box-shadow: 0 4px 20px rgba(124,58,237,0.4);
     }
-    .btn-primary:hover { box-shadow: 0 6px 28px rgba(124,58,237,0.6); }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
     .btn-outline {
       background: transparent;
+      border: 1.5px solid var(--purple);
+      color: var(--purple-light);
+    }
+    .btn-outline:hover { background: rgba(124,58,237,0.15); transform: translateY(-2px); }
+    .btn-cyan {
+      background: transparent;
+      border: 1.5px solid var(--cyan);
       color: var(--cyan-light);
-      border: 2px solid var(--cyan);
-      box-shadow: 0 0 12px rgba(6,182,212,0.2);
     }
-    .btn-outline:hover {
-      background: rgba(6,182,212,0.1);
-      box-shadow: 0 0 20px rgba(6,182,212,0.4);
-    }
-    .card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.8rem;
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
-      border-color: rgba(124,58,237,0.5);
-    }
+    .btn-cyan:hover { background: rgba(6,182,212,0.15); transform: translateY(-2px); }
 
-    /* ===== STARS BACKGROUND ===== */
-    #stars-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.6;
+    /* ── FADE-IN ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
 
-    /* ===== NAV ===== */
-    nav {
+    /* ════════════════════════════════
+       NAVBAR
+    ════════════════════════════════ */
+    .navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1rem 0;
+      z-index: 1000;
       background: rgba(6,6,20,0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      transition: padding var(--transition);
+      padding: 0 1.5rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
     }
-    nav .container {
+    .nav-inner {
+      max-width: 1140px;
+      width: 100%;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .nav-logo {
-      font-size: 1.3rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-hire {
+      background: var(--grad);
+      color: #fff !important;
+      padding: 0.5rem 1.1rem;
+      border-radius: 7px;
+      font-weight: 600;
+    }
+    .nav-hire:hover { opacity: 0.85; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      background: rgba(6,6,20,0.97);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      z-index: 999;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--text); }
+
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 68px;
+    }
+    /* Animated gradient mesh */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 40%, rgba(124,58,237,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 60%, rgba(6,182,212,0.14) 0%, transparent 70%);
+      z-index: 0;
+    }
+    /* Floating orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: floatOrb 8s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 400px; height: 400px;
+      background: rgba(124,58,237,0.2);
+      top: -100px; left: -100px;
+      animation-delay: 0s;
+    }
+    .orb-2 {
+      width: 300px; height: 300px;
+      background: rgba(6,182,212,0.18);
+      bottom: -50px; right: -50px;
+      animation-delay: 3s;
+    }
+    .orb-3 {
+      width: 200px; height: 200px;
+      background: rgba(124,58,237,0.12);
+      top: 40%; right: 20%;
+      animation-delay: 1.5s;
+    }
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(20px,-20px) scale(1.05); }
+      66% { transform: translate(-15px,15px) scale(0.95); }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.4);
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--purple-light);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow span { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); display: inline-block; animation: blink 1.2s infinite; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .hero-typing-wrap {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 800;
+      min-height: 1.3em;
+      margin-bottom: 1.5rem;
+    }
+    #typing-text { display: inline-block; }
+    .cursor { display: inline-block; width: 3px; height: 1em; background: var(--cyan); margin-left: 2px; vertical-align: middle; animation: blink 0.7s infinite; }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 130px;
+    }
+    .stat-box strong {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
       font-weight: 800;
       background: var(--grad-text);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
-    .nav-links a {
-      color: #aaa;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: color var(--transition);
-      position: relative;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 2px;
-      background: var(--grad);
-      transition: width var(--transition);
-      border-radius: 2px;
-    }
-    .nav-links a:hover { color: #fff; }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--cyan-light);
-      border-radius: 2px;
-      transition: var(--transition);
-    }
+    .stat-box span { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; }
 
-    /* ===== HERO ===== */
-    #hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: 80px;
-      z-index: 1;
-    }
-    .hero-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-    .hero-text { flex: 1 1 340px; }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(124,58,237,0.15);
-      border: 1px solid rgba(124,58,237,0.4);
-      color: var(--purple-light);
-      padding: 0.35rem 1rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      margin-bottom: 1.2rem;
-    }
-    .hero-badge .dot {
-      width: 8px; height: 8px;
-      background: #22c55e;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .hero-title {
-      font-size: clamp(2.2rem, 6vw, 3.8rem);
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 0.4rem;
-    }
-    .hero-title .name { color: #fff; }
-    .hero-subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
-      margin-bottom: 1.2rem;
-      color: #9090b8;
-      font-weight: 500;
-    }
-    .hero-desc {
-      font-size: 1rem;
-      color: #7070a0;
-      max-width: 480px;
-      margin-bottom: 2rem;
-    }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .hero-social {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    .social-link {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      color: #888;
-      font-size: 0.85rem;
-      transition: color var(--transition);
-    }
-    .social-link:hover { color: var(--cyan-light); }
-    .social-link svg { width: 18px; height: 18px; }
-
-    .hero-visual { flex: 0 0 340px; display: flex; justify-content: center; }
-    .hero-card-wrap {
-      position: relative;
-      width: 300px;
-      height: 300px;
-    }
-    .hero-glow {
-      position: absolute;
-      inset: -30px;
-      background: radial-gradient(circle, rgba(124,58,237,0.35) 0%, transparent 70%);
-      border-radius: 50%;
-      animation: glow-pulse 4s ease-in-out infinite;
-    }
-    @keyframes glow-pulse {
-      0%, 100% { opacity: 0.7; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.05); }
-    }
-    .avatar-ring {
-      width: 300px; height: 300px;
-      border-radius: 50%;
-      background: var(--grad);
-      padding: 3px;
-      position: relative;
-      z-index: 1;
-    }
-    .avatar-inner {
-      width: 100%; height: 100%;
-      border-radius: 50%;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 6rem;
-      overflow: hidden;
-    }
-    .floating-tag {
-      position: absolute;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.5rem 0.8rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-      z-index: 2;
-      box-shadow: var(--shadow);
-    }
-    .tag-forex { top: 5%; right: -20px; color: var(--purple-light); animation: float1 5s ease-in-out infinite; }
-    .tag-ai { bottom: 15%; right: -30px; color: var(--cyan-light); animation: float2 6s ease-in-out infinite; }
-    .tag-web { bottom: 5%; left: -20px; color: #f472b6; animation: float1 4.5s ease-in-out infinite reverse; }
-    @keyframes float1 {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    @keyframes float2 {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
-    }
-
-    /* ===== SKILLS ===== */
-    #skills { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%); position: relative; z-index: 1; }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .skill-card { text-align: center; }
-    .skill-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      display: inline-block;
-    }
-    .skill-name {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-    .skill-desc { font-size: 0.88rem; color: #7070a0; }
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.8rem;
-      justify-content: center;
-    }
-    .tag-pill {
-      background: rgba(124,58,237,0.15);
-      border: 1px solid rgba(124,58,237,0.3);
-      color: var(--purple-light);
-      padding: 0.2rem 0.6rem;
-      border-radius: 50px;
-      font-size: 0.75rem;
-    }
-    .tag-pill.cyan {
-      background: rgba(6,182,212,0.1);
-      border-color: rgba(6,182,212,0.3);
-      color: var(--cyan-light);
-    }
-
-    /* ===== PROJECTS ===== */
-    #projects { position: relative; z-index: 1; }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-    .project-card { position: relative; overflow: hidden; }
-    .project-card.featured {
-      grid-column: 1 / -1;
+    /* ════════════════════════════════
+       ABOUT
+    ════════════════════════════════ */
+    .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
+      gap: 4rem;
+      align-items: start;
     }
-    .featured-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(124,58,237,0.2);
-      border: 1px solid rgba(124,58,237,0.5);
-      color: var(--purple-light);
-      padding: 0.3rem 0.8rem;
-      border-radius: 50px;
-      font-size: 0.75rem;
+    .about-bio {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .about-bio strong { color: var(--text); }
+    .about-bio p + p { margin-top: 1rem; }
+    .skills-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
       margin-bottom: 1rem;
+      color: var(--text);
     }
-    .project-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.8rem;
-    }
-    .project-card.featured .project-title { font-size: 1.9rem; }
-    .project-desc { color: #7070a0; font-size: 0.93rem; margin-bottom: 1.2rem; line-height: 1.7; }
-    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
-    .project-links { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-    .terminal-preview {
-      background: #0a0a1a;
-      border: 1px solid rgba(124,58,237,0.3);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .terminal-bar {
-      background: #111130;
-      padding: 0.6rem 1rem;
+    .skills-grid {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      gap: 0.6rem;
     }
-    .t-btn { width: 12px; height: 12px; border-radius: 50%; }
-    .t-close { background: #ff5f57; }
-    .t-min   { background: #febc2e; }
-    .t-max   { background: #28c840; }
-    .terminal-title { margin-left: 0.8rem; color: #555; font-size: 0.78rem; }
-    .terminal-body {
-      padding: 1rem 1.2rem;
-      font-family: 'Courier New', monospace;
+    .skill-badge {
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.3);
+      color: var(--purple-light);
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
       font-size: 0.82rem;
+      font-weight: 500;
+      transition: var(--transition);
     }
-    .t-line { margin-bottom: 0.3rem; display: flex; gap: 0.5rem; }
-    .t-prompt { color: var(--purple-light); }
-    .t-cmd { color: var(--cyan-light); }
-    .t-out { color: #22c55e; }
-    .t-out.warn { color: #f59e0b; }
-    .t-out.info { color: #8888aa; }
-    .t-cursor { display: inline-block; width: 8px; height: 14px; background: var(--cyan); animation: blink 1.2s step-end infinite; vertical-align: middle; }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .skill-badge:hover {
+      background: rgba(124,58,237,0.25);
+      border-color: var(--purple);
+      color: #fff;
+      transform: translateY(-2px);
+    }
 
-    /* ===== SERVICES ===== */
-    #services { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%); position: relative; z-index: 1; }
-    .services-grid {
+    /* ════════════════════════════════
+       PROJECTS
+    ════════════════════════════════ */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .project-card:hover {
+      border-color: rgba(124,58,237,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(124,58,237,0.18);
+    }
+    .project-card.featured {
+      grid-column: 1 / -1;
+      border-color: rgba(124,58,237,0.4);
+      background: linear-gradient(135deg, #0f0f1a 60%, rgba(124,58,237,0.07));
+    }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .project-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.2rem; }
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-live { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+    .badge-sale { background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); }
+    .project-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
+    .project-features { display: flex; flex-direction: column; gap: 0.35rem; }
+    .project-features li { font-size: 0.88rem; color: #cbd5e1; }
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tech-tag {
+      background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.25);
+      color: var(--cyan-light);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 5px;
+    }
+    .project-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .project-btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: auto; }
+
+    /* ════════════════════════════════
+       SERVICES TABLE
+    ════════════════════════════════ */
+    .services-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+    }
+    thead { background: rgba(124,58,237,0.12); }
+    thead th {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      padding: 1rem 1.5rem;
+      text-align: left;
+    }
+    tbody tr {
+      border-top: 1px solid var(--border);
+      transition: background var(--transition);
+    }
+    tbody tr:hover { background: rgba(124,58,237,0.06); }
+    tbody td {
+      padding: 1rem 1.5rem;
+      font-size: 0.93rem;
+    }
+    .service-name { font-weight: 600; color: var(--text); }
+    .service-price { color: var(--cyan-light); font-weight: 700; font-family: 'Syne', sans-serif; }
+    .service-delivery { color: var(--text-muted); }
+    .table-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+    .table-note a { color: var(--cyan-light); }
+    .table-note a:hover { text-decoration: underline; }
+
+    /* ════════════════════════════════
+       WHY HIRE ME
+    ════════════════════════════════ */
+    .why-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.5rem;
     }
-    .service-card { text-align: center; position: relative; overflow: hidden; }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 60%;
-      height: 2px;
-      background: var(--grad);
-      border-radius: 2px;
+    .why-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      transition: border-color var(--transition), transform var(--transition);
     }
-    .service-icon {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
+    .why-card:hover {
+      border-color: rgba(124,58,237,0.45);
+      transform: translateY(-4px);
     }
-    .service-name {
+    .why-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .why-card h3 {
       font-size: 1.1rem;
       font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
     }
-    .service-desc { font-size: 0.88rem; color: #7070a0; }
-    .service-cta {
-      margin-top: 2.5rem;
-      text-align: center;
-    }
-    .service-cta p { color: #8888aa; margin-bottom: 1rem; }
+    .why-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; }
 
-    /* ===== MEME COIN ===== */
-    #memecoin { position: relative; z-index: 1; }
-    .memecoin-inner {
+    /* ════════════════════════════════
+       TESTIMONIALS
+    ════════════════════════════════ */
+    .testimonials-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
-    .memecoin-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(250, 170, 0, 0.15);
-      border: 1px solid rgba(250, 170, 0, 0.4);
-      color: #fbbf24;
-      padding: 0.3rem 0.8rem;
-      border-radius: 50px;
-      font-size: 0.75rem;
+    .testimonial-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .testimonial-card:hover {
+      border-color: rgba(124,58,237,0.4);
+      transform: translateY(-3px);
+    }
+    .stars { color: #fbbf24; font-size: 1rem; letter-spacing: 2px; }
+    .testimonial-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; font-style: italic; }
+    .testimonial-author { font-weight: 600; font-size: 0.88rem; color: var(--text); margin-top: auto; }
+    .testimonial-author span { color: var(--text-muted); font-weight: 400; }
+    .testimonials-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .testimonials-note a { color: var(--purple-light); }
+    .testimonials-note a:hover { text-decoration: underline; }
+
+    /* ════════════════════════════════
+       CONTACT
+    ════════════════════════════════ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
-    .memecoin-title {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 1rem;
-    }
-    .memecoin-desc { color: #7070a0; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.8; }
-    .memecoin-features { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
-    .memecoin-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.7rem;
-    }
-    .feature-check {
-      width: 22px; height: 22px;
-      background: rgba(6,182,212,0.15);
-      border: 1px solid rgba(6,182,212,0.4);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
+    .contact-items { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .contact-item { display: flex; align-items: center; gap: 0.8rem; }
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
       flex-shrink: 0;
-      margin-top: 2px;
     }
-    .memecoin-visual {
+    .contact-item-text { display: flex; flex-direction: column; }
+    .contact-item-label { font-size: 0.75rem; color: var(--text-muted); }
+    .contact-item-value { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+    .contact-item-value a { color: var(--cyan-light); }
+    .contact-item-value a:hover { text-decoration: underline; }
+    .contact-avail {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .contact-avail strong { color: var(--text); display: block; margin-bottom: 0.25rem; }
+    .contact-form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      gap: 1.1rem;
     }
-    .coin-display {
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle at 35% 35%, #1a1040, #060614);
-      border: 2px solid rgba(250,170,0,0.3);
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.75rem 1rem;
+      transition: border-color var(--transition);
+      outline: none;
+      width: 100%;
+    }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--purple); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-note { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 0 1.5rem;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 2rem;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 0.75rem; }
+    .footer-logo {
+      width: 42px; height: 42px;
       border-radius: 50%;
+      background: var(--grad);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .footer-brand-text { display: flex; flex-direction: column; }
+    .footer-brand-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+    .footer-brand-sub { font-size: 0.78rem; color: var(--text-muted); }
+    .footer-links-col { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+    .footer-links-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+    .footer-links-col a { font-size: 0.88rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links-col a:hover { color: var(--text); }
+    .footer-social { display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; }
+    .footer-social h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .social-icons { display: flex; gap: 0.6rem; }
+    .social-icon {
+      width: 38px; height: 38px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .social-icon:hover { border-color: var(--purple); transform: translateY(-3px); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      position: relative;
-      box-shadow: 0 0 60px rgba(250,170,0,0.15), inset 0 0 40px rgba(250,170,0,0.05);
-      animation: coin-spin 8s linear infinite;
-    }
-    @keyframes coin-spin {
-      0% { box-shadow: 0 0 60px rgba(250,170,0,0.15), inset 0 0 40px rgba(250,170,0,0.05); }
-      50% { box-shadow: 0 0 80px rgba(250,170,0,0.3), inset 0 0 50px rgba(250,170,0,0.1); }
-      100% { box-shadow: 0 0 60px rgba(250,170,0,0.15), inset 0 0 40px rgba(250,170,0,0.05); }
-    }
-    .coin-symbol { font-size: 4rem; margin-bottom: 0.3rem; }
-    .coin-ticker { font-size: 1.5rem; font-weight: 800; color: #fbbf24; }
-    .coin-name-text { font-size: 0.8rem; color: #8888aa; margin-top: 0.2rem; }
-
-    /* ===== CONTACT ===== */
-    #contact { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); position: relative; z-index: 1; }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-    .contact-info h3 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.8rem;
-    }
-    .contact-info p { color: #7070a0; margin-bottom: 2rem; }
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.2rem;
-    }
-    .contact-icon {
-      width: 44px; height: 44px;
-      background: rgba(124,58,237,0.15);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-    .contact-label { font-size: 0.78rem; color: #555; margin-bottom: 0.15rem; }
-    .contact-value { color: var(--cyan-light); font-size: 0.93rem; font-weight: 500; }
-    .contact-links-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    .link-card {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem;
-      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-    }
-    .link-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(124,58,237,0.5);
-      box-shadow: var(--shadow);
-    }
-    .link-card-icon { font-size: 1.5rem; }
-    .link-card-name { font-size: 0.9rem; font-weight: 600; color: #fff; }
-    .link-card-handle { font-size: 0.75rem; color: #555; }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: #03030e;
-      border-top: 1px solid var(--border);
-      padding: 2rem 0;
+      gap: 0.4rem;
       text-align: center;
-      color: #444;
-      font-size: 0.85rem;
-      position: relative;
-      z-index: 1;
     }
-    footer a { color: var(--purple-light); transition: color var(--transition); }
-    footer a:hover { color: var(--cyan-light); }
+    .footer-bottom p { font-size: 0.83rem; color: var(--text-muted); }
 
-    /* ===== SCROLL TO TOP ===== */
-    #scroll-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 44px; height: 44px;
-      background: var(--grad);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 4px 20px rgba(124,58,237,0.4);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity var(--transition), transform var(--transition);
-      z-index: 99;
-      color: #fff;
-      font-size: 1.1rem;
-    }
-    #scroll-top.visible { opacity: 1; transform: translateY(0); }
-    #scroll-top:hover { transform: translateY(-3px); }
-
-    /* ===== RESPONSIVE ===== */
+    /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
     @media (max-width: 900px) {
-      .project-card.featured {
-        grid-template-columns: 1fr;
-      }
-      .memecoin-inner, .contact-grid {
-        grid-template-columns: 1fr;
-      }
-      .memecoin-visual { order: -1; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: auto; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-top { grid-template-columns: 1fr; text-align: center; }
+      .footer-social { align-items: center; }
+      .footer-links-col { align-items: center; }
     }
     @media (max-width: 640px) {
       .nav-links { display: none; }
-      .nav-links.open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0; right: 0;
-        background: rgba(6,6,20,0.97);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border);
-        padding: 1rem 1.5rem;
-        gap: 1.2rem;
-      }
-      .nav-hamburger { display: flex; }
-      .hero-visual { display: none; }
-      .contact-links-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 480px) {
-      .hero-actions { flex-direction: column; }
-      .hero-actions .btn { text-align: center; justify-content: center; }
+      .hamburger { display: flex; }
+      .section { padding: 4rem 0; }
+      .hero-stats { flex-direction: column; align-items: flex-start; }
+      .stat-box { min-width: 100%; }
+      .hero-btns { flex-direction: column; }
+      .why-grid { grid-template-columns: 1fr; }
+      thead th:nth-child(2), tbody td:nth-child(2) { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- STARS CANVAS -->
-  <canvas id="stars-canvas"></canvas>
-
-  <!-- ===== NAV ===== -->
-  <nav id="navbar">
-    <div class="container">
-      <a href="#hero" class="nav-logo">DK.</a>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#memecoin">Meme Coin</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" aria-label="DK Home">DK</a>
+    <div class="nav-links" role="navigation" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+      <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="nav-hire">Hire Me</a>
     </div>
-  </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#projects" class="mobile-link">Projects</a>
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:fit-content">Hire Me</a>
+</div>
 
-  <!-- ===== HERO ===== -->
-  <section id="hero">
-    <div class="container">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <div class="hero-badge">
-            <span class="dot"></span>
-            Available for Work
-          </div>
-          <h1 class="hero-title">
-            <span class="name">Dipesh</span><br />
-            <span class="gradient-text">Karki</span>
-          </h1>
-          <p class="hero-subtitle">Full‑Stack Developer &amp; AI Automation Specialist</p>
-          <p class="hero-desc">
-            Building intelligent trading tools, web apps, and automated systems.
-            Based in <strong style="color:#e0e0f0">Nepal</strong> 🇳🇵 — crafting software that bridges
-            AI and finance.
-          </p>
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">View Projects</a>
-            <a href="#contact" class="btn btn-outline">Get In Touch</a>
-          </div>
-          <div class="hero-social">
-            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="social-link">
-              <!-- GitHub icon -->
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
-              GitHub
-            </a>
-            <a href="mailto:dipeshkarki6612@gmail.com" class="social-link">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-              Email
-            </a>
-            <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener" class="social-link">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.25 16.25v-7.5h-7.5V16.25H16.25zM2 2v20h20V2H2zm18 18H4V4h16v16z"/></svg>
-              Fiverr
-            </a>
-          </div>
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="container">
+    <div class="hero-content fade-in">
+      <div class="hero-eyebrow"><span></span> Available for Freelance · Nepal 🇳🇵</div>
+      <h1 class="hero-title">Hi, I'm Dipesh Karki</h1>
+      <div class="hero-typing-wrap grad-text">
+        <span id="typing-text"></span><span class="cursor"></span>
+      </div>
+      <p class="hero-sub">
+        I build AI-powered trading systems, web applications<br />
+        and automation tools from Nepal 🇳🇵
+      </p>
+      <div class="hero-stats">
+        <div class="stat-box fade-in fade-in-delay-1">
+          <strong>1+</strong>
+          <span>Years Experience</span>
         </div>
-        <div class="hero-visual">
-          <div class="hero-card-wrap">
-            <div class="hero-glow"></div>
-            <div class="avatar-ring">
-              <div class="avatar-inner">🧑‍💻</div>
-            </div>
-            <div class="floating-tag tag-forex">📈 Forex AI</div>
-            <div class="floating-tag tag-ai">🤖 ML / AI</div>
-            <div class="floating-tag tag-web">🌐 Web Dev</div>
-          </div>
+        <div class="stat-box fade-in fade-in-delay-2">
+          <strong>5+</strong>
+          <span>Projects Built</span>
+        </div>
+        <div class="stat-box fade-in fade-in-delay-3">
+          <strong>3+</strong>
+          <span>Countries Reached</span>
+        </div>
+      </div>
+      <div class="hero-btns fade-in fade-in-delay-4">
+        <a href="#projects" class="btn btn-primary">View My Work ↓</a>
+        <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">Hire Me on Fiverr →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section class="section" id="about">
+  <div class="container">
+    <h2 class="section-title fade-in"><span class="grad-text">About Me</span></h2>
+    <p class="section-subtitle fade-in">Full Stack Developer &amp; AI Systems Builder</p>
+    <div class="about-grid">
+      <div class="about-bio fade-in">
+        <p>
+          I am a <strong>BCA graduate from Nepal</strong> passionate about building
+          AI-powered web applications. I specialize in full-stack development with a focus
+          on <strong>trading technology, AI integration</strong> and automation systems.
+        </p>
+        <p>
+          I built <strong>ForexAI Terminal</strong> — a live AI trading platform using
+          5 AI models simultaneously, delivering real-time signals for 12 currency pairs
+          to traders worldwide.
+        </p>
+        <p>
+          My goal is to create real, working products — not demos. Every project I ship
+          is deployed, live and actively used. I bring fast delivery, clean code and
+          full post-delivery support to every client.
+        </p>
+      </div>
+      <div class="fade-in fade-in-delay-1">
+        <p class="skills-heading">Tech Stack &amp; Tools</p>
+        <div class="skills-grid">
+          <span class="skill-badge">Next.js</span>
+          <span class="skill-badge">React</span>
+          <span class="skill-badge">TypeScript</span>
+          <span class="skill-badge">Node.js</span>
+          <span class="skill-badge">Express</span>
+          <span class="skill-badge">PostgreSQL</span>
+          <span class="skill-badge">Redis</span>
+          <span class="skill-badge">Python</span>
+          <span class="skill-badge">Groq API</span>
+          <span class="skill-badge">Gemini</span>
+          <span class="skill-badge">HuggingFace</span>
+          <span class="skill-badge">OpenRouter</span>
+          <span class="skill-badge">Telegram</span>
+          <span class="skill-badge">Docker</span>
+          <span class="skill-badge">Git</span>
+          <span class="skill-badge">Render</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== SKILLS ===== -->
-  <section id="skills" class="section">
-    <div class="container">
-      <h2 class="section-title">Skills &amp; Technologies</h2>
-      <p class="section-subtitle">Tools and technologies I work with daily</p>
-      <div class="skills-grid">
-        <div class="card skill-card">
-          <div class="skill-icon">⚡</div>
-          <div class="skill-name">Backend Development</div>
-          <div class="skill-desc">Building robust APIs and server-side logic</div>
-          <div class="skill-tags">
-            <span class="tag-pill">Python</span>
-            <span class="tag-pill">FastAPI</span>
-            <span class="tag-pill">Django</span>
-            <span class="tag-pill">Node.js</span>
-            <span class="tag-pill">REST APIs</span>
+<!-- ══════════ PROJECTS ══════════ -->
+<section class="section" id="projects" style="background: rgba(15,15,26,0.5);">
+  <div class="container">
+    <h2 class="section-title fade-in"><span class="grad-text">My Projects</span></h2>
+    <p class="section-subtitle fade-in">Available for Sale — Real Products, Real Results</p>
+    <div class="projects-grid">
+
+      <!-- FEATURED: ForexAI Terminal -->
+      <div class="project-card featured fade-in">
+        <div class="project-header">
+          <div>
+            <div class="project-title">⚡ ForexAI Terminal</div>
+            <div class="project-badges">
+              <span class="badge badge-live">● LIVE</span>
+              <span class="badge badge-sale">FOR SALE</span>
+            </div>
           </div>
+          <div class="project-price">$299</div>
         </div>
-        <div class="card skill-card">
-          <div class="skill-icon">🌐</div>
-          <div class="skill-name">Frontend Development</div>
-          <div class="skill-desc">Crafting modern, responsive user interfaces</div>
-          <div class="skill-tags">
-            <span class="tag-pill cyan">React</span>
-            <span class="tag-pill cyan">JavaScript</span>
-            <span class="tag-pill cyan">HTML/CSS</span>
-            <span class="tag-pill cyan">Tailwind CSS</span>
-          </div>
+        <p class="project-desc">
+          AI-powered forex trading dashboard using <strong>5 AI models simultaneously</strong>.
+          Real-time signals for 12 currency pairs, TradingView charts, Telegram bot, admin
+          panel and full user management system.
+        </p>
+        <div class="tech-stack">
+          <span class="tech-tag">Next.js</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">PostgreSQL</span>
+          <span class="tech-tag">Redis</span>
+          <span class="tech-tag">Groq</span>
+          <span class="tech-tag">Gemini</span>
+          <span class="tech-tag">Mistral</span>
+          <span class="tech-tag">HuggingFace</span>
         </div>
-        <div class="card skill-card">
-          <div class="skill-icon">🤖</div>
-          <div class="skill-name">AI &amp; Machine Learning</div>
-          <div class="skill-desc">Intelligent automation and predictive models</div>
-          <div class="skill-tags">
-            <span class="tag-pill">TensorFlow</span>
-            <span class="tag-pill">OpenAI API</span>
-            <span class="tag-pill">NLP</span>
-            <span class="tag-pill">Data Science</span>
-          </div>
+        <ul class="project-features">
+          <li>✅ Live AI signals for 12 pairs</li>
+          <li>✅ Multi-AI consensus engine</li>
+          <li>✅ Telegram bot @ForexAI_Terminal_bot</li>
+          <li>✅ Admin panel with user tracking</li>
+          <li>✅ Image analysis for charts</li>
+          <li>✅ Trading212 + TradingView charts</li>
+        </ul>
+        <div class="project-btns">
+          <a href="https://ai-forex-frontend.onrender.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Live Demo →</a>
+          <a href="https://github.com/lunnar211/ai-forex-dashboard" target="_blank" rel="noopener noreferrer" class="btn btn-outline">View Code</a>
+          <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">Buy Source Code</a>
         </div>
-        <div class="card skill-card">
-          <div class="skill-icon">📈</div>
-          <div class="skill-name">Forex &amp; Trading Automation</div>
-          <div class="skill-desc">Algorithmic trading bots and signal analysis</div>
-          <div class="skill-tags">
-            <span class="tag-pill cyan">MetaTrader 5</span>
-            <span class="tag-pill cyan">MQL5</span>
-            <span class="tag-pill cyan">TA-Lib</span>
-            <span class="tag-pill cyan">Backtesting</span>
-          </div>
+      </div>
+
+      <!-- AI Forex Telegram Bot -->
+      <div class="project-card fade-in fade-in-delay-1">
+        <div class="project-header">
+          <div class="project-title">🤖 AI Forex Telegram Bot</div>
+          <div class="project-price">$150</div>
         </div>
-        <div class="card skill-card">
-          <div class="skill-icon">☁️</div>
-          <div class="skill-name">DevOps &amp; Cloud</div>
-          <div class="skill-desc">Deployment, infrastructure, and CI/CD pipelines</div>
-          <div class="skill-tags">
-            <span class="tag-pill">Docker</span>
-            <span class="tag-pill">Render</span>
-            <span class="tag-pill">GitHub Actions</span>
-            <span class="tag-pill">Linux</span>
-          </div>
+        <p class="project-desc">
+          Custom Telegram bot with AI predictions, live prices, news feed and signal alerts
+          for any forex pair.
+        </p>
+        <div class="tech-stack">
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">Telegraf</span>
+          <span class="tech-tag">Groq</span>
+          <span class="tech-tag">Gemini</span>
         </div>
-        <div class="card skill-card">
-          <div class="skill-icon">🗄️</div>
-          <div class="skill-name">Database &amp; Data</div>
-          <div class="skill-desc">Efficient data storage and management</div>
-          <div class="skill-tags">
-            <span class="tag-pill cyan">PostgreSQL</span>
-            <span class="tag-pill cyan">MongoDB</span>
-            <span class="tag-pill cyan">Redis</span>
-            <span class="tag-pill cyan">SQLite</span>
-          </div>
+        <div class="project-btns">
+          <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Order on Fiverr →</a>
         </div>
+      </div>
+
+      <!-- Custom AI Web Dashboard -->
+      <div class="project-card fade-in fade-in-delay-2">
+        <div class="project-header">
+          <div class="project-title">🌐 Custom AI Web Dashboard</div>
+          <div class="project-price">From $200</div>
+        </div>
+        <p class="project-desc">
+          Full stack web application with AI integration, user auth, admin panel and database.
+          Built to your requirements.
+        </p>
+        <div class="tech-stack">
+          <span class="tech-tag">Next.js</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">PostgreSQL</span>
+          <span class="tech-tag">AI APIs</span>
+        </div>
+        <div class="project-btns">
+          <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Order on Fiverr →</a>
+        </div>
+      </div>
+
+      <!-- AI Rapper Business Guide -->
+      <div class="project-card fade-in fade-in-delay-3">
+        <div class="project-header">
+          <div class="project-title">🎵 AI Rapper Business Guide</div>
+          <div class="project-price">$9.99</div>
+        </div>
+        <p class="project-desc">
+          Complete zero investment guide to making money with AI music. 8 pages, step by step.
+          Instantly downloadable PDF.
+        </p>
+        <div class="project-btns" style="margin-top: auto;">
+          <a href="https://ko-fi.com/dipeshkarki" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">Buy on Ko-fi →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SERVICES ══════════ -->
+<section class="section" id="services">
+  <div class="container">
+    <h2 class="section-title fade-in"><span class="grad-text">Services</span></h2>
+    <p class="section-subtitle fade-in">What I Can Build For You</p>
+    <div class="services-table-wrap fade-in">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Delivery</th>
+            <th>Order</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="service-name">AI Trading Dashboard</td>
+            <td class="service-price">$299</td>
+            <td class="service-delivery">14 days</td>
+            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+          </tr>
+          <tr>
+            <td class="service-name">Telegram Signal Bot</td>
+            <td class="service-price">$150</td>
+            <td class="service-delivery">7 days</td>
+            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+          </tr>
+          <tr>
+            <td class="service-name">Full Stack Web App</td>
+            <td class="service-price">$200+</td>
+            <td class="service-delivery">10 days</td>
+            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+          </tr>
+          <tr>
+            <td class="service-name">AI API Integration</td>
+            <td class="service-price">$100+</td>
+            <td class="service-delivery">5 days</td>
+            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+          </tr>
+          <tr>
+            <td class="service-name">Forex Signal System</td>
+            <td class="service-price">$199</td>
+            <td class="service-delivery">7 days</td>
+            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+          </tr>
+          <tr>
+            <td class="service-name">Landing Page</td>
+            <td class="service-price">$80</td>
+            <td class="service-delivery">3 days</td>
+            <td><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.83rem;">Order</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note fade-in">
+      💬 Have a custom project? <a href="#contact">Contact me directly</a>. I respond within 24 hours.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ WHY HIRE ME ══════════ -->
+<section class="section" id="why" style="background: rgba(15,15,26,0.5);">
+  <div class="container">
+    <h2 class="section-title fade-in"><span class="grad-text">Why Hire Me</span></h2>
+    <p class="section-subtitle fade-in">What makes me different</p>
+    <div class="why-grid">
+      <div class="why-card fade-in">
+        <div class="why-icon">🤖</div>
+        <h3>AI Expertise</h3>
+        <p>I work with 5+ AI providers including Groq, Gemini, Mistral, HuggingFace and OpenRouter to build accurate and fast AI systems.</p>
+      </div>
+      <div class="why-card fade-in fade-in-delay-1">
+        <div class="why-icon">⚡</div>
+        <h3>Fast Delivery</h3>
+        <p>I deliver projects on time with clean code, full documentation and deployment included on Render or Vercel.</p>
+      </div>
+      <div class="why-card fade-in fade-in-delay-2">
+        <div class="why-icon">🌍</div>
+        <h3>Real Projects</h3>
+        <p>I build real working products — not demos. ForexAI Terminal is live and used by real traders worldwide.</p>
+      </div>
+      <div class="why-card fade-in fade-in-delay-3">
+        <div class="why-icon">💬</div>
+        <h3>Full Support</h3>
+        <p>I provide full support after delivery. Bug fixes, updates and improvements included for 30 days.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== PROJECTS ===== -->
-  <section id="projects" class="section">
-    <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <p class="section-subtitle">Featured work and open-source contributions</p>
-      <div class="projects-grid">
-        <!-- Featured: ForexAI Terminal -->
-        <div class="card project-card featured">
-          <div class="project-content">
-            <div class="featured-badge">⭐ Featured Project</div>
-            <h3 class="project-title">ForexAI Terminal</h3>
-            <p class="project-desc">
-              A real-time AI-powered Forex trading dashboard that delivers live market signals,
-              pattern recognition, and intelligent entry/exit recommendations. Built with a FastAPI
-              backend and React frontend, deployed on Render with WebSocket streaming.
-            </p>
-            <div class="project-tech">
-              <span class="tag-pill">Python</span>
-              <span class="tag-pill">FastAPI</span>
-              <span class="tag-pill cyan">React</span>
-              <span class="tag-pill cyan">WebSocket</span>
-              <span class="tag-pill">TA-Lib</span>
-              <span class="tag-pill">OpenAI</span>
-              <span class="tag-pill cyan">Render</span>
-            </div>
-            <div class="project-links">
-              <a href="https://ai-forex-frontend.onrender.com" target="_blank" rel="noopener" class="btn btn-primary">
-                🚀 Live Demo
-              </a>
-              <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-outline">
-                View Code
-              </a>
-            </div>
-          </div>
-          <div class="terminal-preview">
-            <div class="terminal-bar">
-              <span class="t-btn t-close"></span>
-              <span class="t-btn t-min"></span>
-              <span class="t-btn t-max"></span>
-              <span class="terminal-title">forex-ai-terminal ~ bash</span>
-            </div>
-            <div class="terminal-body">
-              <div class="t-line"><span class="t-prompt">❯</span><span class="t-cmd">python run_signal_engine.py</span></div>
-              <div class="t-line"><span class="t-out info">Initializing ForexAI Terminal v2.4...</span></div>
-              <div class="t-line"><span class="t-out">✓ Market data stream connected</span></div>
-              <div class="t-line"><span class="t-out">✓ AI model loaded (LSTM + Transformer)</span></div>
-              <div class="t-line"><span class="t-out warn">⚡ Signal detected: EUR/USD</span></div>
-              <div class="t-line"><span class="t-out">  Direction: LONG 📈</span></div>
-              <div class="t-line"><span class="t-out">  Entry:   1.08420</span></div>
-              <div class="t-line"><span class="t-out">  TP1:     1.08650 (+23 pips)</span></div>
-              <div class="t-line"><span class="t-out warn">  SL:      1.08200 (-22 pips)</span></div>
-              <div class="t-line"><span class="t-out">  Confidence: 87.3%</span></div>
-              <div class="t-line"><span class="t-prompt">❯</span><span class="t-cursor"></span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 2 -->
-        <div class="card project-card">
-          <h3 class="project-title">Crypto Meme Coin Launcher</h3>
-          <p class="project-desc">Full-stack platform for launching and managing meme coins on-chain with smart contract integration and token analytics dashboard.</p>
-          <div class="project-tech">
-            <span class="tag-pill">Solidity</span>
-            <span class="tag-pill cyan">Web3.js</span>
-            <span class="tag-pill">React</span>
-            <span class="tag-pill cyan">Hardhat</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-outline">
-              View Code
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 3 -->
-        <div class="card project-card">
-          <h3 class="project-title">AI Trading Bot (MT5)</h3>
-          <p class="project-desc">Automated Expert Advisor for MetaTrader 5 using ML-based entry signals, dynamic trailing stops, and risk management engine.</p>
-          <div class="project-tech">
-            <span class="tag-pill">MQL5</span>
-            <span class="tag-pill cyan">Python</span>
-            <span class="tag-pill">TensorFlow</span>
-            <span class="tag-pill cyan">MT5</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-outline">
-              View Code
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 4 -->
-        <div class="card project-card">
-          <h3 class="project-title">Full-Stack Task Manager</h3>
-          <p class="project-desc">Collaborative project management app with real-time updates, role-based access, and Kanban board built with FastAPI and React.</p>
-          <div class="project-tech">
-            <span class="tag-pill">FastAPI</span>
-            <span class="tag-pill cyan">React</span>
-            <span class="tag-pill">PostgreSQL</span>
-            <span class="tag-pill cyan">WebSocket</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-outline">
-              View Code
-            </a>
-          </div>
-        </div>
+<!-- ══════════ TESTIMONIALS ══════════ -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <h2 class="section-title fade-in"><span class="grad-text">Client Reviews</span></h2>
+    <p class="section-subtitle fade-in">What clients are saying</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"Dipesh built an amazing AI trading bot for our team. Delivered on time and works perfectly. Highly recommended!"</p>
+        <div class="testimonial-author">Fiverr Client <span>— UK 🇬🇧</span></div>
+      </div>
+      <div class="testimonial-card fade-in fade-in-delay-1">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"Exceptional work on the Telegram signal bot. Clear communication, fast delivery and the code quality is outstanding."</p>
+        <div class="testimonial-author">Fiverr Client <span>— USA 🇺🇸</span></div>
+      </div>
+      <div class="testimonial-card fade-in fade-in-delay-2">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"Best developer I've worked with on Fiverr. Built a full stack AI dashboard from scratch. Professional and reliable."</p>
+        <div class="testimonial-author">Fiverr Client <span>— Australia 🇦🇺</span></div>
       </div>
     </div>
-  </section>
+    <p class="testimonials-note fade-in">
+      Reviews from <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer">Fiverr profile</a>
+    </p>
+  </div>
+</section>
 
-  <!-- ===== SERVICES ===== -->
-  <section id="services" class="section">
-    <div class="container">
-      <h2 class="section-title">Services</h2>
-      <p class="section-subtitle">What I can build for you</p>
-      <div class="services-grid">
-        <div class="card service-card">
-          <div class="service-icon">📊</div>
-          <div class="service-name">Forex Signal System</div>
-          <div class="service-desc">Custom AI-driven trading signal platforms with live data feeds, dashboards, and alerts.</div>
-        </div>
-        <div class="card service-card">
-          <div class="service-icon">🤖</div>
-          <div class="service-name">Trading Bot Development</div>
-          <div class="service-desc">Automated Expert Advisors for MT4/MT5 with backtesting, forward testing and risk management.</div>
-        </div>
-        <div class="card service-card">
-          <div class="service-icon">🌐</div>
-          <div class="service-name">Full-Stack Web Apps</div>
-          <div class="service-desc">End-to-end development from database design to polished UI using modern frameworks.</div>
-        </div>
-        <div class="card service-card">
-          <div class="service-icon">🔗</div>
-          <div class="service-name">API &amp; Integration</div>
-          <div class="service-desc">Third-party API integration, custom REST/GraphQL APIs, and automation workflows.</div>
-        </div>
-        <div class="card service-card">
-          <div class="service-icon">🪙</div>
-          <div class="service-name">Crypto / Web3 Tools</div>
-          <div class="service-desc">Token launchers, smart contracts, on-chain analytics dashboards, and DeFi tooling.</div>
-        </div>
-        <div class="card service-card">
-          <div class="service-icon">🧠</div>
-          <div class="service-name">AI / ML Solutions</div>
-          <div class="service-desc">Predictive models, NLP pipelines, data pipelines, and AI-powered automation tools.</div>
-        </div>
-      </div>
-      <div class="service-cta">
-        <p>Ready to bring your idea to life? Let's work together.</p>
-        <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener" class="btn btn-primary">
-          🟢 Hire Me on Fiverr
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== MEME COIN ===== -->
-  <section id="memecoin" class="section">
-    <div class="container">
-      <h2 class="section-title">Meme Coin Corner</h2>
-      <p class="section-subtitle">Community tokens and crypto experiments</p>
-      <div class="memecoin-inner">
-        <div class="memecoin-text">
-          <div class="memecoin-badge">🚀 Community Driven</div>
-          <h3 class="memecoin-title">Building on the Meme Frontier</h3>
-          <p class="memecoin-desc">
-            Beyond serious finance, I explore the fun side of crypto — creating community-driven
-            meme coin projects that combine humor, smart contract security, and genuine utility.
-            Every great revolution started as a joke. 🐸
-          </p>
-          <div class="memecoin-features">
-            <div class="memecoin-feature">
-              <div class="feature-check">✓</div>
-              <span><strong style="color:#e0e0f0">Smart Contract Audited</strong> — Secure, verified on-chain deployments</span>
-            </div>
-            <div class="memecoin-feature">
-              <div class="feature-check">✓</div>
-              <span><strong style="color:#e0e0f0">Community First</strong> — Fair launch, no rug-pulls, transparent tokenomics</span>
-            </div>
-            <div class="memecoin-feature">
-              <div class="feature-check">✓</div>
-              <span><strong style="color:#e0e0f0">Utility Built-In</strong> — Memes with real-world use cases and ecosystem</span>
-            </div>
-          </div>
-          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-primary">🪙 View Projects</a>
-            <a href="https://ko-fi.com/dipeshkarki" target="_blank" rel="noopener" class="btn btn-outline">☕ Support on Ko-fi</a>
-          </div>
-        </div>
-        <div class="memecoin-visual">
-          <div class="coin-display">
-            <div class="coin-symbol">🐸</div>
-            <div class="coin-ticker">$DKAPE</div>
-            <div class="coin-name-text">Community Token</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" class="section">
-    <div class="container">
-      <h2 class="section-title">Get In Touch</h2>
-      <p class="section-subtitle">Let's build something awesome together</p>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <h3>Let's Connect</h3>
-          <p>Have a project in mind? Need a custom trading tool or web app? I'm always open to new opportunities and collaborations.</p>
+<!-- ══════════ CONTACT ══════════ -->
+<section class="section" id="contact" style="background: rgba(15,15,26,0.5);">
+  <div class="container">
+    <h2 class="section-title fade-in"><span class="grad-text">Get In Touch</span></h2>
+    <p class="section-subtitle fade-in">Let's build something great together</p>
+    <div class="contact-grid">
+      <div class="fade-in">
+        <h3 class="contact-info-heading">Contact Info</h3>
+        <div class="contact-items">
           <div class="contact-item">
             <div class="contact-icon">📧</div>
-            <div>
-              <div class="contact-label">Email</div>
-              <a href="mailto:dipeshkarki6612@gmail.com" class="contact-value">dipeshkarki6612@gmail.com</a>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Email</span>
+              <span class="contact-item-value"><a href="mailto:dipeshkarki6612@gmail.com">dipeshkarki6612@gmail.com</a></span>
             </div>
           </div>
           <div class="contact-item">
-            <div class="contact-icon">📍</div>
-            <div>
-              <div class="contact-label">Location</div>
-              <div class="contact-value">Nepal 🇳🇵</div>
+            <div class="contact-icon">🤖</div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Telegram Bot</span>
+              <span class="contact-item-value"><a href="https://t.me/ForexAI_Terminal_bot" target="_blank" rel="noopener noreferrer">@ForexAI_Terminal_bot</a></span>
             </div>
           </div>
           <div class="contact-item">
-            <div class="contact-icon">⏰</div>
-            <div>
-              <div class="contact-label">Availability</div>
-              <div class="contact-value" style="color:#22c55e;">Open for freelance work</div>
+            <div class="contact-icon">🐙</div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">GitHub</span>
+              <span class="contact-item-value"><a href="https://github.com/lunnar211" target="_blank" rel="noopener noreferrer">github.com/lunnar211</a></span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🛒</div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Fiverr</span>
+              <span class="contact-item-value"><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer">fiverr.com/lunnar112</a></span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">☕</div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Ko-fi</span>
+              <span class="contact-item-value"><a href="https://ko-fi.com/dipeshkarki" target="_blank" rel="noopener noreferrer">ko-fi.com/dipeshkarki</a></span>
             </div>
           </div>
         </div>
-        <div>
-          <div class="contact-links-grid">
-            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="link-card">
-              <div class="link-card-icon">🐙</div>
-              <div>
-                <div class="link-card-name">GitHub</div>
-                <div class="link-card-handle">@lunnar211</div>
-              </div>
-            </a>
-            <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener" class="link-card">
-              <div class="link-card-icon">🟢</div>
-              <div>
-                <div class="link-card-name">Fiverr</div>
-                <div class="link-card-handle">@lunnar112</div>
-              </div>
-            </a>
-            <a href="https://ko-fi.com/dipeshkarki" target="_blank" rel="noopener" class="link-card">
-              <div class="link-card-icon">☕</div>
-              <div>
-                <div class="link-card-name">Ko-fi</div>
-                <div class="link-card-handle">@dipeshkarki</div>
-              </div>
-            </a>
-            <a href="mailto:dipeshkarki6612@gmail.com" class="link-card">
-              <div class="link-card-icon">✉️</div>
-              <div>
-                <div class="link-card-name">Email</div>
-                <div class="link-card-handle">Direct message</div>
-              </div>
-            </a>
-          </div>
-          <div style="margin-top:2rem;">
-            <a href="https://ai-forex-frontend.onrender.com" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center;">
-              🚀 Try ForexAI Terminal Live
-            </a>
-          </div>
+        <div class="contact-avail">
+          <strong>⏱ Response time: Within 24 hours</strong>
+          🌍 Available for freelance projects worldwide
+        </div>
+      </div>
+      <div class="contact-form fade-in fade-in-delay-1">
+        <div class="form-group">
+          <label for="contact-name">Your Name</label>
+          <input type="text" id="contact-name" placeholder="John Smith" autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Email Address</label>
+          <input type="email" id="contact-email" placeholder="john@example.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="contact-type">Project Type</label>
+          <select id="contact-type">
+            <option value="">Select project type…</option>
+            <option value="AI Trading Dashboard">AI Trading Dashboard</option>
+            <option value="Telegram Bot">Telegram Bot</option>
+            <option value="Web Application">Web Application</option>
+            <option value="AI Integration">AI Integration</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" placeholder="Tell me about your project…"></textarea>
+        </div>
+        <button class="btn btn-primary" id="send-btn" style="width:100%;justify-content:center;">Send Message</button>
+        <p class="form-note">Form sends to dipeshkarki6612@gmail.com via mailto link</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">DK</div>
+        <div class="footer-brand-text">
+          <span class="footer-brand-name">Dipesh Karki</span>
+          <span class="footer-brand-sub">Built with ❤️ from Nepal 🇳🇵</span>
+        </div>
+      </div>
+      <div class="footer-links-col">
+        <h4>Quick Links</h4>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-social">
+        <h4>Connect</h4>
+        <div class="social-icons">
+          <a href="https://github.com/lunnar211" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Fiverr" title="Fiverr">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.004 15.588a.995.995 0 10-1.99 0 .995.995 0 001.99 0zm-4.062 2.22V12.02h1.779v-1.544h-1.78V8.342h-1.783v2.134h-.902v1.544h.902v5.788c.006 1.683 1.369 1.865 2.476 1.847a5.62 5.62 0 00.814-.053v-1.57a4.21 4.21 0 01-.43.022c-.571 0-.076-.04-.076-.425zm-6.722 1.44c-1.425 0-2.38-.974-2.38-2.44 0-1.467.955-2.441 2.38-2.441 1.424 0 2.378.974 2.378 2.44 0 1.467-.954 2.44-2.378 2.44zm-.016-6.428c-2.303 0-4.13 1.72-4.13 3.987 0 2.268 1.827 3.987 4.13 3.987 2.303 0 4.128-1.719 4.128-3.987 0-2.267-1.825-3.987-4.128-3.987zM5.662 17.808v-5.788H4.76v-1.544h.902v-.42c0-1.7 1.379-1.878 2.485-1.863.27 0 .555.018.796.051v1.555a4.23 4.23 0 00-.424-.024c-.57 0-.074.041-.074.427v.274h1.7v1.544H8.445v5.788H5.662zm-4.51-9.77a.995.995 0 10-1.99 0 .995.995 0 001.99 0zM0 17.808V10.51h1.783v7.297H0z"/></svg>
+          </a>
+          <a href="https://t.me/ForexAI_Terminal_bot" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Telegram" title="Telegram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+          <a href="https://ko-fi.com/dipeshkarki" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Ko-fi" title="Ko-fi">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"/></svg>
+          </a>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="container">
-      <p>© 2025 <a href="#hero">Dipesh Karki</a>. Built with ❤️ from Nepal 🇳🇵</p>
-      <p style="margin-top:0.4rem;">
-        <a href="https://github.com/lunnar211" target="_blank" rel="noopener">GitHub</a> ·
-        <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener">Fiverr</a> ·
-        <a href="https://ko-fi.com/dipeshkarki" target="_blank" rel="noopener">Ko-fi</a>
-      </p>
+    <div class="footer-bottom">
+      <p>© 2026 Dipesh Karki. All rights reserved.</p>
+      <p>Available for freelance work worldwide</p>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <!-- SCROLL TO TOP -->
-  <button id="scroll-top" aria-label="Scroll to top">↑</button>
+<script>
+  /* ── HAMBURGER MENU ── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
 
-  <script>
-    // ===== STARS BACKGROUND =====
-    (function () {
-      const canvas = document.getElementById('stars-canvas');
-      const ctx = canvas.getContext('2d');
-      let stars = [];
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+  });
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
 
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+  /* ── TYPING ANIMATION ── */
+  const phrases = [
+    'Full Stack Developer',
+    'AI Systems Builder',
+    'Forex Tech Creator',
+    'Web App Developer'
+  ];
+  const typingEl = document.getElementById('typing-text');
+  let phraseIdx = 0, charIdx = 0, deleting = false, pauseTimer = null;
+
+  function type() {
+    const current = phrases[phraseIdx];
+    if (!deleting) {
+      typingEl.textContent = current.slice(0, charIdx + 1);
+      charIdx++;
+      if (charIdx === current.length) {
+        deleting = true;
+        pauseTimer = setTimeout(type, 1800);
+        return;
       }
-
-      function createStars() {
-        stars = [];
-        const count = Math.floor((canvas.width * canvas.height) / 6000);
-        for (let i = 0; i < count; i++) {
-          stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: Math.random() * 1.5 + 0.2,
-            a: Math.random(),
-            speed: Math.random() * 0.004 + 0.001,
-            phase: Math.random() * Math.PI * 2
-          });
-        }
+    } else {
+      typingEl.textContent = current.slice(0, charIdx - 1);
+      charIdx--;
+      if (charIdx === 0) {
+        deleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
       }
+    }
+    setTimeout(type, deleting ? 55 : 95);
+  }
+  type();
 
-      let frame = 0;
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        frame++;
-        stars.forEach(s => {
-          const alpha = s.a * (0.5 + 0.5 * Math.sin(frame * s.speed + s.phase));
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(200, 180, 255, ${alpha})`;
-          ctx.fill();
-        });
-        requestAnimationFrame(draw);
+  /* ── SCROLL FADE-IN ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
       }
-
-      window.addEventListener('resize', () => { resize(); createStars(); });
-      resize();
-      createStars();
-      draw();
-    })();
-
-    // ===== HAMBURGER =====
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
     });
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => navLinks.classList.remove('open'));
-    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // ===== SCROLL TO TOP =====
-    const scrollBtn = document.getElementById('scroll-top');
-    window.addEventListener('scroll', () => {
-      scrollBtn.classList.toggle('visible', window.scrollY > 400);
-    });
-    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  /* ── CONTACT FORM → MAILTO ── */
+  document.getElementById('send-btn').addEventListener('click', () => {
+    const name        = document.getElementById('contact-name').value.trim();
+    const email       = document.getElementById('contact-email').value.trim();
+    const projectType = document.getElementById('contact-type').value;
+    const message     = document.getElementById('contact-message').value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill in your name, email and message.');
+      return;
+    }
+    const subject = encodeURIComponent(`Portfolio Contact: ${projectType || 'General Inquiry'} — ${name}`);
+    const body    = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nProject Type: ${projectType || 'Not specified'}\n\nMessage:\n${message}`
+    );
+    window.location.href = `mailto:dipeshkarki6612@gmail.com?subject=${subject}&body=${body}`;
+  });
 
-    // ===== FADE IN ON SCROLL =====
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.card').forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
-      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease';
-      observer.observe(card);
+  /* ── ACTIVE NAV LINK on scroll ── */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  const scrollSpy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.style.color = '');
+        const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (link) link.style.color = '#f8fafc';
+      }
     });
-  </script>
+  }, { threshold: 0.45 });
+  sections.forEach(s => scrollSpy.observe(s));
+</script>
 </body>
 </html>
