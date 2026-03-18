@@ -3212,7 +3212,6 @@
         body: JSON.stringify({
           message: msg,
           history: agentHistory.slice(-MAX_HISTORY_MSGS),
-          context: AGENT_CTX,
         }),
       });
 
@@ -3223,12 +3222,59 @@
         addMessage(data.response, 'bot');
         agentHistory.push({ role: 'assistant', content: data.response });
         speak(data.response);
+
+        // Handle agent actions
+        if (data.actions && data.actions.length > 0) {
+          data.actions.forEach(action => {
+            handleAgentAction(action);
+          });
+        }
       } else {
         addMessage("Sorry, I had trouble responding. Please try again!", 'bot');
       }
     } catch {
       hideTyping();
       addMessage("I'm having trouble connecting right now. Please try again or email dipeshkarki6612@gmail.com", 'bot');
+    }
+  }
+
+  // Handle agent action commands
+  function handleAgentAction(action) {
+    switch (action) {
+      case 'show_hire_form':
+        setTimeout(() => {
+          const hire = document.getElementById('hire');
+          if (hire) {
+            hire.scrollIntoView({ behavior: 'smooth' });
+          }
+          addMessage(
+            'I have scrolled you to the Hire Me form. ' +
+            'Fill in your project details and I will ' +
+            'help you through the process!',
+            'bot'
+          );
+        }, 500);
+        break;
+
+      case 'scroll_to_projects': {
+        const projects = document.getElementById('projects');
+        if (projects) {
+          projects.scrollIntoView({ behavior: 'smooth' });
+        }
+        break;
+      }
+
+      case 'open_demo':
+        window.open('https://ai-forex-frontend.onrender.com', '_blank');
+        break;
+
+      case 'show_payment': {
+        const services = document.getElementById('services');
+        if (services) {
+          services.scrollIntoView({ behavior: 'smooth' });
+        }
+        break;
+      }
     }
   }
 
@@ -3635,6 +3681,118 @@
     demoInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAgentDemo(); }
     });
+  }
+
+  /* ── Email Verification UI ── */
+
+  // Send verification code
+  async function sendVerifyCode(email) {
+    const btn = document.getElementById('send-code-btn');
+    if (btn) {
+      btn.disabled    = true;
+      btn.textContent = 'Sending...';
+    }
+    try {
+      const res = await fetch(
+        PORTFOLIO_BACKEND + '/api/users/send-code',
+        {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email }),
+        }
+      );
+      const data = await res.json();
+      if (data.success) {
+        showStep('verify-step');
+        startResendTimer();
+        showNotification('Code sent! Check your email inbox.', 'success');
+      } else {
+        showNotification(data.error || 'Failed to send code.', 'error');
+      }
+    } catch (err) {
+      showNotification('Network error. Check your connection.', 'error');
+    } finally {
+      if (btn) {
+        btn.disabled    = false;
+        btn.textContent = 'Send Code';
+      }
+    }
+  }
+
+  // Verify the code
+  async function verifyCode(email, code) {
+    try {
+      const res = await fetch(
+        PORTFOLIO_BACKEND + '/api/users/verify-code',
+        {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email, code }),
+        }
+      );
+      const data = await res.json();
+      if (data.verified) {
+        showStep('success-step');
+        showNotification('Email verified! Welcome to DK API.', 'success');
+      } else {
+        showNotification(data.error || 'Invalid code. Try again.', 'error');
+      }
+    } catch (err) {
+      showNotification('Network error.', 'error');
+    }
+  }
+
+  // Step navigation helper
+  function showStep(stepId) {
+    const steps = ['email-step', 'verify-step', 'success-step'];
+    steps.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = id === stepId ? '' : 'none';
+    });
+  }
+
+  // Resend timer countdown
+  let _resendTimer = null;
+  function startResendTimer() {
+    if (_resendTimer) clearInterval(_resendTimer);
+    let seconds = 60;
+    const resendBtn = document.getElementById('resend-btn');
+    if (resendBtn) resendBtn.disabled = true;
+    _resendTimer = setInterval(() => {
+      seconds--;
+      const timerEl = document.getElementById('resend-timer');
+      if (timerEl) {
+        timerEl.textContent = `Resend in ${seconds}s`;
+      }
+      if (seconds <= 0) {
+        clearInterval(_resendTimer);
+        _resendTimer = null;
+        if (resendBtn) {
+          resendBtn.disabled    = false;
+          resendBtn.textContent = 'Resend Code';
+        }
+      }
+    }, 1000);
+  }
+
+  function showNotification(message, type) {
+    const existing = document.getElementById('dk-notification');
+    if (existing) existing.remove();
+    const el = document.createElement('div');
+    el.id = 'dk-notification';
+    el.style.cssText = `
+      position:fixed; top:20px; right:20px;
+      padding:14px 20px; border-radius:10px;
+      font-size:14px; font-weight:600;
+      z-index:99999; max-width:320px;
+      animation:fadeIn 0.3s ease;
+      ${type === 'success'
+        ? 'background:#052e16;color:#22c55e;border:1px solid #22c55e;'
+        : 'background:#2d0a0a;color:#ef4444;border:1px solid #ef4444;'}
+    `;
+    el.textContent = message;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
   }
 
 </script>
