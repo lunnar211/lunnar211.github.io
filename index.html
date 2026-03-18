@@ -2968,7 +2968,7 @@
       document.getElementById('tracking-id-display').textContent = '#' + localId;
       hireGoTo(5);
       // Fire-and-forget backend submission; update tracking ID if backend returns one
-      fetch('https://ai-forex-backend.onrender.com/api/portfolio/hire', {
+      fetch(PORTFOLIO_BACKEND + '/api/hire/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -3605,7 +3605,7 @@
     const typingEl = addDemoMessage('Thinking…', 'typing');
 
     try {
-      const res = await fetch(AGENT_API + '/api/assistant/chat', {
+      const res = await fetch(PORTFOLIO_BACKEND + '/api/assistant/chat', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
