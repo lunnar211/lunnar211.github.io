@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ── Reset & Root ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #060614;
+      --bg2:          #0a0a1a;
+      --card:         #0f0f1a;
+      --card2:        #13132a;
+      --border:       #1e1e3a;
+      --text:         #f8fafc;
+      --text-muted:   #94a3b8;
+      --purple:       #7c3aed;
+      --purple-light: #a78bfa;
+      --cyan:         #06b6d4;
+      --cyan-light:   #67e8f9;
+      --green:        #22c55e;
+      --green-light:  #4ade80;
+      --red:          #ef4444;
+      --red-light:    #fca5a5;
+      --yellow:       #f59e0b;
+      --yellow-light: #fcd34d;
+      --grad:         linear-gradient(135deg, #7c3aed, #06b6d4);
+      --grad-text:    linear-gradient(90deg, #a78bfa, #67e8f9);
+      --radius:       16px;
+      --sidebar-w:    240px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 0.93rem;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    h1,h2,h3,h4,h5 { font-family: Syne, system-ui, sans-serif; font-weight: 700; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Utility ── */
+    .grad-text {
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--purple); }
+
+    /* ────────────────────────────────
+       LOGIN PAGE
+    ──────────────────────────────── */
+    #login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,58,237,0.18) 0%, transparent 70%),
+                  var(--bg);
+    }
+
+    .login-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    }
+
+    .login-logo {
+      font-family: Syne, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+    }
+
+    .login-sub {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .form-group label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .form-group input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: Inter, sans-serif;
+      font-size: 0.9rem;
+      padding: 0.75rem 1rem;
+      transition: border-color 0.3s;
+      outline: none;
+      width: 100%;
+    }
+
+    .form-group input:focus { border-color: var(--purple); }
+
+    #login-error {
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 8px;
+      color: var(--red-light);
+      font-size: 0.83rem;
+      padding: 0.65rem 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--grad);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      font-family: Inter, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.8rem 1.5rem;
+      transition: opacity 0.3s, transform 0.2s;
+      width: 100%;
+    }
+
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+    /* ────────────────────────────────
+       DASHBOARD LAYOUT
+    ──────────────────────────────── */
+    #dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: var(--sidebar-w);
+      z-index: 200;
+      overflow-y: auto;
+      transition: transform 0.3s;
+    }
+
+    .sidebar-brand {
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 1.4rem 1.2rem;
+    }
+
+    .sidebar-icon {
+      background: var(--grad);
+      border-radius: 8px;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand-text {
+      font-family: Syne, sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .sidebar-brand-sub {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 1rem 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .nav-item {
+      align-items: center;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      gap: 0.7rem;
+      padding: 0.65rem 0.9rem;
+      transition: background 0.2s, color 0.2s;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .nav-item:hover { background: rgba(124,58,237,0.1); color: var(--text); }
+
+    .nav-item.active {
+      background: rgba(124,58,237,0.18);
+      color: var(--purple-light);
+    }
+
+    .nav-item .nav-icon { font-size: 1rem; width: 18px; text-align: center; flex-shrink: 0; }
+
+    .sidebar-footer {
+      border-top: 1px solid var(--border);
+      padding: 1rem 1.2rem;
+    }
+
+    .sidebar-admin {
+      align-items: center;
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    .admin-avatar {
+      background: var(--grad);
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Syne, sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .admin-info { flex: 1; min-width: 0; }
+
+    .admin-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .admin-role {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-logout:hover { border-color: var(--red); color: var(--red-light); }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      margin-left: var(--sidebar-w);
+      min-width: 0;
+    }
+
+    .topbar {
+      background: rgba(6,6,20,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 1.8rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-title {
+      font-family: Syne, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .topbar-actions { display: flex; align-items: center; gap: 0.8rem; }
+
+    .refresh-badge {
+      align-items: center;
+      background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 100px;
+      color: var(--cyan-light);
+      display: flex;
+      font-size: 0.75rem;
+      gap: 0.4rem;
+      padding: 0.25rem 0.75rem;
+    }
+
+    .refresh-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .content {
+      padding: 1.8rem;
+    }
+
+    /* Section */
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ────────────────────────────────
+       STAT CARDS
+    ──────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.5rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .stat-card:hover {
+      border-color: rgba(124,58,237,0.4);
+      box-shadow: 0 8px 32px rgba(124,58,237,0.1);
+    }
+
+    .stat-header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.9rem;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-icon {
+      background: rgba(124,58,237,0.12);
+      border-radius: 8px;
+      font-size: 1.1rem;
+      padding: 0.45rem 0.55rem;
+    }
+
+    .stat-value {
+      font-family: Syne, sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-today {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .trend-up { color: var(--green-light); }
+    .trend-dn { color: var(--red-light); }
+
+    /* ────────────────────────────────
+       PANEL / CARD CONTAINER
+    ──────────────────────────────── */
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 1.8rem;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.1rem 1.5rem;
+    }
+
+    .panel-title {
+      font-family: Syne, sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .panel-body { padding: 0; overflow-x: auto; }
+
+    /* ────────────────────────────────
+       TABLES
+    ──────────────────────────────── */
+    .data-table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 600px;
+    }
+
+    .data-table thead {
+      background: rgba(124,58,237,0.1);
+    }
+
+    .data-table th {
+      color: var(--text-muted);
+      font-family: Syne, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.85rem 1.2rem;
+      text-align: left;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      border-top: 1px solid var(--border);
+      font-size: 0.88rem;
+      padding: 0.85rem 1.2rem;
+      vertical-align: middle;
+    }
+
+    .data-table tbody tr:hover { background: rgba(124,58,237,0.05); }
+
+    .data-table .empty-row td {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    /* ────────────────────────────────
+       BADGES
+    ──────────────────────────────── */
+    .badge {
+      border-radius: 100px;
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.65rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .badge-active  { background: rgba(34,197,94,0.12);  color: var(--green-light); border: 1px solid rgba(34,197,94,0.3);  }
+    .badge-blocked { background: rgba(239,68,68,0.12);  color: var(--red-light);   border: 1px solid rgba(239,68,68,0.3);  }
+    .badge-pending { background: rgba(245,158,11,0.12); color: var(--yellow-light);border: 1px solid rgba(245,158,11,0.3); }
+    .badge-progress{ background: rgba(6,182,212,0.12);  color: var(--cyan-light);  border: 1px solid rgba(6,182,212,0.3);  }
+    .badge-done    { background: rgba(34,197,94,0.12);  color: var(--green-light); border: 1px solid rgba(34,197,94,0.3);  }
+    .badge-paid    { background: rgba(34,197,94,0.12);  color: var(--green-light); border: 1px solid rgba(34,197,94,0.3);  }
+    .badge-failed  { background: rgba(239,68,68,0.12);  color: var(--red-light);   border: 1px solid rgba(239,68,68,0.3);  }
+    .badge-refund  { background: rgba(124,58,237,0.12); color: var(--purple-light);border: 1px solid rgba(124,58,237,0.3); }
+    .badge-default { background: rgba(148,163,184,0.1); color: var(--text-muted);  border: 1px solid var(--border); }
+
+    /* ────────────────────────────────
+       ACTION BUTTONS
+    ──────────────────────────────── */
+    .btn-sm {
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: Inter, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.28rem 0.75rem;
+      transition: opacity 0.2s, transform 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .btn-sm:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .btn-block  { background: rgba(239,68,68,0.15);  color: var(--red-light);   border-color: rgba(239,68,68,0.3);  }
+    .btn-unblock{ background: rgba(34,197,94,0.15);  color: var(--green-light); border-color: rgba(34,197,94,0.3);  }
+
+    .status-select {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: Inter, sans-serif;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .status-select:focus { border-color: var(--purple); }
+
+    /* ────────────────────────────────
+       CHART PANEL
+    ──────────────────────────────── */
+    .chart-wrap {
+      padding: 1.5rem;
+    }
+
+    #pageViewsChart { max-height: 300px; }
+
+    /* ────────────────────────────────
+       LOADING SPINNER
+    ──────────────────────────────── */
+    .spinner-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+    }
+
+    .spinner {
+      border: 3px solid var(--border);
+      border-top-color: var(--purple);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ────────────────────────────────
+       TOAST
+    ──────────────────────────────── */
+    #toast {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      bottom: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      font-size: 0.88rem;
+      font-weight: 500;
+      max-width: 320px;
+      opacity: 0;
+      padding: 0.8rem 1.2rem;
+      pointer-events: none;
+      position: fixed;
+      right: 1.5rem;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9999;
+    }
+
+    #toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #toast.success { border-color: rgba(34,197,94,0.4); color: var(--green-light); }
+    #toast.error   { border-color: rgba(239,68,68,0.4); color: var(--red-light); }
+
+    /* ────────────────────────────────
+       MOBILE — sidebar toggle
+    ──────────────────────────────── */
+    .sidebar-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      cursor: pointer;
+      display: none;
+      font-size: 1.1rem;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .sidebar-overlay {
+      background: rgba(6,6,20,0.7);
+      display: none;
+      inset: 0;
+      position: fixed;
+      z-index: 190;
+    }
+
+    @media (max-width: 768px) {
+      :root { --sidebar-w: 240px; }
+
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar-overlay.open { display: block; }
+      .sidebar-toggle { display: flex; align-items: center; }
+      .main { margin-left: 0; }
+      .content { padding: 1.2rem; }
+      .topbar { padding: 0.8rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     LOGIN PAGE
+═══════════════════════════════════════ -->
+<div id="login-page">
+  <div class="login-box">
+    <div class="login-logo grad-text">⚡ Admin Portal</div>
+    <p class="login-sub">Portfolio control panel — authorised access only</p>
+
+    <div id="login-error" class="hidden"></div>
+
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <label for="admin-email">Email</label>
+        <input type="email" id="admin-email" placeholder="admin@example.com" autocomplete="email" required />
+      </div>
+      <div class="form-group">
+        <label for="admin-password">Password</label>
+        <input type="password" id="admin-password" placeholder="••••••••" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn-primary" id="login-btn">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DASHBOARD
+═══════════════════════════════════════ -->
+<div id="dashboard" class="hidden">
+
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-icon">⚡</div>
+      <div>
+        <div class="sidebar-brand-text">Admin</div>
+        <div class="sidebar-brand-sub">Portfolio Dashboard</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" role="navigation" aria-label="Admin navigation">
+      <div class="nav-item active" data-section="stats" role="button" tabindex="0" aria-label="Overview">
+        <span class="nav-icon">📊</span> Overview
+      </div>
+      <div class="nav-item" data-section="users" role="button" tabindex="0" aria-label="Users">
+        <span class="nav-icon">👥</span> Users
+      </div>
+      <div class="nav-item" data-section="payments" role="button" tabindex="0" aria-label="Payments">
+        <span class="nav-icon">💳</span> Payments
+      </div>
+      <div class="nav-item" data-section="hires" role="button" tabindex="0" aria-label="Hire Requests">
+        <span class="nav-icon">📋</span> Hire Requests
+      </div>
+      <div class="nav-item" data-section="activity" role="button" tabindex="0" aria-label="Activity Log">
+        <span class="nav-icon">🔍</span> Activity Log
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-admin">
+        <div class="admin-avatar">D</div>
+        <div class="admin-info">
+          <div class="admin-name" id="admin-email-display">Admin</div>
+          <div class="admin-role">Administrator</div>
+        </div>
+        <button class="btn-logout" id="logout-btn" title="Sign out">↩</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+        <span class="topbar-title" id="topbar-title">Overview</span>
+      </div>
+      <div class="topbar-actions">
+        <div class="refresh-badge" id="live-badge">
+          <span class="refresh-dot"></span> Live
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- ── STATS SECTION ── -->
+      <div class="section active" id="section-stats">
+        <div class="stats-grid" id="stats-grid">
+          <!-- Cards injected by JS -->
+          <div class="spinner-wrap"><div class="spinner"></div></div>
+        </div>
+
+        <!-- Page views chart -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Page Views — Last 30 Days</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="pageViewsChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── USERS SECTION ── -->
+      <div class="section" id="section-users">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Users</span>
+          </div>
+          <div class="panel-body" id="users-body">
+            <div class="spinner-wrap"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PAYMENTS SECTION ── -->
+      <div class="section" id="section-payments">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Payments</span>
+          </div>
+          <div class="panel-body" id="payments-body">
+            <div class="spinner-wrap"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HIRES SECTION ── -->
+      <div class="section" id="section-hires">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Hire Requests</span>
+          </div>
+          <div class="panel-body" id="hires-body">
+            <div class="spinner-wrap"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ACTIVITY SECTION ── -->
+      <div class="section" id="section-activity">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Activity Log</span>
+            <span class="refresh-badge">
+              <span class="refresh-dot"></span> Auto-refresh 30 seconds
+            </span>
+          </div>
+          <div class="panel-body" id="activity-body">
+            <div class="spinner-wrap"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /dashboard -->
+
+<!-- Toast notification -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ═══════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════ */
+const API = 'https://portfolio-backend.onrender.com';
+
+/* ═══════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════ */
+function getToken() { return localStorage.getItem('admin_token'); }
+function setToken(t) { localStorage.setItem('admin_token', t); }
+function clearToken() { localStorage.removeItem('admin_token'); localStorage.removeItem('admin_email'); }
+
+let toastTimer;
+function showToast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = ''; }, 3500);
+}
+
+async function apiFetch(path, opts = {}) {
+  const token = getToken();
+  const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  const res = await fetch(API + path, { ...opts, headers });
+  if (res.status === 401) { doLogout(); throw new Error('Unauthorised'); }
+  return res;
+}
+
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+
+function fmtCurrency(val) {
+  if (val == null) return '—';
+  if (typeof val === 'string' && /^\$/.test(val)) return val;
+  const num = parseFloat(val);
+  return isNaN(num) ? String(val) : '$' + num.toFixed(2);
+}
+
+function escHtml(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ═══════════════════════════════════════
+   LOGIN
+═══════════════════════════════════════ */
+document.getElementById('login-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const email    = document.getElementById('admin-email').value.trim();
+  const password = document.getElementById('admin-password').value;
+  const btn      = document.getElementById('login-btn');
+  const errEl    = document.getElementById('login-error');
+
+  errEl.classList.add('hidden');
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+
+  try {
+    const res = await fetch(API + '/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      errEl.textContent = data.message || data.error || 'Invalid credentials.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    const token = data.token || data.accessToken;
+    if (!token) {
+      errEl.textContent = 'Login succeeded but no token was returned.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    setToken(token);
+    localStorage.setItem('admin_email', email);
+    showDashboard(email);
+
+  } catch (err) {
+    errEl.textContent = 'Network error — unable to reach backend.';
+    errEl.classList.remove('hidden');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Sign In';
+  }
+});
+
+/* ═══════════════════════════════════════
+   SHOW / HIDE PAGES
+═══════════════════════════════════════ */
+function showDashboard(email) {
+  document.getElementById('login-page').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('hidden');
+  document.getElementById('admin-email-display').textContent = email || 'Admin';
+  loadSection('stats');
+  startActivityRefresh();
+}
+
+function doLogout() {
+  clearToken();
+  clearInterval(activityRefreshTimer);
+  document.getElementById('dashboard').classList.add('hidden');
+  document.getElementById('login-page').classList.remove('hidden');
+  document.getElementById('admin-password').value = '';
+}
+
+document.getElementById('logout-btn').addEventListener('click', doLogout);
+
+/* Auto-login if token exists */
+window.addEventListener('DOMContentLoaded', () => {
+  const token = getToken();
+  if (token) {
+    const email = localStorage.getItem('admin_email') || 'Admin';
+    showDashboard(email);
+  }
+});
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════ */
+const SECTION_TITLES = {
+  stats:    'Overview',
+  users:    'Users',
+  payments: 'Payments',
+  hires:    'Hire Requests',
+  activity: 'Activity Log'
+};
+
+let currentSection = 'stats';
+
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => navTo(item.dataset.section));
+  item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') navTo(item.dataset.section); });
+});
+
+function navTo(section) {
+  if (section === currentSection) return;
+  currentSection = section;
+
+  // Active nav item
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.section === section));
+
+  // Active section
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section-' + section).classList.add('active');
+
+  // Topbar title
+  document.getElementById('topbar-title').textContent = SECTION_TITLES[section] || section;
+
+  loadSection(section);
+  closeSidebar();
+}
+
+let loadedSections = new Set();
+
+function loadSection(section) {
+  // Stats always re-fetch (contains chart)
+  if (section === 'stats') { fetchStats(); fetchPageViews(); return; }
+  if (loadedSections.has(section)) return;
+  loadedSections.add(section);
+
+  if (section === 'users')    fetchUsers();
+  if (section === 'payments') fetchPayments();
+  if (section === 'hires')    fetchHires();
+  if (section === 'activity') fetchActivity();
+}
+
+/* ═══════════════════════════════════════
+   SIDEBAR MOBILE TOGGLE
+═══════════════════════════════════════ */
+document.getElementById('sidebar-toggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+});
+
+document.getElementById('sidebar-overlay').addEventListener('click', closeSidebar);
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+}
+
+/* ═══════════════════════════════════════
+   STATS
+═══════════════════════════════════════ */
+async function fetchStats() {
+  const grid = document.getElementById('stats-grid');
+  grid.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>';
+
+  try {
+    const res  = await apiFetch('/api/admin/stats');
+    const data = await res.json();
+
+    const cards = [
+      { label: 'Total Users',    icon: '👥', value: data.totalUsers    ?? 0,   today: data.todayUsers    ?? 0,   fmt: String },
+      { label: 'Total Revenue',  icon: '💰', value: data.totalRevenue  ?? 0,   today: data.todayRevenue  ?? 0,   fmt: fmtCurrency },
+      { label: 'Hire Requests',  icon: '📋', value: data.totalHires    ?? 0,   today: data.todayHires    ?? 0,   fmt: String },
+      { label: 'Page Views',     icon: '👁️', value: data.totalViews    ?? 0,   today: data.todayViews    ?? 0,   fmt: String }
+    ];
+
+    grid.innerHTML = cards.map(c => `
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">${escHtml(c.label)}</span>
+          <span class="stat-icon">${c.icon}</span>
+        </div>
+        <div class="stat-value grad-text">${escHtml(c.fmt(c.value))}</div>
+        <div class="stat-today">
+          <span class="trend-up">↑</span>
+          <span>${escHtml(c.fmt(c.today))} today</span>
+        </div>
+      </div>
+    `).join('');
+
+  } catch (err) {
+    grid.innerHTML = '<p style="color:var(--text-muted);padding:1rem">Failed to load stats.</p>';
+  }
+}
+
+/* ═══════════════════════════════════════
+   PAGE VIEWS CHART
+═══════════════════════════════════════ */
+let pvChart;
+
+async function fetchPageViews() {
+  try {
+    const res  = await apiFetch('/api/admin/pageviews');
+    const data = await res.json();
+
+    const labels = (data.labels || data.dates  || []);
+    const values = (data.values || data.counts || []);
+
+    const ctx = document.getElementById('pageViewsChart').getContext('2d');
+
+    if (pvChart) pvChart.destroy();
+
+    pvChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Page Views',
+          data: values,
+          borderColor: '#7c3aed',
+          backgroundColor: 'rgba(124,58,237,0.12)',
+          borderWidth: 2,
+          pointBackgroundColor: '#a78bfa',
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#0f0f1a',
+            borderColor: '#1e1e3a',
+            borderWidth: 1,
+            titleColor: '#f8fafc',
+            bodyColor: '#94a3b8'
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#94a3b8', font: { family: 'Inter', size: 11 } },
+            grid:  { color: '#1e1e3a' }
+          },
+          y: {
+            ticks: { color: '#94a3b8', font: { family: 'Inter', size: 11 } },
+            grid:  { color: '#1e1e3a' }
+          }
+        }
+      }
+    });
+  } catch (_) {
+    // Chart silently skipped if data unavailable
+  }
+}
+
+/* ═══════════════════════════════════════
+   USERS TABLE
+═══════════════════════════════════════ */
+async function fetchUsers() {
+  const body = document.getElementById('users-body');
+  body.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>';
+
+  try {
+    const res   = await apiFetch('/api/admin/users');
+    const users = await res.json();
+    const arr   = Array.isArray(users) ? users : (users.users || []);
+
+    if (!arr.length) {
+      body.innerHTML = '<table class="data-table"><tbody><tr class="empty-row"><td>No users found.</td></tr></tbody></table>';
+      return;
+    }
+
+    body.innerHTML = `
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Name</th><th>Email</th><th>Plan</th>
+            <th>Country</th><th>Last Login</th><th>Status</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${arr.map(u => {
+            const uid     = escHtml(u.id || u._id || '');
+            const blocked = !!(u.blocked || u.status === 'blocked');
+            return `
+              <tr>
+                <td>${escHtml(u.name || u.username || '—')}</td>
+                <td>${escHtml(u.email || '—')}</td>
+                <td>${escHtml(u.plan || 'Free')}</td>
+                <td>${escHtml(u.country || '—')}</td>
+                <td>${fmtDate(u.lastLogin || u.last_login)}</td>
+                <td><span class="badge ${blocked ? 'badge-blocked' : 'badge-active'}" data-user-status="${uid}">${blocked ? 'Blocked' : 'Active'}</span></td>
+                <td>
+                  <button class="btn-sm ${blocked ? 'btn-unblock' : 'btn-block'}"
+                          data-user-id="${uid}"
+                          data-blocked="${blocked}">
+                    ${blocked ? 'Unblock' : 'Block'}
+                  </button>
+                </td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    `;
+  } catch (err) {
+    body.innerHTML = '<p style="color:var(--text-muted);padding:1rem">Failed to load users.</p>';
+  }
+}
+
+/* Event delegation for block/unblock buttons */
+document.getElementById('users-body').addEventListener('click', async e => {
+  const btn = e.target.closest('[data-user-id]');
+  if (!btn) return;
+
+  const userId         = btn.dataset.userId;
+  const currentBlocked = btn.dataset.blocked === 'true';
+  const action         = currentBlocked ? 'unblock' : 'block';
+
+  btn.disabled = true;
+  try {
+    const res = await apiFetch(`/api/admin/users/${encodeURIComponent(userId)}/${action}`, { method: 'POST' });
+    if (!res.ok) throw new Error('Request failed');
+
+    const nowBlocked   = !currentBlocked;
+    const badge        = btn.closest('tr').querySelector('[data-user-status]');
+    badge.className    = 'badge ' + (nowBlocked ? 'badge-blocked' : 'badge-active');
+    badge.textContent  = nowBlocked ? 'Blocked' : 'Active';
+    btn.className      = 'btn-sm ' + (nowBlocked ? 'btn-unblock' : 'btn-block');
+    btn.textContent    = nowBlocked ? 'Unblock' : 'Block';
+    btn.dataset.blocked = String(nowBlocked);
+    showToast(`User ${nowBlocked ? 'blocked' : 'unblocked'} successfully.`);
+  } catch (_) {
+    showToast('Action failed. Please try again.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+/* ═══════════════════════════════════════
+   PAYMENTS TABLE
+═══════════════════════════════════════ */
+async function fetchPayments() {
+  const body = document.getElementById('payments-body');
+  body.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>';
+
+  try {
+    const res   = await apiFetch('/api/admin/payments');
+    const data  = await res.json();
+    const arr   = Array.isArray(data) ? data : (data.payments || []);
+
+    if (!arr.length) {
+      body.innerHTML = '<table class="data-table"><tbody><tr class="empty-row"><td>No payments found.</td></tr></tbody></table>';
+      return;
+    }
+
+    const statusBadge = s => {
+      const map = { paid: 'badge-paid', completed: 'badge-paid', failed: 'badge-failed', refunded: 'badge-refund', pending: 'badge-pending' };
+      const cls = map[(s || '').toLowerCase()] || 'badge-default';
+      return `<span class="badge ${cls}">${escHtml(s || 'unknown')}</span>`;
+    };
+
+    body.innerHTML = `
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Product</th><th>Amount</th><th>Buyer</th>
+            <th>Email</th><th>Date</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${arr.map(p => `
+            <tr>
+              <td>${escHtml(p.product || p.productName || p.item || '—')}</td>
+              <td>${escHtml(fmtCurrency(p.amount ?? null))}</td>
+              <td>${escHtml(p.buyer || p.buyerName || p.name || '—')}</td>
+              <td>${escHtml(p.email || p.buyerEmail || '—')}</td>
+              <td>${fmtDate(p.date || p.createdAt || p.created_at)}</td>
+              <td>${statusBadge(p.status)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  } catch (_) {
+    body.innerHTML = '<p style="color:var(--text-muted);padding:1rem">Failed to load payments.</p>';
+  }
+}
+
+/* ═══════════════════════════════════════
+   HIRE REQUESTS TABLE
+═══════════════════════════════════════ */
+const HIRE_STATUSES = ['pending', 'in progress', 'completed'];
+
+async function fetchHires() {
+  const body = document.getElementById('hires-body');
+  body.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>';
+
+  try {
+    const res  = await apiFetch('/api/admin/hires');
+    const data = await res.json();
+    const arr  = Array.isArray(data) ? data : (data.hires || []);
+
+    if (!arr.length) {
+      body.innerHTML = '<table class="data-table"><tbody><tr class="empty-row"><td>No hire requests found.</td></tr></tbody></table>';
+      return;
+    }
+
+    body.innerHTML = `
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Tracking ID</th><th>Name</th><th>Email</th>
+            <th>Project Type</th><th>Budget</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${arr.map(h => {
+            const hid = escHtml(h.id || h._id || h.trackingId || '');
+            const cur = (h.status || 'pending').toLowerCase();
+            return `
+              <tr>
+                <td><code style="font-size:0.8rem;color:var(--cyan-light)">${escHtml(h.trackingId || h.tracking_id || h.id || h._id || '—')}</code></td>
+                <td>${escHtml(h.name || h.clientName || '—')}</td>
+                <td>${escHtml(h.email || '—')}</td>
+                <td>${escHtml(h.projectType || h.project_type || h.type || '—')}</td>
+                <td>${escHtml(h.budget || '—')}</td>
+                <td>
+                  <select class="status-select" data-hire-id="${hid}">
+                    ${HIRE_STATUSES.map(s => `<option value="${s}" ${s === cur ? 'selected' : ''}>${s.charAt(0).toUpperCase() + s.slice(1)}</option>`).join('')}
+                  </select>
+                </td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    `;
+  } catch (_) {
+    body.innerHTML = '<p style="color:var(--text-muted);padding:1rem">Failed to load hire requests.</p>';
+  }
+}
+
+/* Event delegation for hire status selects */
+document.getElementById('hires-body').addEventListener('change', async e => {
+  const sel = e.target.closest('[data-hire-id]');
+  if (!sel) return;
+  await updateHireStatus(sel.dataset.hireId, sel.value);
+});
+
+async function updateHireStatus(hireId, status) {
+  try {
+    const res = await apiFetch(`/api/admin/hires/${encodeURIComponent(hireId)}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status })
+    });
+    if (!res.ok) throw new Error('Failed');
+    showToast(`Status updated to "${status}".`);
+  } catch (_) {
+    showToast('Failed to update status.', 'error');
+  }
+}
+
+/* ═══════════════════════════════════════
+   ACTIVITY LOG
+═══════════════════════════════════════ */
+let activityRefreshTimer;
+
+async function fetchActivity() {
+  const body = document.getElementById('activity-body');
+  // Only show spinner on first load
+  if (!body.querySelector('table')) {
+    body.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>';
+  }
+
+  try {
+    const res  = await apiFetch('/api/admin/activity');
+    const data = await res.json();
+    const arr  = Array.isArray(data) ? data : (data.activity || data.logs || []);
+
+    if (!arr.length) {
+      body.innerHTML = '<table class="data-table"><tbody><tr class="empty-row"><td>No activity recorded.</td></tr></tbody></table>';
+      return;
+    }
+
+    body.innerHTML = `
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Time</th><th>Action</th><th>Page</th><th>IP</th><th>Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${arr.map(a => `
+            <tr>
+              <td style="white-space:nowrap;color:var(--text-muted);font-size:0.8rem">${fmtDate(a.time || a.timestamp || a.createdAt)}</td>
+              <td>${escHtml(a.action || a.event || '—')}</td>
+              <td><span style="color:var(--cyan-light)">${escHtml(a.page || a.path || a.url || '—')}</span></td>
+              <td><code style="font-size:0.8rem">${escHtml(a.ip || a.ipAddress || '—')}</code></td>
+              <td>${escHtml(a.country || '—')}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  } catch (_) {
+    if (!body.querySelector('table')) {
+      body.innerHTML = '<p style="color:var(--text-muted);padding:1rem">Failed to load activity log.</p>';
+    }
+  }
+}
+
+function startActivityRefresh() {
+  clearInterval(activityRefreshTimer);
+  activityRefreshTimer = setInterval(() => {
+    if (currentSection === 'activity') fetchActivity();
+  }, 30000);
+}
+</script>
+</body>
+</html>
