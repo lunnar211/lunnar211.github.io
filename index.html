@@ -18,8 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <!-- PayPal JS SDK — replace YOUR_PAYPAL_CLIENT_ID with your live or sandbox client-id -->
-  <script async src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD&intent=capture" data-paypal-sdk onerror="window.__ppSdkFailed=true"></script>
+  <!-- PayPal JS SDK — live client-id (PAYPAL_MODE=live) -->
+  <script async src="https://www.paypal.com/sdk/js?client-id=AX_RcAuRo1pB3cd&currency=USD&intent=capture" data-paypal-sdk onerror="window.__ppSdkFailed=true"></script>
   <style>
     /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -3134,12 +3134,11 @@
      to create / capture orders.
   ════════════════════════════════════════════ */
   const PP_BACKEND   = 'https://ai-forex-backend.onrender.com';
-  // Replace YOUR_PAYPAL_CLIENT_ID with the live (or sandbox) PayPal client-id.
-  // This value is public-safe and intentionally embedded in the frontend.
+  // Live PayPal client-id — public-safe and intentionally embedded in the frontend.
   const PP_CLIENT_ID = (
     document.querySelector('script[data-paypal-sdk]') &&
     new URL(document.querySelector('script[data-paypal-sdk]').src).searchParams.get('client-id')
-  ) || 'YOUR_PAYPAL_CLIENT_ID';
+  ) || 'AX_RcAuRo1pB3cd';
 
   let ppSdkLoaded   = false;
   let ppSdkLoading  = false;
@@ -3179,7 +3178,7 @@
     document.getElementById('pp-modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
 
-    if (PP_CLIENT_ID === 'YOUR_PAYPAL_CLIENT_ID') {
+    if (!PP_CLIENT_ID || PP_CLIENT_ID === 'YOUR_PAYPAL_CLIENT_ID') {
       // SDK not configured — redirect to PayPal.me directly
       document.getElementById('pp-modal-btn-wrap').innerHTML = '';
       document.getElementById('pp-modal-fallback').style.display = 'block';
