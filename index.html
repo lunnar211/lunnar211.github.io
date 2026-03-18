@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dipesh Karki – Full-Stack Developer & AI/Forex Automation Specialist from Nepal" />
+  <title>Dipesh Karki | Developer Portfolio</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background-color: #060614;
+      color: #e0e0f0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /* ===== VARIABLES ===== */
+    :root {
+      --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --cyan: #06b6d4;
+      --cyan-light: #67e8f9;
+      --bg: #060614;
+      --bg2: #0d0d2b;
+      --bg3: #111132;
+      --border: rgba(124, 58, 237, 0.25);
+      --grad: linear-gradient(135deg, #7c3aed, #06b6d4);
+      --grad-text: linear-gradient(90deg, #a78bfa, #67e8f9);
+      --shadow: 0 4px 30px rgba(124, 58, 237, 0.25);
+      --radius: 16px;
+      --transition: 0.3s ease;
+    }
+
+    /* ===== UTILITIES ===== */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 5rem 0; }
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #8888aa;
+      margin-bottom: 3rem;
+      font-size: 1rem;
+    }
+    .gradient-text {
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.6rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--grad);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 28px rgba(124,58,237,0.6); }
+    .btn-outline {
+      background: transparent;
+      color: var(--cyan-light);
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 12px rgba(6,182,212,0.2);
+    }
+    .btn-outline:hover {
+      background: rgba(6,182,212,0.1);
+      box-shadow: 0 0 20px rgba(6,182,212,0.4);
+    }
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: rgba(124,58,237,0.5);
+    }
+
+    /* ===== STARS BACKGROUND ===== */
+    #stars-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 0;
+      background: rgba(6,6,20,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: padding var(--transition);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      color: #aaa;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color var(--transition);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--grad);
+      transition: width var(--transition);
+      border-radius: 2px;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--cyan-light);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      z-index: 1;
+    }
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .hero-text { flex: 1 1 340px; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.4);
+      color: var(--purple-light);
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.2rem;
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .hero-title .name { color: #fff; }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      margin-bottom: 1.2rem;
+      color: #9090b8;
+      font-weight: 500;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: #7070a0;
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #888;
+      font-size: 0.85rem;
+      transition: color var(--transition);
+    }
+    .social-link:hover { color: var(--cyan-light); }
+    .social-link svg { width: 18px; height: 18px; }
+
+    .hero-visual { flex: 0 0 340px; display: flex; justify-content: center; }
+    .hero-card-wrap {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+    .hero-glow {
+      position: absolute;
+      inset: -30px;
+      background: radial-gradient(circle, rgba(124,58,237,0.35) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: glow-pulse 4s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .avatar-ring {
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: var(--grad);
+      padding: 3px;
+      position: relative;
+      z-index: 1;
+    }
+    .avatar-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      overflow: hidden;
+    }
+    .floating-tag {
+      position: absolute;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      z-index: 2;
+      box-shadow: var(--shadow);
+    }
+    .tag-forex { top: 5%; right: -20px; color: var(--purple-light); animation: float1 5s ease-in-out infinite; }
+    .tag-ai { bottom: 15%; right: -30px; color: var(--cyan-light); animation: float2 6s ease-in-out infinite; }
+    .tag-web { bottom: 5%; left: -20px; color: #f472b6; animation: float1 4.5s ease-in-out infinite reverse; }
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    /* ===== SKILLS ===== */
+    #skills { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%); position: relative; z-index: 1; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card { text-align: center; }
+    .skill-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .skill-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .skill-desc { font-size: 0.88rem; color: #7070a0; }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+      justify-content: center;
+    }
+    .tag-pill {
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.3);
+      color: var(--purple-light);
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+    }
+    .tag-pill.cyan {
+      background: rgba(6,182,212,0.1);
+      border-color: rgba(6,182,212,0.3);
+      color: var(--cyan-light);
+    }
+
+    /* ===== PROJECTS ===== */
+    #projects { position: relative; z-index: 1; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card { position: relative; overflow: hidden; }
+    .project-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(124,58,237,0.2);
+      border: 1px solid rgba(124,58,237,0.5);
+      color: var(--purple-light);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.8rem;
+    }
+    .project-card.featured .project-title { font-size: 1.9rem; }
+    .project-desc { color: #7070a0; font-size: 0.93rem; margin-bottom: 1.2rem; line-height: 1.7; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .project-links { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .terminal-preview {
+      background: #0a0a1a;
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .terminal-bar {
+      background: #111130;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .t-btn { width: 12px; height: 12px; border-radius: 50%; }
+    .t-close { background: #ff5f57; }
+    .t-min   { background: #febc2e; }
+    .t-max   { background: #28c840; }
+    .terminal-title { margin-left: 0.8rem; color: #555; font-size: 0.78rem; }
+    .terminal-body {
+      padding: 1rem 1.2rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+    }
+    .t-line { margin-bottom: 0.3rem; display: flex; gap: 0.5rem; }
+    .t-prompt { color: var(--purple-light); }
+    .t-cmd { color: var(--cyan-light); }
+    .t-out { color: #22c55e; }
+    .t-out.warn { color: #f59e0b; }
+    .t-out.info { color: #8888aa; }
+    .t-cursor { display: inline-block; width: 8px; height: 14px; background: var(--cyan); animation: blink 1.2s step-end infinite; vertical-align: middle; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ===== SERVICES ===== */
+    #services { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%); position: relative; z-index: 1; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card { text-align: center; position: relative; overflow: hidden; }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background: var(--grad);
+      border-radius: 2px;
+    }
+    .service-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+    .service-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .service-desc { font-size: 0.88rem; color: #7070a0; }
+    .service-cta {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+    .service-cta p { color: #8888aa; margin-bottom: 1rem; }
+
+    /* ===== MEME COIN ===== */
+    #memecoin { position: relative; z-index: 1; }
+    .memecoin-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .memecoin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(250, 170, 0, 0.15);
+      border: 1px solid rgba(250, 170, 0, 0.4);
+      color: #fbbf24;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .memecoin-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .memecoin-desc { color: #7070a0; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.8; }
+    .memecoin-features { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
+    .memecoin-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+    .feature-check {
+      width: 22px; height: 22px;
+      background: rgba(6,182,212,0.15);
+      border: 1px solid rgba(6,182,212,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .memecoin-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .coin-display {
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle at 35% 35%, #1a1040, #060614);
+      border: 2px solid rgba(250,170,0,0.3);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 60px rgba(250,170,0,0.15), inset 0 0 40px rgba(250,170,0,0.05);
+      animation: coin-spin 8s linear infinite;
+    }
+    @keyframes coin-spin {
+      0% { box-shadow: 0 0 60px rgba(250,170,0,0.15), inset 0 0 40px rgba(250,170,0,0.05); }
+      50% { box-shadow: 0 0 80px rgba(250,170,0,0.3), inset 0 0 50px rgba(250,170,0,0.1); }
+      100% { box-shadow: 0 0 60px rgba(250,170,0,0.15), inset 0 0 40px rgba(250,170,0,0.05); }
+    }
+    .coin-symbol { font-size: 4rem; margin-bottom: 0.3rem; }
+    .coin-ticker { font-size: 1.5rem; font-weight: 800; color: #fbbf24; }
+    .coin-name-text { font-size: 0.8rem; color: #8888aa; margin-top: 0.2rem; }
+
+    /* ===== CONTACT ===== */
+    #contact { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); position: relative; z-index: 1; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .contact-info h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.8rem;
+    }
+    .contact-info p { color: #7070a0; margin-bottom: 2rem; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-label { font-size: 0.78rem; color: #555; margin-bottom: 0.15rem; }
+    .contact-value { color: var(--cyan-light); font-size: 0.93rem; font-weight: 500; }
+    .contact-links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+    .link-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(124,58,237,0.5);
+      box-shadow: var(--shadow);
+    }
+    .link-card-icon { font-size: 1.5rem; }
+    .link-card-name { font-size: 0.9rem; font-weight: 600; color: #fff; }
+    .link-card-handle { font-size: 0.75rem; color: #555; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #03030e;
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+      color: #444;
+      font-size: 0.85rem;
+      position: relative;
+      z-index: 1;
+    }
+    footer a { color: var(--purple-light); transition: color var(--transition); }
+    footer a:hover { color: var(--cyan-light); }
+
+    /* ===== SCROLL TO TOP ===== */
+    #scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px; height: 44px;
+      background: var(--grad);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition), transform var(--transition);
+      z-index: 99;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    #scroll-top.visible { opacity: 1; transform: translateY(0); }
+    #scroll-top:hover { transform: translateY(-3px); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .project-card.featured {
+        grid-template-columns: 1fr;
+      }
+      .memecoin-inner, .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .memecoin-visual { order: -1; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: rgba(6,6,20,0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 1.5rem;
+        gap: 1.2rem;
+      }
+      .nav-hamburger { display: flex; }
+      .hero-visual { display: none; }
+      .contact-links-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { text-align: center; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STARS CANVAS -->
+  <canvas id="stars-canvas"></canvas>
+
+  <!-- ===== NAV ===== -->
+  <nav id="navbar">
+    <div class="container">
+      <a href="#hero" class="nav-logo">DK.</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#memecoin">Meme Coin</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-badge">
+            <span class="dot"></span>
+            Available for Work
+          </div>
+          <h1 class="hero-title">
+            <span class="name">Dipesh</span><br />
+            <span class="gradient-text">Karki</span>
+          </h1>
+          <p class="hero-subtitle">Full‑Stack Developer &amp; AI Automation Specialist</p>
+          <p class="hero-desc">
+            Building intelligent trading tools, web apps, and automated systems.
+            Based in <strong style="color:#e0e0f0">Nepal</strong> 🇳🇵 — crafting software that bridges
+            AI and finance.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-outline">Get In Touch</a>
+          </div>
+          <div class="hero-social">
+            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="social-link">
+              <!-- GitHub icon -->
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+              GitHub
+            </a>
+            <a href="mailto:dipeshkarki6612@gmail.com" class="social-link">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              Email
+            </a>
+            <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener" class="social-link">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.25 16.25v-7.5h-7.5V16.25H16.25zM2 2v20h20V2H2zm18 18H4V4h16v16z"/></svg>
+              Fiverr
+            </a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card-wrap">
+            <div class="hero-glow"></div>
+            <div class="avatar-ring">
+              <div class="avatar-inner">🧑‍💻</div>
+            </div>
+            <div class="floating-tag tag-forex">📈 Forex AI</div>
+            <div class="floating-tag tag-ai">🤖 ML / AI</div>
+            <div class="floating-tag tag-web">🌐 Web Dev</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="section-title">Skills &amp; Technologies</h2>
+      <p class="section-subtitle">Tools and technologies I work with daily</p>
+      <div class="skills-grid">
+        <div class="card skill-card">
+          <div class="skill-icon">⚡</div>
+          <div class="skill-name">Backend Development</div>
+          <div class="skill-desc">Building robust APIs and server-side logic</div>
+          <div class="skill-tags">
+            <span class="tag-pill">Python</span>
+            <span class="tag-pill">FastAPI</span>
+            <span class="tag-pill">Django</span>
+            <span class="tag-pill">Node.js</span>
+            <span class="tag-pill">REST APIs</span>
+          </div>
+        </div>
+        <div class="card skill-card">
+          <div class="skill-icon">🌐</div>
+          <div class="skill-name">Frontend Development</div>
+          <div class="skill-desc">Crafting modern, responsive user interfaces</div>
+          <div class="skill-tags">
+            <span class="tag-pill cyan">React</span>
+            <span class="tag-pill cyan">JavaScript</span>
+            <span class="tag-pill cyan">HTML/CSS</span>
+            <span class="tag-pill cyan">Tailwind CSS</span>
+          </div>
+        </div>
+        <div class="card skill-card">
+          <div class="skill-icon">🤖</div>
+          <div class="skill-name">AI &amp; Machine Learning</div>
+          <div class="skill-desc">Intelligent automation and predictive models</div>
+          <div class="skill-tags">
+            <span class="tag-pill">TensorFlow</span>
+            <span class="tag-pill">OpenAI API</span>
+            <span class="tag-pill">NLP</span>
+            <span class="tag-pill">Data Science</span>
+          </div>
+        </div>
+        <div class="card skill-card">
+          <div class="skill-icon">📈</div>
+          <div class="skill-name">Forex &amp; Trading Automation</div>
+          <div class="skill-desc">Algorithmic trading bots and signal analysis</div>
+          <div class="skill-tags">
+            <span class="tag-pill cyan">MetaTrader 5</span>
+            <span class="tag-pill cyan">MQL5</span>
+            <span class="tag-pill cyan">TA-Lib</span>
+            <span class="tag-pill cyan">Backtesting</span>
+          </div>
+        </div>
+        <div class="card skill-card">
+          <div class="skill-icon">☁️</div>
+          <div class="skill-name">DevOps &amp; Cloud</div>
+          <div class="skill-desc">Deployment, infrastructure, and CI/CD pipelines</div>
+          <div class="skill-tags">
+            <span class="tag-pill">Docker</span>
+            <span class="tag-pill">Render</span>
+            <span class="tag-pill">GitHub Actions</span>
+            <span class="tag-pill">Linux</span>
+          </div>
+        </div>
+        <div class="card skill-card">
+          <div class="skill-icon">🗄️</div>
+          <div class="skill-name">Database &amp; Data</div>
+          <div class="skill-desc">Efficient data storage and management</div>
+          <div class="skill-tags">
+            <span class="tag-pill cyan">PostgreSQL</span>
+            <span class="tag-pill cyan">MongoDB</span>
+            <span class="tag-pill cyan">Redis</span>
+            <span class="tag-pill cyan">SQLite</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <p class="section-subtitle">Featured work and open-source contributions</p>
+      <div class="projects-grid">
+        <!-- Featured: ForexAI Terminal -->
+        <div class="card project-card featured">
+          <div class="project-content">
+            <div class="featured-badge">⭐ Featured Project</div>
+            <h3 class="project-title">ForexAI Terminal</h3>
+            <p class="project-desc">
+              A real-time AI-powered Forex trading dashboard that delivers live market signals,
+              pattern recognition, and intelligent entry/exit recommendations. Built with a FastAPI
+              backend and React frontend, deployed on Render with WebSocket streaming.
+            </p>
+            <div class="project-tech">
+              <span class="tag-pill">Python</span>
+              <span class="tag-pill">FastAPI</span>
+              <span class="tag-pill cyan">React</span>
+              <span class="tag-pill cyan">WebSocket</span>
+              <span class="tag-pill">TA-Lib</span>
+              <span class="tag-pill">OpenAI</span>
+              <span class="tag-pill cyan">Render</span>
+            </div>
+            <div class="project-links">
+              <a href="https://ai-forex-frontend.onrender.com" target="_blank" rel="noopener" class="btn btn-primary">
+                🚀 Live Demo
+              </a>
+              <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-outline">
+                View Code
+              </a>
+            </div>
+          </div>
+          <div class="terminal-preview">
+            <div class="terminal-bar">
+              <span class="t-btn t-close"></span>
+              <span class="t-btn t-min"></span>
+              <span class="t-btn t-max"></span>
+              <span class="terminal-title">forex-ai-terminal ~ bash</span>
+            </div>
+            <div class="terminal-body">
+              <div class="t-line"><span class="t-prompt">❯</span><span class="t-cmd">python run_signal_engine.py</span></div>
+              <div class="t-line"><span class="t-out info">Initializing ForexAI Terminal v2.4...</span></div>
+              <div class="t-line"><span class="t-out">✓ Market data stream connected</span></div>
+              <div class="t-line"><span class="t-out">✓ AI model loaded (LSTM + Transformer)</span></div>
+              <div class="t-line"><span class="t-out warn">⚡ Signal detected: EUR/USD</span></div>
+              <div class="t-line"><span class="t-out">  Direction: LONG 📈</span></div>
+              <div class="t-line"><span class="t-out">  Entry:   1.08420</span></div>
+              <div class="t-line"><span class="t-out">  TP1:     1.08650 (+23 pips)</span></div>
+              <div class="t-line"><span class="t-out warn">  SL:      1.08200 (-22 pips)</span></div>
+              <div class="t-line"><span class="t-out">  Confidence: 87.3%</span></div>
+              <div class="t-line"><span class="t-prompt">❯</span><span class="t-cursor"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="card project-card">
+          <h3 class="project-title">Crypto Meme Coin Launcher</h3>
+          <p class="project-desc">Full-stack platform for launching and managing meme coins on-chain with smart contract integration and token analytics dashboard.</p>
+          <div class="project-tech">
+            <span class="tag-pill">Solidity</span>
+            <span class="tag-pill cyan">Web3.js</span>
+            <span class="tag-pill">React</span>
+            <span class="tag-pill cyan">Hardhat</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-outline">
+              View Code
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="card project-card">
+          <h3 class="project-title">AI Trading Bot (MT5)</h3>
+          <p class="project-desc">Automated Expert Advisor for MetaTrader 5 using ML-based entry signals, dynamic trailing stops, and risk management engine.</p>
+          <div class="project-tech">
+            <span class="tag-pill">MQL5</span>
+            <span class="tag-pill cyan">Python</span>
+            <span class="tag-pill">TensorFlow</span>
+            <span class="tag-pill cyan">MT5</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-outline">
+              View Code
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="card project-card">
+          <h3 class="project-title">Full-Stack Task Manager</h3>
+          <p class="project-desc">Collaborative project management app with real-time updates, role-based access, and Kanban board built with FastAPI and React.</p>
+          <div class="project-tech">
+            <span class="tag-pill">FastAPI</span>
+            <span class="tag-pill cyan">React</span>
+            <span class="tag-pill">PostgreSQL</span>
+            <span class="tag-pill cyan">WebSocket</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-outline">
+              View Code
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2 class="section-title">Services</h2>
+      <p class="section-subtitle">What I can build for you</p>
+      <div class="services-grid">
+        <div class="card service-card">
+          <div class="service-icon">📊</div>
+          <div class="service-name">Forex Signal System</div>
+          <div class="service-desc">Custom AI-driven trading signal platforms with live data feeds, dashboards, and alerts.</div>
+        </div>
+        <div class="card service-card">
+          <div class="service-icon">🤖</div>
+          <div class="service-name">Trading Bot Development</div>
+          <div class="service-desc">Automated Expert Advisors for MT4/MT5 with backtesting, forward testing and risk management.</div>
+        </div>
+        <div class="card service-card">
+          <div class="service-icon">🌐</div>
+          <div class="service-name">Full-Stack Web Apps</div>
+          <div class="service-desc">End-to-end development from database design to polished UI using modern frameworks.</div>
+        </div>
+        <div class="card service-card">
+          <div class="service-icon">🔗</div>
+          <div class="service-name">API &amp; Integration</div>
+          <div class="service-desc">Third-party API integration, custom REST/GraphQL APIs, and automation workflows.</div>
+        </div>
+        <div class="card service-card">
+          <div class="service-icon">🪙</div>
+          <div class="service-name">Crypto / Web3 Tools</div>
+          <div class="service-desc">Token launchers, smart contracts, on-chain analytics dashboards, and DeFi tooling.</div>
+        </div>
+        <div class="card service-card">
+          <div class="service-icon">🧠</div>
+          <div class="service-name">AI / ML Solutions</div>
+          <div class="service-desc">Predictive models, NLP pipelines, data pipelines, and AI-powered automation tools.</div>
+        </div>
+      </div>
+      <div class="service-cta">
+        <p>Ready to bring your idea to life? Let's work together.</p>
+        <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener" class="btn btn-primary">
+          🟢 Hire Me on Fiverr
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEME COIN ===== -->
+  <section id="memecoin" class="section">
+    <div class="container">
+      <h2 class="section-title">Meme Coin Corner</h2>
+      <p class="section-subtitle">Community tokens and crypto experiments</p>
+      <div class="memecoin-inner">
+        <div class="memecoin-text">
+          <div class="memecoin-badge">🚀 Community Driven</div>
+          <h3 class="memecoin-title">Building on the Meme Frontier</h3>
+          <p class="memecoin-desc">
+            Beyond serious finance, I explore the fun side of crypto — creating community-driven
+            meme coin projects that combine humor, smart contract security, and genuine utility.
+            Every great revolution started as a joke. 🐸
+          </p>
+          <div class="memecoin-features">
+            <div class="memecoin-feature">
+              <div class="feature-check">✓</div>
+              <span><strong style="color:#e0e0f0">Smart Contract Audited</strong> — Secure, verified on-chain deployments</span>
+            </div>
+            <div class="memecoin-feature">
+              <div class="feature-check">✓</div>
+              <span><strong style="color:#e0e0f0">Community First</strong> — Fair launch, no rug-pulls, transparent tokenomics</span>
+            </div>
+            <div class="memecoin-feature">
+              <div class="feature-check">✓</div>
+              <span><strong style="color:#e0e0f0">Utility Built-In</strong> — Memes with real-world use cases and ecosystem</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="btn btn-primary">🪙 View Projects</a>
+            <a href="https://ko-fi.com/dipeshkarki" target="_blank" rel="noopener" class="btn btn-outline">☕ Support on Ko-fi</a>
+          </div>
+        </div>
+        <div class="memecoin-visual">
+          <div class="coin-display">
+            <div class="coin-symbol">🐸</div>
+            <div class="coin-ticker">$DKAPE</div>
+            <div class="coin-name-text">Community Token</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-subtitle">Let's build something awesome together</p>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Let's Connect</h3>
+          <p>Have a project in mind? Need a custom trading tool or web app? I'm always open to new opportunities and collaborations.</p>
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <div class="contact-label">Email</div>
+              <a href="mailto:dipeshkarki6612@gmail.com" class="contact-value">dipeshkarki6612@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-label">Location</div>
+              <div class="contact-value">Nepal 🇳🇵</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">⏰</div>
+            <div>
+              <div class="contact-label">Availability</div>
+              <div class="contact-value" style="color:#22c55e;">Open for freelance work</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="contact-links-grid">
+            <a href="https://github.com/lunnar211" target="_blank" rel="noopener" class="link-card">
+              <div class="link-card-icon">🐙</div>
+              <div>
+                <div class="link-card-name">GitHub</div>
+                <div class="link-card-handle">@lunnar211</div>
+              </div>
+            </a>
+            <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener" class="link-card">
+              <div class="link-card-icon">🟢</div>
+              <div>
+                <div class="link-card-name">Fiverr</div>
+                <div class="link-card-handle">@lunnar112</div>
+              </div>
+            </a>
+            <a href="https://ko-fi.com/dipeshkarki" target="_blank" rel="noopener" class="link-card">
+              <div class="link-card-icon">☕</div>
+              <div>
+                <div class="link-card-name">Ko-fi</div>
+                <div class="link-card-handle">@dipeshkarki</div>
+              </div>
+            </a>
+            <a href="mailto:dipeshkarki6612@gmail.com" class="link-card">
+              <div class="link-card-icon">✉️</div>
+              <div>
+                <div class="link-card-name">Email</div>
+                <div class="link-card-handle">Direct message</div>
+              </div>
+            </a>
+          </div>
+          <div style="margin-top:2rem;">
+            <a href="https://ai-forex-frontend.onrender.com" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center;">
+              🚀 Try ForexAI Terminal Live
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <p>© 2025 <a href="#hero">Dipesh Karki</a>. Built with ❤️ from Nepal 🇳🇵</p>
+      <p style="margin-top:0.4rem;">
+        <a href="https://github.com/lunnar211" target="_blank" rel="noopener">GitHub</a> ·
+        <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener">Fiverr</a> ·
+        <a href="https://ko-fi.com/dipeshkarki" target="_blank" rel="noopener">Ko-fi</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP -->
+  <button id="scroll-top" aria-label="Scroll to top">↑</button>
+
+  <script>
+    // ===== STARS BACKGROUND =====
+    (function () {
+      const canvas = document.getElementById('stars-canvas');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function createStars() {
+        stars = [];
+        const count = Math.floor((canvas.width * canvas.height) / 6000);
+        for (let i = 0; i < count; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.5 + 0.2,
+            a: Math.random(),
+            speed: Math.random() * 0.004 + 0.001,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+      }
+
+      let frame = 0;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        frame++;
+        stars.forEach(s => {
+          const alpha = s.a * (0.5 + 0.5 * Math.sin(frame * s.speed + s.phase));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 180, 255, ${alpha})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', () => { resize(); createStars(); });
+      resize();
+      createStars();
+      draw();
+    })();
+
+    // ===== HAMBURGER =====
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ===== SCROLL TO TOP =====
+    const scrollBtn = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+      scrollBtn.classList.toggle('visible', window.scrollY > 400);
+    });
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ===== FADE IN ON SCROLL =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease';
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
