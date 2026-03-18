@@ -2033,15 +2033,15 @@
         </div>
 
         <div class="payment-options">
-          <div class="payment-card" onclick="selectPayment('paypal')">
+          <div class="payment-card">
             <h4>💳 PayPal Escrow <span class="badge-rec">Recommended</span></h4>
             <p>Pay securely via PayPal. Money held until work is reviewed and approved by you.</p>
-            <a href="https://www.paypal.com/paypalme/dipeshkarki8292" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="justify-content:center;" onclick="hireNextStep(4)">Pay with PayPal</a>
+            <a href="https://www.paypal.com/paypalme/dipeshkarki8292" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="justify-content:center;" onclick="selectPayment('paypal'); hireNextStep(4);">Pay with PayPal</a>
           </div>
-          <div class="payment-card" onclick="selectPayment('fiverr')">
+          <div class="payment-card">
             <h4>🛒 Order on Fiverr</h4>
             <p>Built-in escrow and buyer protection through Fiverr's trusted platform.</p>
-            <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="justify-content:center;" onclick="hireNextStep(4)">Go to Fiverr</a>
+            <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="justify-content:center;" onclick="selectPayment('fiverr'); hireNextStep(4);">Go to Fiverr</a>
           </div>
         </div>
 
@@ -2562,12 +2562,26 @@
       const timelineEl = document.querySelector('input[name="timeline"]:checked');
       hireData.budget = budgetEl ? budgetEl.value : 'Not specified';
       hireData.timeline = timelineEl ? timelineEl.value : 'Not specified';
+      hireData.details = details;
+      // Collect questionnaire answers
+      const getChecked = (name) => Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value).join(', ');
+      hireData.websiteType = getChecked('website-type');
+      hireData.designReady = getChecked('design-ready');
+      hireData.features = getChecked('features');
+      hireData.aiPlatform = getChecked('ai-platform');
+      hireData.aiCapabilities = getChecked('ai-caps');
+      hireData.genFeatures = getChecked('gen-features');
+      hireData.refs = document.getElementById('q-refs') ? document.getElementById('q-refs').value.trim() : '';
       hireGoTo(3);
     } else if (fromStep === 3) {
       const name = document.getElementById('hire-name').value.trim();
       const email = document.getElementById('hire-email').value.trim();
       if (!name || !email) { alert('Please fill in your name and email.'); return; }
       if (!email.includes('@')) { alert('Please enter a valid email address.'); return; }
+      hireData.name = name;
+      hireData.email = email;
+      hireData.telegram = document.getElementById('hire-telegram').value.trim();
+      hireData.country = document.getElementById('hire-country').value;
       // Calculate price estimate
       const budget = hireData.budget;
       let priceDisplay = '$200 – $500';
@@ -2581,10 +2595,48 @@
       document.getElementById('hire-price-display').textContent = priceDisplay;
       hireGoTo(4);
     } else if (fromStep === 4) {
-      // Generate tracking ID
-      const id = 'DK2026' + Math.random().toString(36).substring(2, 6).toUpperCase();
-      document.getElementById('tracking-id-display').textContent = '#' + id;
+      // Generate local tracking ID immediately
+      const localId = 'DK2026' + Math.random().toString(36).substring(2, 6).toUpperCase();
+      document.getElementById('tracking-id-display').textContent = '#' + localId;
       hireGoTo(5);
+      // Fire-and-forget backend submission; update tracking ID if backend returns one
+      fetch('https://ai-forex-backend.onrender.com/api/portfolio/hire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: hireData.name || '',
+          email: hireData.email || '',
+          telegram: hireData.telegram || '',
+          country: hireData.country || '',
+          projectType: hireData.projectType || '',
+          budget: hireData.budget || '',
+          timeline: hireData.timeline || '',
+          paymentMethod: hireData.paymentMethod || '',
+          details: hireData.details || '',
+          extra: {
+            websiteType: hireData.websiteType,
+            designReady: hireData.designReady,
+            features: hireData.features,
+            aiPlatform: hireData.aiPlatform,
+            aiCapabilities: hireData.aiCapabilities,
+            genFeatures: hireData.genFeatures,
+            refs: hireData.refs
+          }
+        })
+      })
+      .then(r => {
+        if (!r.ok) {
+          console.warn('Hire form backend returned', r.status);
+          return null;
+        }
+        return r.json();
+      })
+      .then(data => {
+        if (data && data.trackingId) {
+          document.getElementById('tracking-id-display').textContent = '#' + data.trackingId;
+        }
+      })
+      .catch(err => { console.warn('Hire form submission unavailable:', err.message); });
     }
   }
 
