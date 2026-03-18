@@ -18,6 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- PayPal JS SDK — replace YOUR_PAYPAL_CLIENT_ID with your live or sandbox client-id -->
+  <script async src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD&intent=capture" data-paypal-sdk onerror="window.__ppSdkFailed=true"></script>
   <style>
     /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -749,6 +751,94 @@
       border: none;
     }
     .btn-fiverr:hover { background: #17a360; transform: translateY(-2px); }
+
+    /* ════════════════════════════════
+       PAYPAL PAYMENT MODAL
+    ════════════════════════════════ */
+    #pp-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6,6,20,0.82);
+      z-index: 9900;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    #pp-modal-overlay.open { display: flex; }
+    #pp-modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      max-width: 440px;
+      width: 100%;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    }
+    #pp-modal-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    #pp-modal-close:hover { color: var(--text); }
+    #pp-modal-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    #pp-modal-price {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: 'Syne', sans-serif;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+    }
+    #pp-modal-btn-wrap {
+      min-height: 48px;
+    }
+    #pp-modal-fallback {
+      display: none;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    #pp-modal-fallback a {
+      color: var(--cyan-light);
+      font-size: 0.88rem;
+      text-decoration: underline;
+    }
+    #pp-modal-success {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+    #pp-modal-success .pp-success-icon { font-size: 3rem; margin-bottom: 0.75rem; }
+    #pp-modal-success h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #4ade80;
+    }
+    #pp-modal-success p { color: var(--text-muted); font-size: 0.9rem; }
+    #pp-modal-error {
+      display: none;
+      margin-top: 1rem;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: #fca5a5;
+      font-size: 0.85rem;
+    }
 
     /* ════════════════════════════════
        HIRE ME SECTION
@@ -1598,7 +1688,7 @@
           <a href="https://ai-forex-frontend.onrender.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Live Demo →</a>
           <a href="https://github.com/lunnar211/ai-forex-dashboard" target="_blank" rel="noopener noreferrer" class="btn btn-outline">View Code</a>
           <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr">Buy on Fiverr →</a>
-          <a href="https://paypal.me/dipeshkarki8292/299" target="_blank" rel="noopener noreferrer" class="btn btn-paypal">Pay via PayPal →</a>
+          <button class="btn btn-paypal" onclick="openPPModal('forexai_source','ForexAI Source Code','$299','https://paypal.me/dipeshkarki8292/299')">Pay via PayPal →</button>
         </div>
       </div>
 
@@ -1620,7 +1710,7 @@
         </div>
         <div class="project-btns">
           <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr">Order on Fiverr →</a>
-          <a href="https://paypal.me/dipeshkarki8292/150" target="_blank" rel="noopener noreferrer" class="btn btn-paypal">Pay via PayPal →</a>
+          <button class="btn btn-paypal" onclick="openPPModal('telegram_bot','AI Forex Telegram Bot','$150','https://paypal.me/dipeshkarki8292/150')">Pay via PayPal →</button>
         </div>
       </div>
 
@@ -1642,7 +1732,7 @@
         </div>
         <div class="project-btns">
           <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr">Order on Fiverr →</a>
-          <a href="https://paypal.me/dipeshkarki8292/200" target="_blank" rel="noopener noreferrer" class="btn btn-paypal">Pay via PayPal →</a>
+          <button class="btn btn-paypal" onclick="openPPModal('webapp','Custom Web App','$200','https://paypal.me/dipeshkarki8292/200')">Pay via PayPal →</button>
         </div>
       </div>
 
@@ -1687,7 +1777,7 @@
             <td class="service-delivery">14 days</td>
             <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
               <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
-              <a href="https://paypal.me/dipeshkarki8292/299" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+              <button class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;" onclick="openPPModal('forexai_source','AI Trading Dashboard','$299','https://paypal.me/dipeshkarki8292/299')">PayPal</button>
             </td>
           </tr>
           <tr>
@@ -1696,7 +1786,7 @@
             <td class="service-delivery">7 days</td>
             <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
               <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
-              <a href="https://paypal.me/dipeshkarki8292/150" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+              <button class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;" onclick="openPPModal('telegram_bot','Telegram Signal Bot','$150','https://paypal.me/dipeshkarki8292/150')">PayPal</button>
             </td>
           </tr>
           <tr>
@@ -1705,7 +1795,7 @@
             <td class="service-delivery">10 days</td>
             <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
               <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
-              <a href="https://paypal.me/dipeshkarki8292/200" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+              <button class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;" onclick="openPPModal('webapp','Full Stack Web App','$200','https://paypal.me/dipeshkarki8292/200')">PayPal</button>
             </td>
           </tr>
           <tr>
@@ -1714,7 +1804,7 @@
             <td class="service-delivery">5 days</td>
             <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
               <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
-              <a href="https://paypal.me/dipeshkarki8292/100" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+              <button class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;" onclick="openPPModal('ai_integration','AI API Integration','$100','https://paypal.me/dipeshkarki8292/100')">PayPal</button>
             </td>
           </tr>
           <tr>
@@ -1723,7 +1813,7 @@
             <td class="service-delivery">7 days</td>
             <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
               <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
-              <a href="https://paypal.me/dipeshkarki8292/199" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+              <button class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;" onclick="openPPModal('webapp','Forex Signal System','$199','https://paypal.me/dipeshkarki8292/199')">PayPal</button>
             </td>
           </tr>
           <tr>
@@ -1732,7 +1822,7 @@
             <td class="service-delivery">3 days</td>
             <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
               <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="btn btn-fiverr" style="padding:0.45rem 0.9rem;font-size:0.8rem;">Fiverr</a>
-              <a href="https://paypal.me/dipeshkarki8292/80" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;">PayPal</a>
+              <button class="btn btn-paypal" style="padding:0.45rem 0.9rem;font-size:0.8rem;" onclick="openPPModal('landing_page','Landing Page','$80','https://paypal.me/dipeshkarki8292/80')">PayPal</button>
             </td>
           </tr>
         </tbody>
@@ -2105,7 +2195,7 @@
           <div class="plan-feature"><span class="cross">✗</span> Voice mode</div>
           <div class="plan-feature"><span class="cross">✗</span> Priority processing</div>
         </div>
-        <a href="https://paypal.me/dipeshkarki8292/9.99" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="justify-content:center;">Buy with PayPal</a>
+        <button class="btn btn-paypal" style="justify-content:center;" onclick="openPPModal('api_starter','API Starter Plan','$9.99','https://paypal.me/dipeshkarki8292/9.99')">Buy with PayPal</button>
       </div>
 
       <!-- PRO -->
@@ -2120,7 +2210,7 @@
           <div class="plan-feature"><span class="check">✓</span> Priority processing</div>
           <div class="plan-feature"><span class="check">✓</span> Priority support</div>
         </div>
-        <a href="https://paypal.me/dipeshkarki8292/29.99" target="_blank" rel="noopener noreferrer" class="btn btn-paypal" style="justify-content:center;">Buy with PayPal</a>
+        <button class="btn btn-paypal" style="justify-content:center;" onclick="openPPModal('api_pro','API Pro Plan','$29.99','https://paypal.me/dipeshkarki8292/29.99')">Buy with PayPal</button>
       </div>
     </div>
 
@@ -2258,7 +2348,7 @@
       </div>
     </div>
     <p class="testimonials-note fade-in">
-      Reviews from <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer">Fiverr profile</a>
+      Reviews from <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer">Fiverr profile</a>
     </p>
   </div>
 </section>
@@ -2297,7 +2387,7 @@
             <div class="contact-icon">🛒</div>
             <div class="contact-item-text">
               <span class="contact-item-label">Fiverr</span>
-              <span class="contact-item-value"><a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer">fiverr.com/lunnar112</a></span>
+              <span class="contact-item-value"><a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer">fiverr.com/sellers/lunna112</a></span>
             </div>
           </div>
           <div class="contact-item">
@@ -2368,7 +2458,7 @@
           <a href="https://github.com/lunnar211" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub" title="GitHub">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
           </a>
-          <a href="https://fiverr.com/lunnar112" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Fiverr" title="Fiverr">
+          <a href="https://www.fiverr.com/sellers/lunna112" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Fiverr" title="Fiverr">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.004 15.588a.995.995 0 10-1.99 0 .995.995 0 001.99 0zm-4.062 2.22V12.02h1.779v-1.544h-1.78V8.342h-1.783v2.134h-.902v1.544h.902v5.788c.006 1.683 1.369 1.865 2.476 1.847a5.62 5.62 0 00.814-.053v-1.57a4.21 4.21 0 01-.43.022c-.571 0-.076-.04-.076-.425zm-6.722 1.44c-1.425 0-2.38-.974-2.38-2.44 0-1.467.955-2.441 2.38-2.441 1.424 0 2.378.974 2.378 2.44 0 1.467-.954 2.44-2.378 2.44zm-.016-6.428c-2.303 0-4.13 1.72-4.13 3.987 0 2.268 1.827 3.987 4.13 3.987 2.303 0 4.128-1.719 4.128-3.987 0-2.267-1.825-3.987-4.128-3.987zM5.662 17.808v-5.788H4.76v-1.544h.902v-.42c0-1.7 1.379-1.878 2.485-1.863.27 0 .555.018.796.051v1.555a4.23 4.23 0 00-.424-.024c-.57 0-.074.041-.074.427v.274h1.7v1.544H8.445v5.788H5.662zm-4.51-9.77a.995.995 0 10-1.99 0 .995.995 0 001.99 0zM0 17.808V10.51h1.783v7.297H0z"/></svg>
           </a>
           <a href="https://t.me/ForexAI_Terminal_bot" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Telegram" title="Telegram">
@@ -2386,6 +2476,27 @@
     </div>
   </div>
 </footer>
+
+<!-- ══════════ PAYPAL PAYMENT MODAL ══════════ -->
+<div id="pp-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pp-modal-title">
+  <div id="pp-modal">
+    <button id="pp-modal-close" onclick="closePPModal()" aria-label="Close payment modal">✕</button>
+    <div id="pp-modal-main">
+      <p id="pp-modal-title"></p>
+      <div id="pp-modal-price"></div>
+      <div id="pp-modal-btn-wrap"></div>
+      <div id="pp-modal-fallback">
+        <a id="pp-modal-fallback-link" href="#" target="_blank" rel="noopener noreferrer">Pay directly via PayPal.me →</a>
+      </div>
+      <div id="pp-modal-error"></div>
+    </div>
+    <div id="pp-modal-success">
+      <div class="pp-success-icon">🎉</div>
+      <h3>Payment Successful!</h3>
+      <p id="pp-success-msg">Thank you for your purchase! Dipesh will contact you within 24 hours to get started.</p>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════ AI COPILOT ASSISTANT ══════════ -->
 <!-- ── VOICE AGENT (pipecat-inspired: STT → LLM → TTS) ── -->
@@ -3014,6 +3125,162 @@
       setTimeout(() => { if (badge.parentNode) badge.remove(); }, 6000);
     }
   }, 3000);
+
+  /* ════════════════════════════════════════════
+     PAYPAL PAYMENT MODAL
+     Dynamically loads PayPal JS SDK, renders a
+     proper checkout button, and calls the backend
+     to create / capture orders.
+  ════════════════════════════════════════════ */
+  const PP_BACKEND   = 'https://ai-forex-backend.onrender.com';
+  // Replace YOUR_PAYPAL_CLIENT_ID with the live (or sandbox) PayPal client-id.
+  // This value is public-safe and intentionally embedded in the frontend.
+  const PP_CLIENT_ID = (
+    document.querySelector('script[data-paypal-sdk]') &&
+    new URL(document.querySelector('script[data-paypal-sdk]').src).searchParams.get('client-id')
+  ) || 'YOUR_PAYPAL_CLIENT_ID';
+
+  let ppSdkLoaded   = false;
+  let ppSdkLoading  = false;
+  let ppCurrentProd = null;
+
+  function loadPayPalSDK(clientId) {
+    return new Promise((resolve, reject) => {
+      // Already loaded (either from head tag or a previous dynamic load)
+      if (window.paypal) { ppSdkLoaded = true; resolve(); return; }
+      if (ppSdkLoading) {
+        const wait = setInterval(() => {
+          if (window.paypal) { ppSdkLoaded = true; clearInterval(wait); resolve(); }
+        }, 100);
+        return;
+      }
+      ppSdkLoading = true;
+      const script = document.createElement('script');
+      script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(clientId)}&currency=USD&intent=capture`;
+      script.onload  = () => { ppSdkLoaded = true; ppSdkLoading = false; resolve(); };
+      script.onerror = () => { ppSdkLoading = false; reject(new Error('Failed to load PayPal SDK')); };
+      document.head.appendChild(script);
+    });
+  }
+
+  function openPPModal(productId, productName, priceDisplay, fallbackUrl) {
+    ppCurrentProd = { productId, productName, priceDisplay, fallbackUrl };
+
+    // Reset modal state
+    document.getElementById('pp-modal-main').style.display    = '';
+    document.getElementById('pp-modal-success').style.display = 'none';
+    document.getElementById('pp-modal-error').style.display   = 'none';
+    document.getElementById('pp-modal-fallback').style.display = 'none';
+    document.getElementById('pp-modal-title').textContent  = productName;
+    document.getElementById('pp-modal-price').textContent  = priceDisplay;
+    document.getElementById('pp-modal-btn-wrap').innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;text-align:center;">Loading PayPal…</p>';
+    document.getElementById('pp-modal-fallback-link').href = fallbackUrl;
+    document.getElementById('pp-modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    if (PP_CLIENT_ID === 'YOUR_PAYPAL_CLIENT_ID') {
+      // SDK not configured — redirect to PayPal.me directly
+      document.getElementById('pp-modal-btn-wrap').innerHTML = '';
+      document.getElementById('pp-modal-fallback').style.display = 'block';
+      document.getElementById('pp-modal-error').style.display    = 'block';
+      document.getElementById('pp-modal-error').textContent      =
+        'PayPal checkout is not yet configured. Use the direct link below.';
+      return;
+    }
+
+    loadPayPalSDK(PP_CLIENT_ID)
+      .then(() => renderPPButton(productId, fallbackUrl))
+      .catch(() => {
+        document.getElementById('pp-modal-btn-wrap').innerHTML = '';
+        document.getElementById('pp-modal-fallback').style.display = 'block';
+        document.getElementById('pp-modal-error').style.display    = 'block';
+        document.getElementById('pp-modal-error').textContent      =
+          'PayPal could not load. Please use the direct link below.';
+      });
+  }
+
+  function renderPPButton(productId, fallbackUrl) {
+    document.getElementById('pp-modal-btn-wrap').innerHTML = '';
+
+    window.paypal.Buttons({
+      style: {
+        shape:  'rect',
+        color:  'blue',
+        layout: 'vertical',
+        label:  'pay',
+      },
+
+      createOrder: async () => {
+        try {
+          const res = await fetch(PP_BACKEND + '/api/payments/create-order', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ product: productId }),
+          });
+          if (!res.ok) throw new Error('Order creation failed');
+          const data = await res.json();
+          if (!data.id) throw new Error('No order ID returned');
+          return data.id;
+        } catch (err) {
+          // Fall back to PayPal.me on backend error
+          document.getElementById('pp-modal-fallback').style.display = 'block';
+          document.getElementById('pp-modal-error').style.display    = 'block';
+          document.getElementById('pp-modal-error').textContent      =
+            'Could not reach the payment server. Use the direct link below.';
+          throw err;
+        }
+      },
+
+      onApprove: async (data) => {
+        document.getElementById('pp-modal-btn-wrap').innerHTML =
+          '<p style="color:var(--text-muted);font-size:0.85rem;text-align:center;">Confirming payment…</p>';
+        try {
+          const res = await fetch(PP_BACKEND + '/api/payments/capture-order', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ orderID: data.orderID }),
+          });
+          if (!res.ok) throw new Error('Capture failed');
+          const details = await res.json();
+          const name = details.payer?.name?.given_name || 'there';
+          document.getElementById('pp-success-msg').textContent =
+            `Thank you, ${name}! Your payment has been received. Dipesh will contact you within 24 hours to get started.`;
+        } catch {
+          document.getElementById('pp-success-msg').textContent =
+            'Payment received! Dipesh will contact you within 24 hours to get started.';
+        }
+        document.getElementById('pp-modal-main').style.display    = 'none';
+        document.getElementById('pp-modal-success').style.display = 'block';
+      },
+
+      onError: () => {
+        document.getElementById('pp-modal-fallback').style.display = 'block';
+        document.getElementById('pp-modal-error').style.display    = 'block';
+        document.getElementById('pp-modal-error').textContent      =
+          'PayPal encountered an error. Please try again or use the direct link below.';
+      },
+
+      onCancel: () => {
+        // User closed PayPal window — keep modal open, no error shown
+      },
+    }).render('#pp-modal-btn-wrap');
+  }
+
+  function closePPModal() {
+    document.getElementById('pp-modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+    ppCurrentProd = null;
+  }
+
+  // Close modal on overlay click
+  document.getElementById('pp-modal-overlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('pp-modal-overlay')) closePPModal();
+  });
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePPModal();
+  });
 
 </script>
 </body>
