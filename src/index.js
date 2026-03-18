@@ -41,6 +41,34 @@ async function initSchema() {
 }
 
 // ── Routes ───────────────────────────────────
+// debug: test email route
+app.get('/test-email', async (req, res) => {
+  try {
+    const {
+      sendVerificationEmail,
+      generateCode,
+    } = require('./services/emailService');
+
+    const code = generateCode();
+    await sendVerificationEmail(
+      'dipeshkarki6612@gmail.com',
+      code
+    );
+
+    res.json({
+      success: true,
+      message: 'Test email sent to dipeshkarki6612@gmail.com',
+      code,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: err.message,
+      stack: err.stack,
+    });
+  }
+});
+
 app.use('/api/assistant', require('./routes/assistant'));
 app.use('/api/users',     require('./routes/users'));
 
